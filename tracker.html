@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUNO KPI Tracker — Theo dõi hàng ngày</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="data.js"></script>
+    <style>
+        :root {
+            --bg:#0a0a0e;--bg2:#111116;--bg3:#18181f;--bg4:#1f1f2a;
+            --border:rgba(255,255,255,0.05);--border-h:rgba(200,160,120,0.15);
+            --txt:#f0ebe4;--txt2:#a89e92;--txt3:#6b6258;
+            --rose:#c4956a;--gold:#d4af37;--violet:#9775fa;
+            --red:#ff6b6b;--green:#51cf66;--blue:#4dabf7;
+            --pink:#f783ac;--orange:#fb923c;--cyan:#22d3ee;
+            --tiktok:#ff3b5c;--shopee:#ee4d2d;--facebook:#4a90d9;
+            --radius:14px;--radius-sm:10px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
+
+        /* NAV */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,14,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 32px;justify-content:space-between}
+        .nav-brand{font-family:'Space Grotesk';font-weight:700;font-size:17px;letter-spacing:2px}
+        .nav-brand span{color:var(--rose)}
+        .nav-links{display:flex;gap:4px;align-items:center}
+        .nav-link{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;color:var(--txt3);cursor:pointer;transition:all 0.2s;border:none;background:none;text-decoration:none}
+        .nav-link:hover{color:var(--txt2)}
+        .nav-link.active{color:var(--rose);background:rgba(196,149,106,0.08)}
+
+        /* LAYOUT */
+        .main{max-width:1400px;margin:0 auto;padding:76px 32px 60px}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        /* DATE PICKER */
+        .date-bar{display:flex;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+        .date-nav{display:flex;align-items:center;gap:8px}
+        .date-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--txt);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+        .date-btn:hover{border-color:var(--rose);color:var(--rose)}
+        .date-input{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:14px;color:var(--txt);font-family:inherit;outline:none;cursor:pointer}
+        .date-input:focus{border-color:var(--rose)}
+        .date-label{font-family:'Space Grotesk';font-size:20px;font-weight:700;min-width:200px}
+        .date-weekday{font-size:13px;color:var(--txt3);font-weight:500}
+        .date-status{margin-left:auto;display:flex;gap:8px;align-items:center}
+        .status-dot{width:8px;height:8px;border-radius:50%}
+        .status-dot.filled{background:var(--green)}
+        .status-dot.empty{background:var(--red)}
+
+        /* TABS */
+        .view-tabs{display:flex;gap:2px;background:var(--bg2);padding:3px;border-radius:10px;border:1px solid var(--border);margin-bottom:28px;width:fit-content}
+        .view-tab{padding:8px 20px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--txt3);transition:all 0.2s;border:none;background:none}
+        .view-tab.active{background:var(--rose);color:#0a0a0e}
+
+        /* OVERVIEW CARDS */
+        .overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+        .ov-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;transition:all 0.3s}
+        .ov-card:hover{border-color:var(--border-h)}
+        .ov-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+        .ov-icon{font-size:20px}
+        .ov-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px}
+        .ov-val{font-family:'Space Grotesk';font-size:24px;font-weight:800;margin-bottom:2px}
+        .ov-label{font-size:11px;color:var(--txt3)}
+        .ov-bar{height:4px;background:rgba(255,255,255,0.04);border-radius:2px;margin-top:12px;overflow:hidden}
+        .ov-bar-fill{height:100%;border-radius:2px;transition:width 0.8s ease}
+        .ov-pct{font-size:10px;color:var(--txt3);margin-top:4px;text-align:right}
+
+        /* GROUP SECTIONS */
+        .group{margin-bottom:32px}
+        .group-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+        .group-title{font-family:'Space Grotesk';font-size:16px;font-weight:700}
+        .group-line{flex:1;height:1px;background:var(--border)}
+        .group-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+
+        /* METRIC ROW */
+        .metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all 0.2s}
+        .metric:hover{border-color:var(--border-h)}
+        .metric-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0}
+        .metric-info{flex:1;min-width:0}
+        .metric-name{font-size:12px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .metric-target{font-size:10px;color:var(--txt3)}
+        .metric-input{width:120px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;color:var(--txt);font-family:'Space Grotesk';text-align:right;outline:none;transition:all 0.2s}
+        .metric-input:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(196,149,106,0.1)}
+        .metric-input.over{border-color:var(--green);color:var(--green)}
+        .metric-input.under{border-color:var(--red);color:var(--orange)}
+        .metric-unit{font-size:10px;color:var(--txt3);width:40px;flex-shrink:0}
+
+        /* CHART */
+        .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+        .chart-title{font-family:'Space Grotesk';font-weight:700;font-size:14px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .chart-bars{display:flex;align-items:flex-end;gap:3px;height:160px;padding-top:16px}
+        .chart-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+        .chart-bar{width:100%;max-width:28px;border-radius:4px 4px 0 0;transition:height 0.6s;cursor:pointer;position:relative}
+        .chart-bar:hover{opacity:0.8}
+        .chart-bar-val{font-size:8px;font-family:'Space Grotesk';font-weight:600;color:var(--txt2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
+        .chart-bar-label{font-size:8px;color:var(--txt3);white-space:nowrap}
+        .chart-bar.today{box-shadow:0 0 8px rgba(196,149,106,0.3)}
+
+        /* MONTH PROGRESS */
+        .month-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+        .month-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+        .month-row:last-child{border:none}
+        .month-name{font-size:12px;font-weight:600;width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .month-bar{flex:1;height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden}
+        .month-bar-fill{height:100%;border-radius:3px;transition:width 0.8s}
+        .month-pct{font-size:11px;font-family:'Space Grotesk';font-weight:700;width:50px;text-align:right}
+        .month-val{font-size:11px;color:var(--txt3);width:100px;text-align:right}
+
+        /* SAVE BAR */
+        .save-bar{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(17,17,22,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;justify-content:space-between}
+        .save-text{font-size:12px;color:var(--txt3)}
+        .save-text.changed{color:var(--orange)}
+        .save-actions{display:flex;gap:8px}
+        .btn{padding:8px 20px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s}
+        .btn-primary{background:var(--rose);color:#0a0a0e}
+        .btn-primary:hover{background:#d4a578}
+        .btn-ghost{background:rgba(255,255,255,0.04);color:var(--txt2);border:1px solid var(--border)}
+        .btn-ghost:hover{background:rgba(255,255,255,0.08)}
+
+        /* TOAST */
+        .toast{position:fixed;top:20px;right:20px;z-index:9999;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;transform:translateX(120%);transition:transform 0.3s}
+        .toast.show{transform:translateX(0)}
+        .toast-ok{background:rgba(81,207,102,0.15);color:var(--green);border:1px solid rgba(81,207,102,0.3)}
+
+        /* CALENDAR VIEW */
+        .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:24px}
+        .cal-head{font-size:10px;color:var(--txt3);text-align:center;padding:8px 0;font-weight:600}
+        .cal-day{aspect-ratio:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:12px;position:relative}
+        .cal-day:hover{border-color:var(--rose)}
+        .cal-day.today{border-color:var(--rose);box-shadow:0 0 8px rgba(196,149,106,0.2)}
+        .cal-day.filled::after{content:'';position:absolute;bottom:6px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+        .cal-day.selected{background:rgba(196,149,106,0.1);border-color:var(--rose)}
+        .cal-day.empty{opacity:0.3;pointer-events:none}
+        .cal-day-num{font-family:'Space Grotesk';font-weight:700}
+        .cal-day-rev{font-size:8px;color:var(--txt3);margin-top:2px}
+
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        @media(max-width:768px){
+            .overview-grid{grid-template-columns:repeat(2,1fr)}
+            .group-grid{grid-template-columns:1fr}
+            .date-bar{flex-direction:column;align-items:flex-start}
+            .chart-bars{height:120px}
+        }
+    </style>
+</head>
+<body>
+    <div class="toast" id="toast"></div>
+
+    <nav class="nav">
+        <div class="nav-brand"><span>GUNO</span> · KPI TRACKER</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">📊 Plan</a>
+            <a href="tracker.html" class="nav-link active">📈 Tracker</a>
+            <a href="admin.html" class="nav-link">⚙ Admin</a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <!-- DATE BAR -->
+        <div class="date-bar">
+            <div class="date-nav">
+                <button class="date-btn" onclick="changeDay(-1)">◀</button>
+                <input type="date" class="date-input" id="datePicker" onchange="selectDate(this.value)">
+                <button class="date-btn" onclick="changeDay(1)">▶</button>
+            </div>
+            <div>
+                <div class="date-label" id="dateLabel"></div>
+                <div class="date-weekday" id="dateWeekday"></div>
+            </div>
+            <div class="date-status">
+                <div class="status-dot" id="statusDot"></div>
+                <span style="font-size:12px;color:var(--txt3)" id="statusLabel"></span>
+            </div>
+        </div>
+
+        <!-- VIEW TABS -->
+        <div class="view-tabs">
+            <button class="view-tab active" data-view="daily">📝 Nhập hàng ngày</button>
+            <button class="view-tab" data-view="month">📊 Tổng tháng</button>
+            <button class="view-tab" data-view="trends">📈 Xu hướng</button>
+            <button class="view-tab" data-view="calendar">📅 Lịch</button>
+            <button class="view-tab" data-view="dashboard">📊 Dashboard</button>
+        </div>
+
+        <!-- DAILY INPUT VIEW -->
+        <div class="view active" id="view-daily">
+            <div class="overview-grid" id="overviewCards"></div>
+            <div id="groupSections"></div>
+        </div>
+
+        <!-- MONTH VIEW -->
+        <div class="view" id="view-month" style="display:none">
+            <div class="overview-grid" id="monthOverview"></div>
+            <div class="month-card">
+                <div class="chart-title">📊 Tiến độ tháng — so với target</div>
+                <div id="monthRows"></div>
+            </div>
+        </div>
+
+        <!-- TRENDS VIEW -->
+        <div class="view" id="view-trends" style="display:none">
+            <div id="trendCharts"></div>
+        </div>
+
+        <!-- CALENDAR VIEW -->
+        <div class="view" id="view-calendar" style="display:none">
+            <div class="chart-card">
+                <div class="chart-title">📅 Lịch tháng 5/2026 — Nhập liệu</div>
+                <div class="cal-grid" id="calGrid"></div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD VIEW -->
+        <div class="view" id="view-dashboard" style="display:none">
+            <div class="overview-grid" id="dashOverview"></div>
+            <div class="g2" style="margin-bottom:24px">
+                <div class="chart-card">
+                    <div class="chart-title">💰 Doanh thu theo ngày vs Target</div>
+                    <div class="chart-bars" id="dashRevChart" style="height:180px"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">📊 Phân bổ doanh thu theo kênh</div>
+                    <div id="dashPieChart" style="display:flex;align-items:center;justify-content:center;gap:24px;min-height:180px"></div>
+                </div>
+            </div>
+            <div class="g2">
+                <div class="chart-card">
+                    <div class="chart-title">📈 ROAS hiện tại</div>
+                    <div id="dashRoas" style="text-align:center;padding:20px"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">🎯 Top KPI tiến độ</div>
+                    <div id="dashKpiProgress"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="save-bar">
+        <div class="save-text" id="saveText">Chọn ngày để nhập số liệu</div>
+        <div class="save-actions">
+            <button class="btn btn-ghost" onclick="clearDay()">🗑 Xóa ngày này</button>
+            <button class="btn btn-primary" onclick="saveCurrentDay()">💾 Lưu</button>
+        </div>
+    </div>
+
+    <script>
+    let currentDate = '2026-05-01';
+    let currentDayData = {};
+    let dirty = false;
+
+    const weekdays = ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
+    const groups = [...new Set(TRACKER_METRICS.map(m => m.group))];
+    const groupColors = { 'Content':'var(--violet)', 'Ads':'var(--orange)', 'Traffic':'var(--blue)', 'Doanh thu':'var(--green)', 'Khách hàng':'var(--pink)', 'Livestream':'var(--tiktok)' };
+
+    // Init
+    const today = new Date().toISOString().split('T')[0];
+    if (today >= '2026-05-01' && today <= '2026-05-31') currentDate = today;
+    document.getElementById('datePicker').value = currentDate;
+
+    // Tab switching
+    document.querySelectorAll('.view-tab').forEach(t => {
+        t.addEventListener('click', () => {
+            document.querySelectorAll('.view-tab').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+            document.getElementById('view-' + t.dataset.view).style.display = 'block';
+            if (t.dataset.view === 'month') renderMonthView();
+            if (t.dataset.view === 'trends') renderTrends();
+            if (t.dataset.view === 'calendar') renderCalendar();
+            if (t.dataset.view === 'dashboard') renderDashboard();
+        });
+    });
+
+    function selectDate(dateStr) {
+        if (dirty && !confirm('Có thay đổi chưa lưu. Chuyển ngày?')) {
+            document.getElementById('datePicker').value = currentDate;
+            return;
+        }
+        currentDate = dateStr;
+        document.getElementById('datePicker').value = dateStr;
+        loadDay();
+    }
+
+    function changeDay(delta) {
+        const d = new Date(currentDate);
+        d.setDate(d.getDate() + delta);
+        selectDate(d.toISOString().split('T')[0]);
+    }
+
+    function loadDay() {
+        currentDayData = getDayData(currentDate);
+        dirty = false;
+        updateDateDisplay();
+        renderOverview();
+        renderGroups();
+        updateSaveStatus();
+    }
+
+    function updateDateDisplay() {
+        const d = new Date(currentDate + 'T00:00:00');
+        const day = d.getDate();
+        const month = d.getMonth() + 1;
+        document.getElementById('dateLabel').textContent = `Ngày ${day}/${month}/2026`;
+        document.getElementById('dateWeekday').textContent = weekdays[d.getDay()];
+        const filled = Object.keys(currentDayData).length > 0;
+        document.getElementById('statusDot').className = 'status-dot ' + (filled ? 'filled' : 'empty');
+        document.getElementById('statusLabel').textContent = filled ? 'Đã nhập' : 'Chưa nhập';
+    }
+
+    function renderOverview() {
+        const keyMetrics = ['sales_revenue_total','sales_orders','live_gmv','cust_new','cust_close_rate','content_video_tiktok'];
+        const el = document.getElementById('overviewCards');
+        el.innerHTML = keyMetrics.map(id => {
+            const m = TRACKER_METRICS.find(x => x.id === id);
+            const val = currentDayData[id] || 0;
+            const pct = m.isRate ? (val / m.dailyTarget * 100) : (val / m.dailyTarget * 100);
+            const pctClamped = Math.min(pct, 100);
+            const color = pct >= 100 ? 'var(--green)' : pct >= 70 ? 'var(--orange)' : 'var(--red)';
+            const displayVal = m.isCurrency ? formatVND(val) : (m.isRate ? val + m.unit : formatNum(val));
+            return `<div class="ov-card">
+                <div class="ov-top"><span class="ov-icon">${m.icon}</span><span class="ov-badge" style="background:${color}22;color:${color}">${pct.toFixed(0)}%</span></div>
+                <div class="ov-val" style="color:${color}">${displayVal}</div>
+                <div class="ov-label">${m.name}</div>
+                <div class="ov-bar"><div class="ov-bar-fill" style="width:${pctClamped}%;background:${color}"></div></div>
+                <div class="ov-pct">Target: ${m.isCurrency ? formatVND(m.dailyTarget) : formatNum(m.dailyTarget)}${m.isRate ? m.unit : ''}/ngày</div>
+            </div>`;
+        }).join('');
+    }
+
+    function renderGroups() {
+        const el = document.getElementById('groupSections');
+        el.innerHTML = groups.map(g => {
+            const metrics = TRACKER_METRICS.filter(m => m.group === g);
+            const color = groupColors[g] || 'var(--rose)';
+            return `<div class="group">
+                <div class="group-head"><span style="color:${color};font-size:14px">●</span><span class="group-title">${g}</span><div class="group-line"></div></div>
+                <div class="group-grid">
+                    ${metrics.map(m => {
+                        const val = currentDayData[m.id] || '';
+                        const numVal = parseFloat(val) || 0;
+                        const cls = numVal >= m.dailyTarget ? 'over' : (numVal > 0 && numVal < m.dailyTarget ? 'under' : '');
+                        return `<div class="metric">
+                            <div class="metric-icon">${m.icon}</div>
+                            <div class="metric-info">
+                                <div class="metric-name">${m.name}</div>
+                                <div class="metric-target">Target: ${m.isCurrency ? formatVND(m.dailyTarget) : m.dailyTarget}${m.isRate ? m.unit : ''}/ngày</div>
+                            </div>
+                            <input class="metric-input ${cls}" type="number" step="any" value="${val}" data-metric="${m.id}" placeholder="0" oninput="onMetricInput(this)">
+                            <div class="metric-unit">${m.unit}</div>
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function onMetricInput(input) {
+        const id = input.dataset.metric;
+        const val = parseFloat(input.value) || 0;
+        currentDayData[id] = val;
+        dirty = true;
+        const m = TRACKER_METRICS.find(x => x.id === id);
+        input.className = 'metric-input ' + (val >= m.dailyTarget ? 'over' : (val > 0 ? 'under' : ''));
+        updateSaveStatus();
+        renderOverview();
+    }
+
+    function saveCurrentDay() {
+        saveDayData(currentDate, currentDayData);
+        dirty = false;
+        updateSaveStatus();
+        updateDateDisplay();
+        showToast('Đã lưu ngày ' + currentDate);
+    }
+
+    function clearDay() {
+        if (confirm('Xóa toàn bộ dữ liệu ngày ' + currentDate + '?')) {
+            currentDayData = {};
+            saveDayData(currentDate, {});
+            dirty = false;
+            loadDay();
+            showToast('Đã xóa');
+        }
+    }
+
+    function updateSaveStatus() {
+        const el = document.getElementById('saveText');
+        if (dirty) { el.textContent = '⚠ Có thay đổi chưa lưu'; el.className = 'save-text changed'; }
+        else { el.textContent = '✅ Đã lưu'; el.className = 'save-text'; }
+    }
+
+    // ── MONTH VIEW ──
+    function renderMonthView() {
+        const days = getDaysInRange('2026-05-01', '2026-05-31');
+        const tracker = getTrackerData();
+
+        // Overview
+        const keyIds = ['sales_revenue_total','sales_orders','content_video_tiktok','live_hours','cust_new','cust_close_rate'];
+        document.getElementById('monthOverview').innerHTML = keyIds.map(id => {
+            const m = TRACKER_METRICS.find(x => x.id === id);
+            let total = 0;
+            if (m.isRate) {
+                let count = 0;
+                Object.values(tracker).forEach(d => { if (d[id]) { total += parseFloat(d[id]); count++; } });
+                total = count > 0 ? total / count : 0;
+            } else {
+                Object.values(tracker).forEach(d => { if (d[id]) total += parseFloat(d[id]) || 0; });
+            }
+            const pct = (total / m.monthTarget * 100);
+            const color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--orange)' : 'var(--red)';
+            const display = m.isCurrency ? formatVND(total) : (m.isRate ? total.toFixed(1) + m.unit : formatNum(Math.round(total)));
+            return `<div class="ov-card"><div class="ov-top"><span class="ov-icon">${m.icon}</span><span class="ov-badge" style="background:${color}22;color:${color}">${pct.toFixed(0)}%</span></div><div class="ov-val" style="color:${color}">${display}</div><div class="ov-label">${m.name}</div><div class="ov-bar"><div class="ov-bar-fill" style="width:${Math.min(pct,100)}%;background:${color}"></div></div><div class="ov-pct">Target tháng: ${m.isCurrency ? formatVND(m.monthTarget) : formatNum(m.monthTarget)}${m.isRate?m.unit:''}</div></div>`;
+        }).join('');
+
+        // All metrics progress
+        document.getElementById('monthRows').innerHTML = TRACKER_METRICS.map(m => {
+            let total = 0;
+            if (m.isRate) {
+                let c = 0;
+                Object.values(tracker).forEach(d => { if (d[m.id]) { total += parseFloat(d[m.id]); c++; } });
+                total = c > 0 ? total / c : 0;
+            } else {
+                Object.values(tracker).forEach(d => { if (d[m.id]) total += parseFloat(d[m.id]) || 0; });
+            }
+            const pct = (total / m.monthTarget * 100);
+            const color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--orange)' : 'var(--red)';
+            const display = m.isCurrency ? formatVND(total) : (m.isRate ? total.toFixed(1) + m.unit : formatNum(Math.round(total)));
+            return `<div class="month-row"><span class="month-name">${m.icon} ${m.name}</span><div class="month-bar"><div class="month-bar-fill" style="width:${Math.min(pct,100)}%;background:${color}"></div></div><span class="month-pct" style="color:${color}">${pct.toFixed(0)}%</span><span class="month-val">${display}</span></div>`;
+        }).join('');
+    }
+
+    // ── TRENDS VIEW ──
+    function renderTrends() {
+        const tracker = getTrackerData();
+        const days = getDaysInRange('2026-05-01', '2026-05-31');
+        const trendMetrics = ['sales_revenue_total','sales_orders','content_video_tiktok','live_gmv','cust_new','ads_spend_tiktok'];
+
+        document.getElementById('trendCharts').innerHTML = trendMetrics.map(id => {
+            const m = TRACKER_METRICS.find(x => x.id === id);
+            const color = groupColors[m.group] || 'var(--rose)';
+            let maxVal = m.dailyTarget;
+            days.forEach(d => { const v = tracker[d]?.[id] || 0; if (v > maxVal) maxVal = v; });
+
+            return `<div class="chart-card">
+                <div class="chart-title">${m.icon} ${m.name} — Daily trend</div>
+                <div class="chart-bars">
+                    ${days.map(d => {
+                        const v = tracker[d]?.[id] || 0;
+                        const h = maxVal > 0 ? (v / maxVal * 100) : 0;
+                        const dayNum = new Date(d + 'T00:00:00').getDate();
+                        const isToday = d === currentDate;
+                        const display = m.isCurrency ? formatVND(v) : (v > 0 ? formatNum(Math.round(v)) : '');
+                        return `<div class="chart-bar-col" onclick="selectDate('${d}');document.querySelector('[data-view=daily]').click()">
+                            <div class="chart-bar-val">${display}</div>
+                            <div class="chart-bar${isToday?' today':''}" style="height:${Math.max(h,2)}%;background:${v >= m.dailyTarget ? 'var(--green)' : (v > 0 ? color : 'rgba(255,255,255,0.04)')}"></div>
+                            <div class="chart-bar-label">${dayNum}</div>
+                        </div>`;
+                    }).join('')}
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--txt3)"><span>Target/ngày: ${m.isCurrency ? formatVND(m.dailyTarget) : formatNum(m.dailyTarget)}</span><span style="color:var(--green)">■ Đạt target</span></div>
+            </div>`;
+        }).join('');
+    }
+
+    // ── CALENDAR VIEW ──
+    function renderCalendar() {
+        const tracker = getTrackerData();
+        const el = document.getElementById('calGrid');
+        const headers = ['T2','T3','T4','T5','T6','T7','CN'];
+        // May 2025 starts on Thursday (index 3)
+        const startDay = 3; // 0=Mon for our grid
+        const daysInMonth = 31;
+
+        let html = headers.map(h => `<div class="cal-head">${h}</div>`).join('');
+        for (let i = 0; i < startDay; i++) html += '<div class="cal-day empty"></div>';
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dateStr = `2025-05-${String(d).padStart(2,'0')}`;
+            const data = tracker[dateStr];
+            const filled = data && Object.keys(data).length > 0;
+            const isToday = dateStr === currentDate;
+            const rev = data?.sales_revenue_total;
+            html += `<div class="cal-day${filled?' filled':''}${isToday?' today':''}" onclick="selectDate('${dateStr}');document.querySelector('[data-view=daily]').click()">
+                <div class="cal-day-num">${d}</div>
+                ${rev ? `<div class="cal-day-rev">${formatVND(rev)}</div>` : ''}
+            </div>`;
+        }
+        el.innerHTML = html;
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg; t.className = 'toast toast-ok show';
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Keyboard shortcut: Ctrl+S to save
+    document.addEventListener('keydown', e => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveCurrentDay(); }
+    });
+
+    // ── DASHBOARD VIEW ──
+    function renderDashboard() {
+        const tracker = getTrackerData();
+        const days = getDaysInRange('2026-05-01', '2026-05-31');
+        const D = getData();
+        // Overview cards
+        const totalRev = getMonthTotal('sales_revenue_total');
+        const totalOrders = getMonthTotal('sales_orders');
+        const totalAdsTT = getMonthTotal('ads_spend_tiktok');
+        const totalAdsFB = getMonthTotal('ads_spend_fb');
+        const totalAdsSP = getMonthTotal('ads_spend_shopee');
+        const totalAds = totalAdsTT + totalAdsFB + totalAdsSP;
+        const roas = totalAds > 0 ? (totalRev / totalAds).toFixed(1) : '—';
+        const filledDays = getFilledDays().length;
+        const ovData = [
+          {icon:'💰',label:'Tổng DT',val:formatVND(totalRev),color:totalRev>=D.targets.totalRevenue*0.5?'var(--green)':'var(--orange)'},
+          {icon:'📦',label:'Tổng đơn',val:formatNum(Math.round(totalOrders)),color:'var(--blue)'},
+          {icon:'📊',label:'ROAS',val:roas+'x',color:parseFloat(roas)>=3.1?'var(--green)':'var(--orange)'},
+          {icon:'📅',label:'Ngày đã nhập',val:filledDays+'/31',color:'var(--violet)'}
+        ];
+        document.getElementById('dashOverview').innerHTML = ovData.map(o => `<div class="ov-card"><div class="ov-top"><span class="ov-icon">${o.icon}</span></div><div class="ov-val" style="color:${o.color}">${o.val}</div><div class="ov-label">${o.label}</div></div>`).join('');
+
+        // Revenue bar chart
+        const revId = 'sales_revenue_total';
+        const revMetric = TRACKER_METRICS.find(m => m.id === revId);
+        let maxRev = revMetric.dailyTarget;
+        days.forEach(d => { const v = tracker[d]?.[revId]||0; if(v>maxRev) maxRev=v; });
+        document.getElementById('dashRevChart').innerHTML = days.map(d => {
+            const v = tracker[d]?.[revId]||0;
+            const h = maxRev>0?(v/maxRev*100):0;
+            const dn = new Date(d+'T00:00:00').getDate();
+            const c = v>=revMetric.dailyTarget?'var(--green)':(v>0?'var(--orange)':'rgba(255,255,255,0.04)');
+            return `<div class="chart-bar-col"><div class="chart-bar-val">${v>0?formatVND(v):''}</div><div class="chart-bar" style="height:${Math.max(h,2)}%;background:${c}"></div><div class="chart-bar-label">${dn}</div></div>`;
+        }).join('');
+
+        // Channel pie (CSS circles)
+        const ttRev = getMonthTotal('sales_revenue_tiktok');
+        const spRev = getMonthTotal('sales_revenue_shopee');
+        const fbRev = getMonthTotal('sales_revenue_fb');
+        const chTotal = ttRev+spRev+fbRev||1;
+        const channels = [{name:'TikTok',val:ttRev,color:'var(--tiktok)'},{name:'Shopee',val:spRev,color:'var(--shopee)'},{name:'Facebook',val:fbRev,color:'var(--facebook)'}];
+        let cumPct = 0;
+        const gradParts = channels.map(ch => { const pct = ch.val/chTotal*100; const start=cumPct; cumPct+=pct; return `${ch.color} ${start}% ${cumPct}%`; });
+        document.getElementById('dashPieChart').innerHTML = `<div style="width:160px;height:160px;border-radius:50%;background:conic-gradient(${gradParts.join(',')});position:relative"><div style="position:absolute;inset:30px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-direction:column"><div style="font-family:Space Grotesk;font-weight:800;font-size:14px">${formatVND(chTotal)}</div><div style="font-size:10px;color:var(--txt3)">Tổng</div></div></div><div style="display:flex;flex-direction:column;gap:8px">${channels.map(ch => `<div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:3px;background:${ch.color}"></div><div><div style="font-size:12px;font-weight:600">${ch.name}</div><div style="font-size:11px;color:var(--txt3)">${formatVND(ch.val)} (${(ch.val/chTotal*100).toFixed(0)}%)</div></div></div>`).join('')}</div>`;
+
+        // ROAS gauge
+        const roasVal = parseFloat(roas)||0;
+        const roasPct = Math.min(roasVal/5*100,100);
+        const roasColor = roasVal>=3.1?'var(--green)':roasVal>=2?'var(--orange)':'var(--red)';
+        document.getElementById('dashRoas').innerHTML = `<div style="font-family:Space Grotesk;font-size:48px;font-weight:800;color:${roasColor}">${roas}x</div><div style="margin:12px auto;width:200px;height:8px;background:rgba(255,255,255,0.05);border-radius:4px"><div style="width:${roasPct}%;height:100%;border-radius:4px;background:${roasColor};transition:width 0.6s"></div></div><div style="font-size:11px;color:var(--txt3)">Target: ≥ 3.1x | Tổng ads: ${formatVND(totalAds)}</div>`;
+
+        // Top KPI progress
+        const kpiIds = ['sales_revenue_total','sales_orders','live_gmv','cust_new','ugc_videos','live_hours'];
+        document.getElementById('dashKpiProgress').innerHTML = kpiIds.map(id => {
+            const m = TRACKER_METRICS.find(x => x.id===id);
+            let total = 0;
+            Object.values(tracker).forEach(d => { if(d[id]) total += parseFloat(d[id])||0; });
+            const pct = (total/m.monthTarget*100);
+            const c = pct>=80?'var(--green)':pct>=50?'var(--orange)':'var(--red)';
+            return `<div class="month-row"><span class="month-name">${m.icon} ${m.name}</span><div class="month-bar"><div class="month-bar-fill" style="width:${Math.min(pct,100)}%;background:${c}"></div></div><span class="month-pct" style="color:${c}">${pct.toFixed(0)}%</span><span class="month-val">${m.isCurrency?formatVND(total):formatNum(Math.round(total))}</span></div>`;
+        }).join('');
+    }
+
+    // Init
+    loadDay();
+    </script>
+</body>
+</html>
