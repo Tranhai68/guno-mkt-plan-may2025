@@ -212,14 +212,20 @@
                 <button class="sidebar-link" data-page="channels"><span class="sidebar-link-icon">📡</span>Kênh bán hàng</button>
                 <button class="sidebar-link" data-page="weekly"><span class="sidebar-link-icon">📅</span>Budget theo tuần</button>
 
-                <div class="sidebar-section">Chiến dịch</div>
-                <button class="sidebar-link" data-page="phases"><span class="sidebar-link-icon">🚀</span>Phases (5)</button>
-                <button class="sidebar-link" data-page="programs"><span class="sidebar-link-icon">🎪</span>Chương trình (8)</button>
+                <div class="sidebar-section">Chiến dịch Vị Nhà</div>
+                <button class="sidebar-link" data-page="branding"><span class="sidebar-link-icon">🎨</span>Branding</button>
+                <button class="sidebar-link" data-page="campaign"><span class="sidebar-link-icon">🍲</span>Haidilao & Đối tác</button>
+                <button class="sidebar-link" data-page="tvc"><span class="sidebar-link-icon">🎬</span>TVC & Billboard</button>
+                <button class="sidebar-link" data-page="kol"><span class="sidebar-link-icon">⭐</span>KOL/KOC & UGC</button>
+                <button class="sidebar-link" data-page="seeding"><span class="sidebar-link-icon">📣</span>Seeding & Tracking</button>
 
                 <div class="sidebar-section">Vận hành</div>
-                <button class="sidebar-link" data-page="tasks"><span class="sidebar-link-icon">📋</span>Phân công (8)</button>
+                <button class="sidebar-link" data-page="phases"><span class="sidebar-link-icon">🚀</span>Phases (5)</button>
+                <button class="sidebar-link" data-page="programs"><span class="sidebar-link-icon">🎪</span>Chương trình (7)</button>
+                <button class="sidebar-link" data-page="tasks"><span class="sidebar-link-icon">📋</span>Phân công</button>
                 <button class="sidebar-link" data-page="kpis"><span class="sidebar-link-icon">📈</span>KPIs</button>
                 <button class="sidebar-link" data-page="pnl"><span class="sidebar-link-icon">💰</span>P&L</button>
+                <button class="sidebar-link" data-page="evaluation"><span class="sidebar-link-icon">📊</span>Đánh giá & SWOT</button>
             </nav>
             <div class="sidebar-footer">
                 <a href="index.html" class="preview-link" style="flex:1;justify-content:center">👁 Xem trang chính</a>
@@ -423,6 +429,221 @@
                 </div>
             </div>
 
+            <!-- ═══ BRANDING ═══ -->
+            <div class="page" id="page-branding">
+                <div class="page-header">
+                    <div class="page-title">🎨 Branding</div>
+                    <div class="page-desc">Thông điệp, đại sứ, phân bổ ngân sách branding</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">💬</span>Thông điệp & Đại sứ</div></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Motto / Mật ngữ</label><input class="form-input" data-field="meta.motto"></div>
+                            <div class="form-group"><label class="form-label">Tagline</label><input class="form-input" data-field="meta.tagline"></div>
+                            <div class="form-group"><label class="form-label">Brand Slogan</label><input class="form-input" data-field="meta.brandSlogan"></div>
+                            <div class="form-group"><label class="form-label">Tên chiến dịch</label><input class="form-input" data-field="meta.campaignName"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎁</span>Phân bổ Branding (1 tỷ)</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="brandingAllocation"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">💝</span>Quà tặng & Voucher</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="brandingGifts"></div>
+                </div>
+            </div>
+
+            <!-- ═══ CAMPAIGN / HAIDILAO ═══ -->
+            <div class="page" id="page-campaign">
+                <div class="page-header">
+                    <div class="page-title">🍲 Haidilao & Đối tác</div>
+                    <div class="page-desc">Activation Haidilao, CGV, Ritual, Gift Tiers, Voucher Tracking</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🍲</span>Haidilao Activation</div></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên chương trình</label><input class="form-input" data-field="campaign.haidilao.name"></div>
+                            <div class="form-group"><label class="form-label">Timeline</label><input class="form-input" data-field="campaign.haidilao.timeline"></div>
+                            <div class="form-group"><label class="form-label">Mật ngữ</label><input class="form-input" data-field="campaign.haidilao.motto"></div>
+                            <div class="form-group"><label class="form-label">Staff Response</label><input class="form-input" data-field="campaign.haidilao.staffResponse"></div>
+                            <div class="form-group"><label class="form-label">Budget (VND)</label><input class="form-input" type="number" data-field="campaign.haidilao.budget"></div>
+                            <div class="form-group"><label class="form-label">Ghi chú quà</label><input class="form-input" data-field="campaign.haidilao.giftNote"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📍</span>Địa điểm Haidilao</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="haidilaoLocations"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎭</span>Ritual 5 bước</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="haidilaoRitual"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎁</span>Gift Tiers</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="haidilaoTiers"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📊</span>Voucher Tracking</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Format mã</label><input class="form-input" data-field="campaign.haidilao.voucherTracking.format"></div>
+                            <div class="form-group"><label class="form-label">QR Landing</label><input class="form-input" data-field="campaign.haidilao.voucherTracking.qr"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎬</span>CGV Partnership</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên chương trình</label><input class="form-input" data-field="campaign.cgv.name"></div>
+                            <div class="form-group"><label class="form-label">Timeline</label><input class="form-input" data-field="campaign.cgv.timeline"></div>
+                            <div class="form-group"><label class="form-label">Nội dung</label><input class="form-input" data-field="campaign.cgv.program"></div>
+                            <div class="form-group"><label class="form-label">Budget (VND)</label><input class="form-input" type="number" data-field="campaign.cgv.budget"></div>
+                            <div class="form-group"><label class="form-label">Ghi chú</label><input class="form-input" data-field="campaign.cgv.note"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TVC & BILLBOARD ═══ -->
+            <div class="page" id="page-tvc">
+                <div class="page-header">
+                    <div class="page-title">🎬 TVC & Billboard</div>
+                    <div class="page-desc">Cảnh quay TVC, chi phí sản xuất, vị trí billboard</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎬</span>TVC — Thông tin chung</div></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên TVC</label><input class="form-input" data-field="campaign.tvc.name"></div>
+                            <div class="form-group"><label class="form-label">Thời lượng</label><input class="form-input" data-field="campaign.tvc.duration"></div>
+                            <div class="form-group"><label class="form-label">Placement</label><input class="form-input" data-field="campaign.tvc.placement"></div>
+                            <div class="form-group"><label class="form-label">Timeline sản xuất</label><input class="form-input" data-field="campaign.tvc.productionTimeline"></div>
+                            <div class="form-group"><label class="form-label">Tổng budget TVC (VND)</label><input class="form-input" type="number" data-field="campaign.tvc.totalBudget"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎥</span>Cảnh quay TVC</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="tvcScenes"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">💰</span>Chi phí TVC</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="tvcBudget"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📍</span>Billboard — Vị trí & Chi phí</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="billboardRows"></div>
+                </div>
+            </div>
+
+            <!-- ═══ KOL / KOC / UGC ═══ -->
+            <div class="page" id="page-kol">
+                <div class="page-header">
+                    <div class="page-title">⭐ KOL/KOC & UGC</div>
+                    <div class="page-desc">MegaLive, KOL PR, KOC Affiliate, UGC Strategy, Family Box</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🔥</span>MegaLive</div></div>
+                    <div class="admin-card-body" id="megaLiveRows"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🤳</span>KOL PR</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" data-field="campaign.kolDetail.prKol.qty"></div>
+                            <div class="form-group"><label class="form-label">Followers</label><input class="form-input" data-field="campaign.kolDetail.prKol.followers"></div>
+                            <div class="form-group"><label class="form-label">Budget</label><input class="form-input" data-field="campaign.kolDetail.prKol.budget"></div>
+                            <div class="form-group"><label class="form-label">Seeding</label><input class="form-input" data-field="campaign.kolDetail.prKol.seeding"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📱</span>KOC Affiliate</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" data-field="campaign.kolDetail.kocAffiliate.qty"></div>
+                            <div class="form-group"><label class="form-label">Followers</label><input class="form-input" data-field="campaign.kolDetail.kocAffiliate.followers"></div>
+                            <div class="form-group"><label class="form-label">Hoa hồng</label><input class="form-input" data-field="campaign.kolDetail.kocAffiliate.commission"></div>
+                            <div class="form-group"><label class="form-label">Quản lý</label><input class="form-input" data-field="campaign.kolDetail.kocAffiliate.management"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📱</span>UGC Strategy</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Challenge</label><input class="form-input" data-field="campaign.ugc.challenge"></div>
+                            <div class="form-group"><label class="form-label">Target Videos</label><input class="form-input" data-field="campaign.ugc.targetVideos"></div>
+                            <div class="form-group"><label class="form-label">Target Views</label><input class="form-input" data-field="campaign.ugc.targetViews"></div>
+                            <div class="form-group"><label class="form-label">Viral Mechanic</label><input class="form-input" data-field="campaign.ugc.viralMechanic"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🎁</span>Guno Family Box</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên</label><input class="form-input" data-field="campaign.familyBox.name"></div>
+                            <div class="form-group"><label class="form-label">Nội dung</label><input class="form-input" data-field="campaign.familyBox.contents"></div>
+                            <div class="form-group"><label class="form-label">Giá</label><input class="form-input" data-field="campaign.familyBox.price"></div>
+                            <div class="form-group"><label class="form-label">Hiệu ứng</label><input class="form-input" data-field="campaign.familyBox.effect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SEEDING & TRACKING ═══ -->
+            <div class="page" id="page-seeding">
+                <div class="page-header">
+                    <div class="page-title">📣 Seeding & Tracking</div>
+                    <div class="page-desc">Seeding 4 lớp, Campaign Funnel 6 phases, Tracking Framework</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📣</span>Seeding 4 Lớp</div></div>
+                    <div class="admin-card-body" id="seedingRows"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🔄</span>Campaign Funnel 6 Phases</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="funnelRows"></div>
+                </div>
+            </div>
+
+            <!-- ═══ EVALUATION ═══ -->
+            <div class="page" id="page-evaluation">
+                <div class="page-header">
+                    <div class="page-title">📊 Đánh giá & SWOT</div>
+                    <div class="page-desc">SWOT, hiệu quả, rủi ro, bài học HAPAS, verdict</div>
+                </div>
+                <div class="admin-card open">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">💪</span>SWOT Analysis</div></div>
+                    <div class="admin-card-body" id="swotEditor"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📊</span>Đánh giá hiệu quả</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="effectivenessRows"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">⚠️</span>Quản trị rủi ro</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="riskRows"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">📖</span>Bài học HAPAS</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body" id="hapasLessonsEditor"></div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-card-header"><div class="admin-card-title"><span class="icon">🏆</span>Verdict</div><span class="admin-card-toggle">▼</span></div>
+                    <div class="admin-card-body">
+                        <div class="form-group"><label class="form-label">Kết luận CMO</label><textarea class="form-textarea" data-field="evaluation.verdict" rows="4"></textarea></div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -477,6 +698,12 @@
         renderPrograms();
         renderTaskAssignment();
         renderKPIs();
+        renderBranding();
+        renderCampaign();
+        renderTVC();
+        renderKOL();
+        renderSeeding();
+        renderEvaluation();
     }
 
     // ── DASHBOARD ──
@@ -680,11 +907,17 @@
         return input.value;
     }
 
+    let autoSaveTimer = null;
     function markChanged() {
         hasChanges = true;
-        document.getElementById('statusText').textContent = '⚠ Có thay đổi chưa lưu';
+        document.getElementById('statusText').textContent = '⏳ Đang lưu...';
         document.getElementById('statusText').className = 'status-text';
         document.getElementById('saveBtn').style.background = 'var(--rose)';
+        // Auto-save after 800ms debounce
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+            saveAll();
+        }, 800);
     }
 
     // ── SAVE / DISCARD ──
@@ -764,6 +997,259 @@
         toast.textContent = msg;
         toast.className = 'toast toast-' + type + ' show';
         setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ── BRANDING ──
+    function renderBranding() {
+        const alloc = document.getElementById('brandingAllocation');
+        if (alloc && data.branding && data.branding.allocation) {
+            alloc.innerHTML = data.branding.allocation.map((a, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:2fr 1fr">
+                        <div class="form-group"><label class="form-label">Hạng mục</label><input class="form-input" data-arr="branding.allocation.${i}.name" value="${a.name}"></div>
+                        <div class="form-group"><label class="form-label">Chi phí (VND)</label><input class="form-input" type="number" data-arr="branding.allocation.${i}.cost" value="${a.cost}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        const gifts = document.getElementById('brandingGifts');
+        if (gifts && data.branding && data.branding.gift) {
+            gifts.innerHTML = `<div class="form-grid">
+                <div class="form-group"><label class="form-label">Quà tặng</label><input class="form-input" data-field="branding.gift.name" value="${data.branding.gift.name||''}"></div>
+                <div class="form-group"><label class="form-label">Chi phí</label><input class="form-input" type="number" data-field="branding.gift.cost" value="${data.branding.gift.cost||0}"></div>
+                <div class="form-group"><label class="form-label">SL</label><input class="form-input" type="number" data-field="branding.gift.qty" value="${data.branding.gift.qty||0}"></div>
+            </div>
+            <div class="form-grid" style="margin-top:12px">
+                <div class="form-group"><label class="form-label">Voucher</label><input class="form-input" data-field="branding.voucher.name" value="${data.branding.voucher?data.branding.voucher.name:''}"></div>
+                <div class="form-group"><label class="form-label">Chi phí</label><input class="form-input" type="number" data-field="branding.voucher.cost" value="${data.branding.voucher?data.branding.voucher.cost:0}"></div>
+                <div class="form-group"><label class="form-label">SL</label><input class="form-input" type="number" data-field="branding.voucher.qty" value="${data.branding.voucher?data.branding.voucher.qty:0}"></div>
+            </div>`;
+        }
+    }
+
+    // ── CAMPAIGN / HAIDILAO ──
+    function renderCampaign() {
+        const c = data.campaign;
+        if (!c || !c.haidilao) return;
+        // Locations
+        const loc = document.getElementById('haidilaoLocations');
+        if (loc) {
+            loc.innerHTML = c.haidilao.locations.map((l, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:0.5fr 1.5fr 1.5fr 1fr">
+                        <div class="form-group"><label class="form-label">TP</label><input class="form-input" data-arr="campaign.haidilao.locations.${i}.city" value="${l.city}"></div>
+                        <div class="form-group"><label class="form-label">Chi nhánh</label><input class="form-input" data-arr="campaign.haidilao.locations.${i}.name" value="${l.name}"></div>
+                        <div class="form-group"><label class="form-label">Địa chỉ</label><input class="form-input" data-arr="campaign.haidilao.locations.${i}.address" value="${l.address}"></div>
+                        <div class="form-group"><label class="form-label">Ghi chú</label><input class="form-input" data-arr="campaign.haidilao.locations.${i}.note" value="${l.note}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Ritual
+        const rit = document.getElementById('haidilaoRitual');
+        if (rit && c.haidilao.ritual) {
+            rit.innerHTML = c.haidilao.ritual.map((r, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">B${r.step}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:0.5fr 1fr 2fr 0.5fr">
+                        <div class="form-group"><label class="form-label">Icon</label><input class="form-input" data-arr="campaign.haidilao.ritual.${i}.icon" value="${r.icon}"></div>
+                        <div class="form-group"><label class="form-label">Hành động</label><input class="form-input" data-arr="campaign.haidilao.ritual.${i}.action" value="${r.action}"></div>
+                        <div class="form-group"><label class="form-label">Mô tả</label><input class="form-input" data-arr="campaign.haidilao.ritual.${i}.desc" value="${r.desc}"></div>
+                        <div class="form-group"><label class="form-label">Bước</label><input class="form-input" type="number" data-arr="campaign.haidilao.ritual.${i}.step" value="${r.step}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Tiers
+        const tiers = document.getElementById('haidilaoTiers');
+        if (tiers) {
+            tiers.innerHTML = c.haidilao.tiers.map((t, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:1fr 1fr 1.5fr 0.5fr 1fr">
+                        <div class="form-group"><label class="form-label">Tier</label><input class="form-input" data-arr="campaign.haidilao.tiers.${i}.tier" value="${t.tier}"></div>
+                        <div class="form-group"><label class="form-label">Điều kiện</label><input class="form-input" data-arr="campaign.haidilao.tiers.${i}.condition" value="${t.condition}"></div>
+                        <div class="form-group"><label class="form-label">Quà</label><input class="form-input" data-arr="campaign.haidilao.tiers.${i}.gift" value="${t.gift}"></div>
+                        <div class="form-group"><label class="form-label">SL</label><input class="form-input" data-arr="campaign.haidilao.tiers.${i}.qty" value="${t.qty}"></div>
+                        <div class="form-group"><label class="form-label">Mục đích</label><input class="form-input" data-arr="campaign.haidilao.tiers.${i}.purpose" value="${t.purpose||''}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // ── TVC & BILLBOARD ──
+    function renderTVC() {
+        const c = data.campaign;
+        if (!c || !c.tvc) return;
+        // Scenes
+        const scenes = document.getElementById('tvcScenes');
+        if (scenes) {
+            scenes.innerHTML = c.tvc.scenes.map((s, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">C${s.scene||i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:1fr 2fr 1.5fr">
+                        <div class="form-group"><label class="form-label">Bối cảnh</label><input class="form-input" data-arr="campaign.tvc.scenes.${i}.setting" value="${s.setting||''}"></div>
+                        <div class="form-group"><label class="form-label">Mô tả</label><input class="form-input" data-arr="campaign.tvc.scenes.${i}.desc" value="${s.desc||''}"></div>
+                        <div class="form-group"><label class="form-label">Diễn viên</label><input class="form-input" data-arr="campaign.tvc.scenes.${i}.actor" value="${s.actor||''}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Budget
+        const budget = document.getElementById('tvcBudget');
+        if (budget && c.tvc.budgetBreakdown) {
+            budget.innerHTML = c.tvc.budgetBreakdown.map((b, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:2fr 1fr">
+                        <div class="form-group"><label class="form-label">Hạng mục</label><input class="form-input" data-arr="campaign.tvc.budgetBreakdown.${i}.name" value="${b.name}"></div>
+                        <div class="form-group"><label class="form-label">Chi phí (VND)</label><input class="form-input" type="number" data-arr="campaign.tvc.budgetBreakdown.${i}.cost" value="${b.cost}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Billboards
+        const bb = document.getElementById('billboardRows');
+        if (bb && c.billboards) {
+            bb.innerHTML = c.billboards.map((b, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:0.5fr 1.5fr 0.8fr 0.8fr 1.5fr">
+                        <div class="form-group"><label class="form-label">TP</label><input class="form-input" data-arr="campaign.billboards.${i}.city" value="${b.city}"></div>
+                        <div class="form-group"><label class="form-label">Vị trí</label><input class="form-input" data-arr="campaign.billboards.${i}.location" value="${b.location}"></div>
+                        <div class="form-group"><label class="form-label">Loại</label><input class="form-input" data-arr="campaign.billboards.${i}.type" value="${b.type}"></div>
+                        <div class="form-group"><label class="form-label">Chi phí/tuần</label><input class="form-input" type="number" data-arr="campaign.billboards.${i}.weeklyCost" value="${b.weeklyCost}"></div>
+                        <div class="form-group"><label class="form-label">Ghi chú</label><input class="form-input" data-arr="campaign.billboards.${i}.note" value="${b.note}"></div>
+                    </div>
+                </div>
+            `).join('') + '<div style="font-size:11px;color:var(--rose);padding:8px 12px;margin-top:8px">' + (c.billboardNote||'') + '</div>';
+        }
+    }
+
+    // ── KOL / MEGALIVE ──
+    function renderKOL() {
+        const c = data.campaign;
+        if (!c || !c.kolDetail) return;
+        const ml = document.getElementById('megaLiveRows');
+        if (ml && c.kolDetail.megaLive) {
+            ml.innerHTML = c.kolDetail.megaLive.map((k, i) => `
+                <div class="admin-card${i===0?' open':''}">
+                    <div class="admin-card-header">
+                        <div class="admin-card-title"><span class="icon">🔥</span>${k.name}</div>
+                        <span class="admin-card-toggle">▼</span>
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên KOL</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.name" value="${k.name}"></div>
+                            <div class="form-group"><label class="form-label">Sự kiện</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.event" value="${k.event}"></div>
+                            <div class="form-group"><label class="form-label">Ngày</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.date" value="${k.date}"></div>
+                            <div class="form-group"><label class="form-label">Platform</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.platform" value="${k.platform}"></div>
+                            <div class="form-group"><label class="form-label">Thời lượng</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.duration" value="${k.duration}"></div>
+                            <div class="form-group"><label class="form-label">Target GMV</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.target" value="${k.target}"></div>
+                            <div class="form-group"><label class="form-label">Chi phí</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.cost" value="${k.cost}"></div>
+                            <div class="form-group"><label class="form-label">Link BST</label><input class="form-input" data-arr="campaign.kolDetail.megaLive.${i}.linkBST" value="${k.linkBST}"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // ── SEEDING & FUNNEL ──
+    function renderSeeding() {
+        const c = data.campaign;
+        if (!c) return;
+        const sd = document.getElementById('seedingRows');
+        if (sd && c.seedingPlan) {
+            sd.innerHTML = c.seedingPlan.map((s, i) => `
+                <div class="admin-card${i===0?' open':''}">
+                    <div class="admin-card-header">
+                        <div class="admin-card-title"><span class="icon">${s.icon}</span>L${s.layer}: ${s.name}</div>
+                        <span class="admin-card-toggle">▼</span>
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Tên lớp</label><input class="form-input" data-arr="campaign.seedingPlan.${i}.name" value="${s.name}"></div>
+                            <div class="form-group"><label class="form-label">Timeline</label><input class="form-input" data-arr="campaign.seedingPlan.${i}.timeline" value="${s.timeline}"></div>
+                            <div class="form-group"><label class="form-label">KPI</label><input class="form-input" data-arr="campaign.seedingPlan.${i}.kpi" value="${s.kpi}"></div>
+                            <div class="form-group"><label class="form-label">Mục tiêu</label><input class="form-input" data-arr="campaign.seedingPlan.${i}.goal" value="${s.goal}"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        const fn = document.getElementById('funnelRows');
+        if (fn && c.campaignFunnel) {
+            fn.innerHTML = c.campaignFunnel.map((f, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${f.phase}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:1fr 1fr 2fr 1fr">
+                        <div class="form-group"><label class="form-label">Tên</label><input class="form-input" data-arr="campaign.campaignFunnel.${i}.name" value="${f.name}"></div>
+                        <div class="form-group"><label class="form-label">Timeline</label><input class="form-input" data-arr="campaign.campaignFunnel.${i}.timeline" value="${f.timeline}"></div>
+                        <div class="form-group"><label class="form-label">Mô tả</label><input class="form-input" data-arr="campaign.campaignFunnel.${i}.desc" value="${f.desc}"></div>
+                        <div class="form-group"><label class="form-label">KPI</label><input class="form-input" data-arr="campaign.campaignFunnel.${i}.kpi" value="${f.kpi}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // ── EVALUATION ──
+    function renderEvaluation() {
+        const ev = data.evaluation;
+        if (!ev) return;
+        // SWOT
+        const swot = document.getElementById('swotEditor');
+        if (swot && ev.swot) {
+            const labels = {strengths:'💪 Strengths',weaknesses:'⚡ Weaknesses',opportunities:'🚀 Opportunities',threats:'🔥 Threats'};
+            swot.innerHTML = Object.entries(labels).map(([key, label]) => `
+                <div style="margin-bottom:16px">
+                    <div style="font-weight:700;margin-bottom:8px;color:var(--rose)">${label}</div>
+                    ${(ev.swot[key]||[]).map((item, j) => '<div class="edit-row" style="padding:6px 0;margin-bottom:4px"><input class="form-input" data-arr="evaluation.swot.' + key + '.' + j + '" value="' + item + '"></div>').join('')}
+                </div>
+            `).join('');
+        }
+        // Effectiveness
+        const eff = document.getElementById('effectivenessRows');
+        if (eff && ev.effectiveness) {
+            eff.innerHTML = ev.effectiveness.map((e, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:1.5fr 0.5fr 2fr">
+                        <div class="form-group"><label class="form-label">Hạng mục</label><input class="form-input" data-arr="evaluation.effectiveness.${i}.aspect" value="${e.aspect}"></div>
+                        <div class="form-group"><label class="form-label">Điểm</label><input class="form-input" data-arr="evaluation.effectiveness.${i}.score" value="${e.score}"></div>
+                        <div class="form-group"><label class="form-label">Nhận xét</label><input class="form-input" data-arr="evaluation.effectiveness.${i}.note" value="${e.note}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Risks
+        const risks = document.getElementById('riskRows');
+        if (risks && ev.risks) {
+            risks.innerHTML = ev.risks.map((r, i) => `
+                <div class="edit-row">
+                    <div class="edit-row-num">${i+1}</div>
+                    <div class="edit-row-fields" style="grid-template-columns:1.5fr 0.5fr 2fr">
+                        <div class="form-group"><label class="form-label">Rủi ro</label><input class="form-input" data-arr="evaluation.risks.${i}.risk" value="${r.risk}"></div>
+                        <div class="form-group"><label class="form-label">Xác suất</label><input class="form-input" data-arr="evaluation.risks.${i}.prob" value="${r.prob}"></div>
+                        <div class="form-group"><label class="form-label">Giải pháp</label><input class="form-input" data-arr="evaluation.risks.${i}.solution" value="${r.solution}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // HAPAS Lessons
+        const lessons = document.getElementById('hapasLessonsEditor');
+        if (lessons && ev.hapasLessons) {
+            lessons.innerHTML = ev.hapasLessons.map((l, i) => `
+                <div class="edit-row" style="padding:6px 0;margin-bottom:4px">
+                    <div class="edit-row-num">${i+1}</div>
+                    <input class="form-input" data-arr="evaluation.hapasLessons.${i}" value="${l}" style="flex:1">
+                </div>
+            `).join('');
+        }
     }
 
     // ── INIT ──

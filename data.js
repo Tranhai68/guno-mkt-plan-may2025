@@ -103,25 +103,59 @@ const DEFAULT_DATA = {
       {phase:'Sustain',msg:'Mỗi nhà một GU — Mọi nhà chọn GUNO'}
     ],
     giftProgram: {
-      sets: 200, costPerSet: 200000, packagingPerSet: 30000,
-      totalSetCost: 46000000,
-      note: '200 set đồ Guno (COGS 200K/bộ) + hộp + thiệp = ~46M'
+      sets: 200, costPerSet: 130000, packagingPerSet: 0,
+      totalSetCost: 26000000,
+      note: '200 combo 2 áo phông Guno basic (COGS 65K/chiếc x 2) = ~26M'
     },
     voucherProgram: {
       total: 1000, types: '50K - 100K', channel: 'Chỉ áp dụng Facebook', validity: '30 ngày',
-      maxCost: 75000000,
-      note: '1.000 voucher (50K-100K) chỉ dùng trên FB, hết hạn 30 ngày'
+      maxCost: 19500000,
+      note: '600 voucher 50K (đổi 25%=7.5M) + 400 voucher 100K (đổi 30%=12M) = ~19.5M'
     },
     allocation: [
-      {name:'TVC Billboard + Production',budget:250000000},
-      {name:'Haidilao Partnership (decor, booth, logistics)',budget:120000000},
-      {name:'Gift Program — 200 set đồ + hộp + thiệp',budget:46000000},
-      {name:'Voucher FB (1.000 voucher 50K-100K)',budget:75000000},
-      {name:'KOL PR (không tính Ngọc Trinh/Phạm Thoại)',budget:200000000},
-      {name:'#GunoFamilyChallenge + UGC',budget:150000000},
-      {name:'PR & Media (báo chí)',budget:80000000},
-      {name:'Dự phòng',budget:79000000}
-    ]
+      {name:'TVC + Billboard (2 tuần, 4 vị trí)',budget:400000000},
+      {name:'Haidilao Activation (decor + quà + PG + voucher)',budget:132400000},
+      {name:'CGV Partnership (standee + tent card + voucher)',budget:4600000},
+      {name:'KOL/KOC PR (3-5 KOL + 20-30 KOC)',budget:70000000},
+      {name:'Seeding & PR báo chí',budget:30000000},
+      {name:'Vận hành & Dự phòng',budget:69000000}
+    ],
+    costBreakdown: {
+      haidilao: {
+        decor: [
+          {name:'Backdrop Guno Family Corner (2x3m)',qty:5,unit:'bộ',unitCost:3000000,total:15000000},
+          {name:'Tent card quảng cáo trên bàn (20 cái/CS)',qty:5,unit:'set',unitCost:500000,total:2500000},
+          {name:'Charm Guno gài áo (vải/gỗ nhỏ)',qty:1600,unit:'cái',unitCost:8000,total:12800000},
+          {name:'Standee lobby (80x180cm)',qty:5,unit:'cái',unitCost:300000,total:1500000},
+          {name:'Props chụp ảnh (bảng chữ, hoa, khung)',qty:5,unit:'bộ',unitCost:1000000,total:5000000},
+          {name:'Vận chuyển + lắp đặt + tháo dỡ (2 miền)',qty:2,unit:'chuyến',unitCost:3000000,total:6000000}
+        ],
+        decorTotal: 42800000,
+        gifts: [
+          {name:'Combo 2 áo phông Guno (tier UGC)',qty:200,unitCost:130000,total:26000000},
+          {name:'Charm Guno (tier Bill 800K+)',qty:300,unitCost:8000,total:2400000},
+          {name:'1 áo phông Guno (tier Bill 1.2M+)',qty:100,unitCost:65000,total:6500000}
+        ],
+        giftsTotal: 34900000,
+        voucher: [
+          {name:'Voucher 50K (600 phát, đổi 25%=150)',redeemed:150,cost:50000,total:7500000},
+          {name:'Voucher 100K (400 phát, đổi 30%=120)',redeemed:120,cost:100000,total:12000000}
+        ],
+        voucherTotal: 19500000,
+        staff: [
+          {name:'PG hỗ trợ tại Haidilao (1 PG/CS)',qty:5,days:11,dailyCost:400000,total:22000000},
+          {name:'Supervisor (1 người/miền)',qty:2,days:11,dailyCost:600000,total:13200000}
+        ],
+        staffTotal: 35200000,
+        grandTotal: 132400000
+      },
+      cgv: {total:4600000},
+      tvc: {total:400000000},
+      kol: {total:70000000},
+      seeding: {total:30000000},
+      operations: {total:69000000},
+      campaignTotal: 706000000
+    }
   },
   campaign: {
     name:'GUNO — VỊ NHÀ', bst:'Guno Family',
@@ -159,11 +193,11 @@ const DEFAULT_DATA = {
       tiers:[
         {tier:'🎟️ Mọi khách đọc mật ngữ',condition:'Đọc mật ngữ',gift:'Voucher 50K mua tại FB Guno (30 ngày)',qty:600,cost:50000,purpose:'Kéo traffic ngược về Guno'},
         {tier:'📸 Check-in + Đăng bài',condition:'Đọc + Check-in Facebook/Instagram',gift:'Voucher 100K mua tại FB Guno (30 ngày)',qty:400,cost:100000,purpose:'Tăng UGC + kéo traffic'},
-        {tier:'🎬 Quay video TikTok',condition:'Quay video TikTok tag @guno + mật ngữ',gift:'1 set đồ Guno Family (COGS 200K + hộp + thiệp)',qty:200,cost:230000,purpose:'UGC chất lượng cao, viral'},
-        {tier:'💳 Bill từ 800K+',condition:'Hóa đơn Haidilao ≥ 800K',gift:'Charm Guno ngẫu nhiên',qty:300,cost:30000,purpose:'Kích tăng bill'},
-        {tier:'🎁 Bill từ 1.2M+',condition:'Hóa đơn Haidilao ≥ 1.200K',gift:'Guno Family Box mini (1 áo)',qty:100,cost:150000,purpose:'Trải nghiệm sản phẩm thật'}
+        {tier:'🎬 Quay video TikTok',condition:'Quay video TikTok tag @guno + mật ngữ',gift:'Combo 2 áo phông Guno basic (COGS 65K x 2)',qty:200,cost:130000,purpose:'UGC chất lượng cao, viral'},
+        {tier:'💳 Bill từ 800K+',condition:'Hóa đơn Haidilao ≥ 800K',gift:'Charm Guno ngẫu nhiên',qty:300,cost:8000,purpose:'Kích tăng bill'},
+        {tier:'🎁 Bill từ 1.2M+',condition:'Hóa đơn Haidilao ≥ 1.200K',gift:'1 áo phông Guno basic (COGS 65K)',qty:100,cost:65000,purpose:'Trải nghiệm sản phẩm thật'}
       ],
-      totalGifts:1600, budget:150000000,
+      totalGifts:1600, budget:132400000,
       voucherTracking:{
         format:'Mã riêng theo điểm: GN-[MÃ CS]-[MỨC] (VD: GN-BT-50, GN-TC-100)',
         qr:'QR trên voucher → landing page /haidilao → tracking source chính xác',

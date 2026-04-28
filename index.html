@@ -9,34 +9,34 @@
     <script src="data.js"></script>
     <style>
         :root {
-            --bg: #0a0a0e;
-            --bg2: #111116;
-            --bg3: #18181f;
-            --bg4: #1f1f2a;
-            --border: rgba(255,255,255,0.05);
-            --border-h: rgba(200,160,120,0.15);
-            --txt: #f0ebe4;
-            --txt2: #a89e92;
-            --txt3: #6b6258;
-            --rose: #c4956a;
-            --rose-light: #e8c9a8;
-            --gold: #d4af37;
-            --violet: #9775fa;
-            --crimson: #ff3b5c;
-            --emerald: #34d399;
-            --blue: #60a5fa;
-            --cyan: #22d3ee;
-            --pink: #f472b6;
-            --orange: #fb923c;
-            --tiktok: #ff3b5c;
-            --shopee: #ee4d2d;
-            --facebook: #4a90d9;
-            --grad-hero: linear-gradient(160deg, #0a0a0e 0%, #1a1020 40%, #0f1a2a 100%);
-            --grad-gold: linear-gradient(135deg, #c4956a, #d4af37);
-            --grad-cool: linear-gradient(135deg, #667eea, #764ba2);
+            --bg: #ffffff;
+            --bg2: #f8f8f8;
+            --bg3: #f0f0f0;
+            --bg4: #e8e8e8;
+            --border: rgba(0,0,0,0.08);
+            --border-h: rgba(0,0,0,0.15);
+            --txt: #1a1a1a;
+            --txt2: #555555;
+            --txt3: #888888;
+            --rose: #333333;
+            --rose-light: #666666;
+            --gold: #333333;
+            --violet: #555555;
+            --crimson: #cc3333;
+            --emerald: #228B22;
+            --blue: #2a6cb6;
+            --cyan: #1a8a8a;
+            --pink: #cc3366;
+            --orange: #cc6600;
+            --tiktok: #333333;
+            --shopee: #cc4400;
+            --facebook: #3b6ea5;
+            --grad-hero: linear-gradient(160deg, #f5f5f5 0%, #eee 40%, #f0f0f0 100%);
+            --grad-gold: linear-gradient(135deg, #333, #555);
+            --grad-cool: linear-gradient(135deg, #555, #777);
             --radius: 16px;
             --radius-sm: 10px;
-            --shadow: 0 20px 60px rgba(0,0,0,0.4);
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior:smooth; }
@@ -47,12 +47,12 @@
         }
         ::-webkit-scrollbar { width:5px; }
         ::-webkit-scrollbar-track { background:var(--bg); }
-        ::-webkit-scrollbar-thumb { background:var(--rose); border-radius:3px; }
+        ::-webkit-scrollbar-thumb { background:#bbb; border-radius:3px; }
 
         /* ── NAV ── */
         .nav {
             position:fixed; top:0; left:0; right:0; z-index:1000;
-            background:rgba(10,10,14,0.88); backdrop-filter:blur(24px) saturate(1.5);
+            background:rgba(255,255,255,0.92); backdrop-filter:blur(24px);
             border-bottom:1px solid var(--border);
         }
         .nav-inner {
@@ -73,15 +73,15 @@
             transition:all 0.25s; border:none; background:none;
         }
         .nav-link:hover { color:var(--txt2); }
-        .nav-link.active { color:var(--rose); background:rgba(196,149,106,0.08); }
+        .nav-link.active { color:#1a1a1a; background:rgba(0,0,0,0.06); font-weight:700; }
         .nav-admin {
             font-size:11px; padding:6px 14px; border-radius:8px;
-            background:rgba(196,149,106,0.1); color:var(--rose);
-            border:1px solid rgba(196,149,106,0.2);
+            background:rgba(0,0,0,0.04); color:#333;
+            border:1px solid rgba(0,0,0,0.1);
             text-decoration:none; font-weight:600;
             transition:all 0.2s;
         }
-        .nav-admin:hover { background:rgba(196,149,106,0.2); }
+        .nav-admin:hover { background:rgba(0,0,0,0.08); }
 
         /* ── LAYOUT ── */
         .main { max-width:1360px; margin:0 auto; padding:76px 36px 60px; }
@@ -101,13 +101,13 @@
         .hero::before {
             content:''; position:absolute; top:-30%; right:-15%;
             width:500px; height:500px;
-            background:radial-gradient(circle, rgba(196,149,106,0.08), transparent 70%);
+            background:radial-gradient(circle, rgba(0,0,0,0.02), transparent 70%);
             border-radius:50%; animation:float 8s ease-in-out infinite;
         }
         .hero::after {
             content:''; position:absolute; bottom:-40%; left:10%;
             width:400px; height:400px;
-            background:radial-gradient(circle, rgba(151,117,250,0.05), transparent 70%);
+            background:radial-gradient(circle, rgba(0,0,0,0.01), transparent 70%);
             border-radius:50%;
         }
         .hero-eyebrow {
@@ -136,7 +136,7 @@
             display:flex; gap:16px; flex-wrap:wrap; position:relative; z-index:1;
         }
         .hero-metric {
-            background:rgba(255,255,255,0.03); border:1px solid var(--border);
+            background:rgba(0,0,0,0.02); border:1px solid var(--border);
             padding:20px 28px; border-radius:14px;
             backdrop-filter:blur(10px);
             min-width:140px;
@@ -173,7 +173,7 @@
         }
         .ch-val { font-family:'Space Grotesk'; font-size:36px; font-weight:800; margin:12px 0 4px; }
         .ch-sub { font-size:12px; color:var(--txt3); }
-        .ch-bar { height:4px; border-radius:2px; background:rgba(255,255,255,0.04); margin-top:16px; overflow:hidden; }
+        .ch-bar { height:4px; border-radius:2px; background:rgba(0,0,0,0.06); margin-top:16px; overflow:hidden; }
         .ch-bar-fill { height:100%; border-radius:2px; transition:width 1.5s ease; }
 
         /* ── TABS ── */
@@ -186,7 +186,7 @@
             cursor:pointer; color:var(--txt3); transition:all 0.2s;
             border:none; background:none;
         }
-        .tab.active { background:var(--rose); color:#0a0a0e; }
+        .tab.active { background:#333; color:#fff; }
         .tab:hover:not(.active) { color:var(--txt2); }
         .tab-c { display:none; animation:fadeSlide 0.3s; }
         .tab-c.active { display:block; }
@@ -205,13 +205,13 @@
         table { width:100%; border-collapse:collapse; font-size:12.5px; }
         th {
             text-align:left; padding:10px 16px;
-            background:rgba(196,149,106,0.04);
+            background:rgba(0,0,0,0.02);
             font-weight:600; font-size:10px; text-transform:uppercase; letter-spacing:0.8px;
             color:var(--txt3); border-bottom:1px solid var(--border);
         }
         td { padding:11px 16px; border-bottom:1px solid var(--border); color:var(--txt2); }
         tr:last-child td { border:none; }
-        tr:hover td { background:rgba(255,255,255,0.015); }
+        tr:hover td { background:rgba(0,0,0,0.02); }
         .num { font-family:'Space Grotesk'; font-weight:600; color:var(--txt); }
         .hi { color:var(--emerald); font-weight:600; }
 
@@ -224,9 +224,9 @@
         .tl-item { position:relative; padding-left:56px; margin-bottom:36px; }
         .tl-dot {
             position:absolute; left:13px; top:4px; width:16px; height:16px;
-            border-radius:50%; border:2px solid var(--rose); background:var(--bg);
+            border-radius:50%; border:2px solid #333; background:#fff;
         }
-        .tl-item.at .tl-dot { background:var(--rose); box-shadow:0 0 12px rgba(196,149,106,0.4); }
+        .tl-item.at .tl-dot { background:#333; box-shadow:0 0 8px rgba(0,0,0,0.15); }
         .tl-date { font-size:10px; color:var(--rose); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
         .tl-title { font-size:17px; font-weight:700; margin-bottom:6px; font-family:'Space Grotesk'; }
         .tl-desc { color:var(--txt2); font-size:13px; margin-bottom:12px; }
@@ -234,7 +234,7 @@
         .tag {
             display:inline-flex; align-items:center; gap:4px;
             padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600;
-            background:rgba(255,255,255,0.03); border:1px solid var(--border);
+            background:rgba(0,0,0,0.03); border:1px solid var(--border);
         }
         .tag strong { font-family:'Space Grotesk'; }
 
@@ -252,7 +252,7 @@
             width:36px; height:36px; border-radius:10px;
             display:flex; align-items:center; justify-content:center;
             font-family:'Space Grotesk'; font-weight:800; font-size:14px;
-            background:var(--rose); color:#0a0a0e; flex-shrink:0;
+            background:#333; color:#fff; flex-shrink:0;
         }
         .prog-info { flex:1; }
         .prog-info h3 { font-size:14px; font-weight:700; }
@@ -290,7 +290,7 @@
         .dept.open .dept-body { display:block; animation:fadeSlide 0.3s; }
 
         /* ── P&L ── */
-        .pl-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); align-items:center; }
+        .pl-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.05); align-items:center; }
         .pl-row:last-child { border:none; }
         .pl-row.hdr { font-weight:700; font-size:14px; padding:14px 0; color:var(--txt); }
         .pl-row.sub { padding-left:20px; font-size:13px; }
@@ -314,7 +314,7 @@
         /* ── PROGRESS ── */
         .prog-bar-group { margin-bottom:14px; }
         .prog-bar-head { display:flex; justify-content:space-between; margin-bottom:5px; font-size:12px; }
-        .prog-bar { height:6px; background:rgba(255,255,255,0.04); border-radius:3px; overflow:hidden; }
+        .prog-bar { height:6px; background:rgba(0,0,0,0.06); border-radius:3px; overflow:hidden; }
         .prog-bar-fill { height:100%; border-radius:3px; transition:width 1.5s ease; }
 
         /* ── ALERTS ── */
@@ -322,10 +322,10 @@
             padding:18px 22px; border-radius:var(--radius-sm);
             margin-bottom:20px; border-left:3px solid; font-size:13px;
         }
-        .alert-rose { background:rgba(196,149,106,0.06); border-color:var(--rose); }
-        .alert-red { background:rgba(255,59,92,0.06); border-color:var(--crimson); }
-        .alert-green { background:rgba(52,211,153,0.06); border-color:var(--emerald); }
-        .alert-blue { background:rgba(96,165,250,0.06); border-color:var(--blue); }
+        .alert-rose { background:rgba(0,0,0,0.02); border-color:#333; }
+        .alert-red { background:rgba(204,51,51,0.04); border-color:var(--crimson); }
+        .alert-green { background:rgba(34,139,34,0.04); border-color:var(--emerald); }
+        .alert-blue { background:rgba(42,108,182,0.04); border-color:var(--blue); }
         .alert-title { font-weight:700; margin-bottom:4px; font-size:13px; }
 
         /* ── DONUT ── */
@@ -359,7 +359,7 @@
             .mobile-btn { display:block; }
             .nav-links.open {
                 display:flex; flex-direction:column; position:absolute;
-                top:60px; left:0; right:0; background:var(--bg2);
+                top:60px; left:0; right:0; background:#fff;
                 padding:16px; border-bottom:1px solid var(--border);
             }
         }
@@ -372,7 +372,7 @@
             <button class="mobile-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
             <div class="nav-links" id="navLinks"></div>
             <div style="display:flex;gap:4px">
-                <a href="tracker.html" class="nav-admin" style="background:rgba(151,117,250,0.1);color:var(--violet);border-color:rgba(151,117,250,0.2)">📈 Tracker</a>
+                <a href="tracker.html" class="nav-admin">📈 Tracker</a>
                 <a href="admin.html" class="nav-admin">⚙ Admin</a>
             </div>
         </div>
@@ -381,9 +381,8 @@
     <main class="main" id="app"></main>
 
     <script>
-    // Force clear any stale cached data
+    // Clean up legacy key only (v3 is current, keep it)
     localStorage.removeItem('guno_mkt_plan_v2');
-    localStorage.removeItem('guno_mkt_plan_v3');
     const D = getData();
 
     const sections = [
@@ -395,6 +394,7 @@
         { id:'programs', label:'Chương trình' },
         { id:'tasks', label:'Phân công' },
         { id:'budget', label:'Ngân sách' },
+        { id:'costs', label:'Chi phí' },
         { id:'pnl', label:'P&L' },
         { id:'kpi', label:'KPIs' },
         { id:'evaluation', label:'Đánh giá' }
@@ -872,6 +872,85 @@
                     `).join('')}
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- DỰ TRÙ CHI PHÍ -->
+    <div class="section" id="costs">
+        <div class="sec-head"><div class="sec-head-line"></div><h2>Dự trù chi phí chiến dịch</h2><p>Chi tiết theo hạng mục — Tổng: ${formatVND(D.branding.costBreakdown ? D.branding.costBreakdown.campaignTotal : 706000000)}</p></div>
+
+        <div class="alert alert-rose" style="margin-bottom:24px">
+            <div class="alert-title">💡 Tối ưu chi phí</div>
+            Quà tặng Haidilao đã đổi từ "set đồ Guno Family" (COGS 230K/bộ) → <strong>Combo 2 áo phông Guno basic</strong> (COGS 130K) — tiết kiệm ~28.5M. Áo phông = billboard miễn phí khi khách mặc đi đường.
+        </div>
+
+        ${(() => {
+            const cb = D.branding.costBreakdown || {};
+            const h = cb.haidilao || {};
+            const summary = [
+                {name:'Haidilao Activation',detail:'Decor + Quà + PG + Voucher',cost:h.grandTotal||132400000,pct:18.8},
+                {name:'CGV Partnership',detail:'Standee + Tent card + Voucher',cost:(cb.cgv||{}).total||4600000,pct:0.7},
+                {name:'TVC + Billboard',detail:'Production + 4 vị trí HN/HCM (2 tuần)',cost:(cb.tvc||{}).total||400000000,pct:56.7},
+                {name:'KOL / KOC',detail:'3-5 KOL + 20-30 KOC affiliate',cost:(cb.kol||{}).total||70000000,pct:9.9},
+                {name:'Seeding & PR',detail:'Community + Báo chí + UGC prize',cost:(cb.seeding||{}).total||30000000,pct:4.3},
+                {name:'Vận hành & Dự phòng',detail:'In ấn + Vận chuyển + Gift program + 5%',cost:(cb.operations||{}).total||69000000,pct:9.8}
+            ];
+            const total = cb.campaignTotal || 706000000;
+            return `
+        <div class="tbl-wrap">
+            <div class="tbl-title">📊 Tổng hợp chi phí campaign</div>
+            <table>
+                <thead><tr><th>#</th><th>Hạng mục</th><th>Chi tiết</th><th>Chi phí</th><th>%</th></tr></thead>
+                <tbody>
+                    ${summary.map((s,i) => `<tr><td class="num">${i+1}</td><td style="font-weight:600">${s.name}</td><td style="color:var(--txt2)">${s.detail}</td><td class="num">${formatVND(s.cost)}</td><td class="num">${s.pct}%</td></tr>`).join('')}
+                    <tr style="border-top:2px solid var(--border)"><td></td><td style="font-weight:800">TỔNG CAMPAIGN</td><td></td><td class="num" style="font-weight:800;font-size:16px">${formatVND(total)}</td><td class="num" style="font-weight:800">100%</td></tr>
+                </tbody>
+            </table>
+        </div>`;
+        })()}
+
+        <h3 style="font-family:'Space Grotesk';font-size:16px;margin:32px 0 16px">🍲 Chi tiết Haidilao Activation — ${formatVND((D.branding.costBreakdown||{}).haidilao?.grandTotal||132400000)}</h3>
+        <div class="g2">
+            ${(() => {
+                const h = (D.branding.costBreakdown||{}).haidilao||{};
+                const decor = h.decor || [];
+                const gifts = h.gifts || [];
+                const voucher = h.voucher || [];
+                const staff = h.staff || [];
+                return `
+            <div class="tbl-wrap" style="margin:0">
+                <div class="tbl-title">🎨 Decor & Setup — ${formatVND(h.decorTotal||42800000)}</div>
+                <table>
+                    <thead><tr><th>Hạng mục</th><th>SL</th><th>ĐVT</th><th>Đơn giá</th><th>Thành tiền</th></tr></thead>
+                    <tbody>${decor.map(d => `<tr><td>${d.name}</td><td class="num">${d.qty}</td><td>${d.unit}</td><td class="num">${formatVND(d.unitCost)}</td><td class="num">${formatVND(d.total)}</td></tr>`).join('')}
+                    <tr style="font-weight:700"><td colspan="4">Subtotal</td><td class="num">${formatVND(h.decorTotal||42800000)}</td></tr></tbody>
+                </table>
+            </div>
+            <div class="tbl-wrap" style="margin:0">
+                <div class="tbl-title">🎁 Quà tặng — ${formatVND(h.giftsTotal||34900000)}</div>
+                <table>
+                    <thead><tr><th>Quà</th><th>SL</th><th>COGS</th><th>Thành tiền</th></tr></thead>
+                    <tbody>${gifts.map(g => `<tr><td>${g.name}</td><td class="num">${g.qty}</td><td class="num">${formatVND(g.unitCost)}</td><td class="num">${formatVND(g.total)}</td></tr>`).join('')}
+                    <tr style="font-weight:700"><td colspan="3">Subtotal</td><td class="num">${formatVND(h.giftsTotal||34900000)}</td></tr></tbody>
+                </table>
+            </div>
+            <div class="tbl-wrap" style="margin:0">
+                <div class="tbl-title">🎟️ Voucher Liability — ${formatVND(h.voucherTotal||19500000)}</div>
+                <table>
+                    <thead><tr><th>Loại</th><th>SL đổi</th><th>Giá trị</th><th>Chi phí thực</th></tr></thead>
+                    <tbody>${voucher.map(v => `<tr><td>${v.name}</td><td class="num">${v.redeemed}</td><td class="num">${formatVND(v.cost)}</td><td class="num">${formatVND(v.total)}</td></tr>`).join('')}
+                    <tr style="font-weight:700"><td colspan="3">Subtotal</td><td class="num">${formatVND(h.voucherTotal||19500000)}</td></tr></tbody>
+                </table>
+            </div>
+            <div class="tbl-wrap" style="margin:0">
+                <div class="tbl-title">👥 Nhân sự PG — ${formatVND(h.staffTotal||35200000)}</div>
+                <table>
+                    <thead><tr><th>Vị trí</th><th>SL</th><th>Ngày</th><th>Đơn giá/ngày</th><th>Thành tiền</th></tr></thead>
+                    <tbody>${staff.map(s => `<tr><td>${s.name}</td><td class="num">${s.qty}</td><td class="num">${s.days}</td><td class="num">${formatVND(s.dailyCost)}</td><td class="num">${formatVND(s.total)}</td></tr>`).join('')}
+                    <tr style="font-weight:700"><td colspan="4">Subtotal</td><td class="num">${formatVND(h.staffTotal||35200000)}</td></tr></tbody>
+                </table>
+            </div>`;
+            })()}
         </div>
     </div>
 

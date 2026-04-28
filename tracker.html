@@ -311,10 +311,11 @@
     }
 
     function renderOverview() {
-        const keyMetrics = ['sales_revenue_total','sales_orders','live_gmv','cust_new','cust_close_rate','content_video_tiktok'];
+        const keyMetrics = ['sales_revenue_total','sales_orders','live_gmv','cust_new','ugc_videos','content_video_tiktok'];
         const el = document.getElementById('overviewCards');
         el.innerHTML = keyMetrics.map(id => {
             const m = TRACKER_METRICS.find(x => x.id === id);
+            if (!m) return '';
             const val = currentDayData[id] || 0;
             const pct = m.isRate ? (val / m.dailyTarget * 100) : (val / m.dailyTarget * 100);
             const pctClamped = Math.min(pct, 100);
