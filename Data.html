@@ -1,5 +1,5 @@
 <script>
-const GAS_BOOTSTRAP_DATA = <?!= gasBootstrapData ?>;
+const GAS_BOOTSTRAP_DATA = (function() { try { return <?!= gasBootstrapData ?>; } catch(e) { return null; } })();
 // GUNO MKT PLAN - FAMILY CONTENT SYSTEM - MAY 2026
 const DATA_KEY = 'guno_mkt_plan_family_v4';
 
@@ -595,7 +595,10 @@ const DEFAULT_DATA = {
 function getData() {
   try {
     const saved = localStorage.getItem(DATA_KEY);
-    if (saved) return JSON.parse(saved);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.meta) return parsed;
+    }
   } catch (e) {}
   return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
@@ -718,7 +721,7 @@ function getDaysInRange(start, end) {
 }
 
 try {
-  if (GAS_BOOTSTRAP_DATA && typeof DATA_KEY !== 'undefined') {
+  if (GAS_BOOTSTRAP_DATA && GAS_BOOTSTRAP_DATA.meta && typeof DATA_KEY !== 'undefined') {
     localStorage.setItem(DATA_KEY, JSON.stringify(GAS_BOOTSTRAP_DATA));
   }
 
