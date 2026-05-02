@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUNO Admin - MKT Plan Gia Đình</title>
+  <?!= include("Data"); ?>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --paper: #f7f8fa;
+      --paper-2: #eef2f7;
+      --ink: #111827;
+      --muted: #5b6472;
+      --soft: #8a94a6;
+      --line: #e5e9f0;
+      --black: #111827;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --green: #15803d;
+      --radius: 8px;
+      --shadow: 0 12px 32px rgba(17,24,39,.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    .brand span { color: var(--red); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn,
+    .actions a,
+    .file-label {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: var(--radius);
+      min-height: 36px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover,
+    .actions a:hover,
+    .file-label:hover { background: var(--paper); }
+    .btn.primary { background: var(--black); color: #fff; border-color: var(--black); }
+    .btn.danger { color: var(--red); }
+    .file-label input { display: none; }
+
+    .layout {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0,1fr);
+      gap: 28px;
+      padding: 24px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 76px;
+      align-self: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .side-head {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-head strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .side-head span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav {
+      padding: 8px;
+      max-height: calc(100vh - 180px);
+      overflow: auto;
+    }
+
+    .nav button {
+      width: 100%;
+      border: 0;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      cursor: pointer;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .nav button:hover { background: var(--paper); color: var(--ink); }
+    .nav button.active { background: var(--black); color: #fff; }
+    .nav small { opacity: .7; font-weight: 800; }
+
+    .content {
+      min-width: 0;
+      padding-bottom: 88px;
+    }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+    }
+
+    .kicker {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 34px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .page-head p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 720px;
+      margin-top: 8px;
+    }
+
+    .status {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      color: var(--muted);
+      background: var(--paper);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status.saved { color: var(--green); background: #f0fdf4; border-color: #bbf7d0; }
+    .status.dirty { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+
+    .editor {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field,
+    .group,
+    .array,
+    .raw-editor {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(17,24,39,.04);
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: minmax(180px, 270px) 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 14px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .field label span {
+      display: block;
+      color: var(--soft);
+      font-size: 11px;
+      font-weight: 650;
+      margin-top: 4px;
+      word-break: break-word;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+      background: #fff;
+    }
+
+    details.group,
+    details.array {
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 850;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary small { color: var(--soft); font-size: 11px; font-weight: 750; }
+
+    .group-body,
+    .array-body {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      background: var(--paper);
+    }
+
+    .array-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .array-item-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .array-item-head span {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .array-item-body {
+      padding: 12px;
+      display: grid;
+      gap: 12px;
+      background: #fff;
+    }
+
+    .mini-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 2px;
+    }
+
+    .mini {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 7px;
+      color: var(--muted);
+      padding: 6px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mini:hover { background: var(--paper); color: var(--ink); }
+    .mini.danger { color: var(--red); }
+
+    .raw-editor {
+      padding: 14px;
+    }
+
+    .raw-editor textarea {
+      min-height: 62vh;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-color: #0f172a;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 30;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      background: var(--black);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 750;
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .2s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; padding: 16px; }
+      .sidebar { position: relative; top: 0; }
+      .nav { max-height: none; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .page-head { display: block; }
+      .status { display: inline-block; margin-top: 12px; }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner { display: block; }
+      .actions { margin-top: 12px; justify-content: flex-start; }
+      .field { grid-template-columns: 1fr; gap: 8px; }
+      h1 { font-size: 28px; }
+      .nav { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span>GUNO</span> ADMIN</div>
+      <div class="actions">
+        <a href="?page=index">Xem plan</a>
+        <a href="?page=tracker">Tracker</a>
+        <button class="btn" id="exportBtn">Export JSON</button>
+        <label class="file-label">Import JSON <input type="file" id="importInput" accept="application/json"></label>
+        <button class="btn danger" id="resetBtn">Reset mặc định</button>
+        <button class="btn primary" id="saveBtn">Lưu tất cả</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-head">
+        <strong>Editor toàn bộ plan</strong>
+        <span>Sửa trực tiếp mọi dữ liệu hiển thị trên trang chính.</span>
+      </div>
+      <nav class="nav" id="sectionNav"></nav>
+    </aside>
+
+    <main class="content">
+      <div class="page-head">
+        <div>
+          <div class="kicker" id="pageKicker">GUNO</div>
+          <h1 id="pageTitle">Admin</h1>
+          <p id="pageDesc">Chọn một mục bên trái để chỉnh nội dung.</p>
+        </div>
+        <div class="status" id="status">Chưa có thay đổi</div>
+      </div>
+      <section class="editor" id="editor"></section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let data = getData();
+    let currentSection = 'meta';
+    let hasChanges = false;
+    let saveTimer = null;
+
+    const sections = [
+      ['meta', 'Thông tin chung', 'Tên plan, tagline, đối tượng, ghi chú live được duyệt'],
+      ['targets', 'Mục tiêu', 'Doanh thu, đơn hàng, budget, KPI tổng'],
+      ['channels', 'Kênh bán', 'TikTok, Shopee, Facebook và cấu trúc doanh thu'],
+      ['phases', 'Timeline', 'Các phase vận hành tháng 5'],
+      ['programs', 'MegaLive', 'Chỉ gồm 2 live Phạm Thoại và Ngọc Trinh'],
+      ['contentStrategy', 'Content drama', 'Pillar, series, ideas và lịch nội dung'],
+      ['creatorPlan', 'Creator/KOL', 'Book creator, KOL, diễn viên, KOC'],
+      ['branding', 'Branding', 'Thông điệp, allocation, sub-message'],
+      ['campaign', 'TVC & campaign', 'TVC digital, funnel, live detail, UGC'],
+      ['charityPlan', 'Thiện nguyện T6', 'Đối tác, địa bàn, timeline chuẩn bị'],
+      ['taskAssignment', 'Bộ phận', 'Phân công Leader, Content, Media, PR, v.v.'],
+      ['kpis', 'KPIs', 'Bộ chỉ số theo dõi trọng yếu'],
+      ['weeklyBudget', 'Budget tuần', 'Ngân sách và target từng tuần'],
+      ['tracking', 'Tracking', 'Cadence, dashboard và rule ra quyết định'],
+      ['pnl', 'P&L', 'Lãi lỗ dự kiến'],
+      ['evaluation', 'Đánh giá', 'SWOT, risk, lessons, verdict'],
+      ['rawJson', 'JSON nâng cao', 'Dành cho sửa nhanh toàn bộ cấu trúc']
+    ];
+
+    const labelMap = {
+      brandName: 'Tên thương hiệu',
+      planTitle: 'Tiêu đề plan',
+      planSubtitle: 'Phụ đề plan',
+      month: 'Tháng',
+      campaignName: 'Tên chiến dịch',
+      campaignTheme: 'Chủ đề',
+      tagline: 'Tagline',
+      motto: 'Motto',
+      brandSlogan: 'Slogan',
+      targetAudience: 'Đối tượng mục tiêu',
+      strategicShift: 'Định hướng thay đổi',
+      approvedLiveNote: 'Ghi chú live được duyệt',
+      totalRevenue: 'Doanh thu mục tiêu',
+      totalOrders: 'Tổng đơn hàng',
+      totalBudget: 'Tổng budget',
+      paidMediaBudget: 'Budget paid media',
+      creatorBudget: 'Budget creator',
+      productionBudget: 'Budget production',
+      prCsrBudget: 'Budget PR/CSR',
+      contingencyBudget: 'Dự phòng',
+      roasTarget: 'ROAS mục tiêu',
+      cpoTarget: 'CPO mục tiêu',
+      contentOutput: 'Tổng output content',
+      dramaSeriesEpisodes: 'Số tập drama',
+      creatorCount: 'Số creator',
+      charityPartnerShortlist: 'Shortlist thiện nguyện',
+      revenue: 'Doanh thu',
+      budget: 'Ngân sách',
+      adsBudget: 'Ads budget',
+      costNote: 'Ghi chú chi phí',
+      desc: 'Mô tả',
+      mechanism: 'Cơ chế',
+      eval: 'Đánh giá',
+      kpi: 'KPI',
+      objective: 'Mục tiêu',
+      objectives: 'Các mục tiêu',
+      purpose: 'Mục đích',
+      source: 'Nguồn',
+      owner: 'Người phụ trách',
+      output: 'Đầu ra',
+      task: 'Việc cần làm',
+      name: 'Tên',
+      role: 'Vai trò',
+      position: 'Vị trí',
+      date: 'Ngày',
+      deadline: 'Deadline',
+      status: 'Trạng thái',
+      category: 'Nhóm',
+      target: 'Target',
+      unit: 'Đơn vị',
+      note: 'Ghi chú',
+      verdict: 'Kết luận',
+      risks: 'Rủi ro',
+      lessons: 'Bài học',
+      strengths: 'Strengths',
+      weaknesses: 'Weaknesses',
+      opportunities: 'Opportunities',
+      threats: 'Threats'
+    };
+
+    const nav = document.getElementById('sectionNav');
+    const editor = document.getElementById('editor');
+    const statusEl = document.getElementById('status');
+    const pageKicker = document.getElementById('pageKicker');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageDesc = document.getElementById('pageDesc');
+
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const isObject = value => value && typeof value === 'object' && !Array.isArray(value);
+    const getType = value => Array.isArray(value) ? 'array' : value === null ? 'null' : typeof value;
+
+    function labelFor(key) {
+      if (labelMap[key]) return labelMap[key];
+      return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function pathJoin(base, key) {
+      return base ? base + '.' + key : String(key);
+    }
+
+    function getByPath(path) {
+      if (!path) return data;
+      return path.split('.').reduce((obj, key) => obj && obj[key], data);
+    }
+
+    function setByPath(path, value) {
+      const keys = path.split('.');
+      const last = keys.pop();
+      const target = keys.reduce((obj, key) => obj[key], data);
+      target[last] = value;
+    }
+
+    function emptyClone(sample) {
+      if (Array.isArray(sample)) return [];
+      if (isObject(sample)) {
+        const result = {};
+        Object.entries(sample).forEach(([key, value]) => { result[key] = emptyClone(value); });
+        return result;
+      }
+      if (typeof sample === 'number') return 0;
+      if (typeof sample === 'boolean') return false;
+      return '';
+    }
+
+    function previewFor(value, fallback) {
+      if (isObject(value)) {
+        return value.name || value.title || value.position || value.week || value.phase || value.category || value.date || fallback;
+      }
+      if (Array.isArray(value)) return `${value.length} mục`;
+      const text = String(value ?? '');
+      return text.length > 48 ? text.slice(0, 48) + '...' : text || fallback;
+    }
+
+    function renderNav() {
+      nav.innerHTML = sections.map(([id, title]) => {
+        const value = id === 'rawJson' ? null : data[id];
+        const count = Array.isArray(value) ? value.length : isObject(value) ? Object.keys(value).length : '';
+        return `<button class="${id === currentSection ? 'active' : ''}" data-section="${id}"><span>${escapeHtml(title)}</span><small>${escapeHtml(count)}</small></button>`;
+      }).join('');
+    }
+
+    function renderPage() {
+      const info = sections.find(item => item[0] === currentSection) || sections[0];
+      pageKicker.textContent = currentSection === 'rawJson' ? 'Advanced' : 'Editor';
+      pageTitle.textContent = info[1];
+      pageDesc.textContent = info[2];
+      renderNav();
+      if (currentSection === 'rawJson') {
+        renderRawJson();
+        return;
+      }
+      editor.innerHTML = renderValue(data[currentSection], currentSection, currentSection);
+    }
+
+    function renderValue(value, path, keyName) {
+      const type = getType(value);
+      if (type === 'array') return renderArray(value, path, keyName);
+      if (type === 'object') return renderObject(value, path, keyName);
+      return renderField(value, path, keyName);
+    }
+
+    function renderObject(value, path, keyName) {
+      const entries = Object.entries(value);
+      const body = entries.map(([key, item]) => renderValue(item, pathJoin(path, key), key)).join('');
+      if (path === currentSection) return body;
+      return `
+        <details class="group" open>
+          <summary><span>${escapeHtml(labelFor(keyName))}</span><small>${entries.length} trường</small></summary>
+          <div class="group-body">${body}</div>
+        </details>
+      `;
+    }
+
+    function renderArray(value, path, keyName) {
+      const items = value.map((item, index) => `
+        <div class="array-item">
+          <div class="array-item-head">
+            <div>${escapeHtml(labelFor(keyName))} #${index + 1} <span>${escapeHtml(previewFor(item, 'Mục'))}</span></div>
+            <button class="mini danger" data-remove="${escapeHtml(path)}" data-index="${index}">Xóa</button>
+          </div>
+          <div class="array-item-body">${renderValue(item, pathJoin(path, index), String(index))}</div>
+        </div>
+      `).join('');
+
+      return `
+        <details class="array" open>
+          <summary><span>${escapeHtml(labelFor(keyName))}</span><small>${value.length} mục</small></summary>
+          <div class="array-body">
+            ${items || '<div class="small">Chưa có mục nào.</div>'}
+            <div class="mini-actions"><button class="mini" data-add="${escapeHtml(path)}">Thêm mục</button></div>
+          </div>
+        </details>
+      `;
+    }
+
+    function renderField(value, path, keyName) {
+      const type = typeof value;
+      const safePath = escapeHtml(path);
+      const label = escapeHtml(labelFor(keyName));
+      const hint = escapeHtml(path);
+      if (type === 'boolean') {
+        return `
+          <div class="field">
+            <label>${label}<span>${hint}</span></label>
+            <select data-path="${safePath}" data-type="boolean">
+              <option value="true" ${value ? 'selected' : ''}>Có / true</option>
+              <option value="false" ${!value ? 'selected' : ''}>Không / false</option>
+            </select>
+          </div>
+        `;
+      }
+      if (type === 'number') {
+        return `
+          <div class="field">
+            <label>${label}<span>${hint}</span></label>
+            <input type="number" step="any" data-path="${safePath}" data-type="number" value="${escapeHtml(value)}">
+          </div>
+        `;
+      }
+      const text = String(value ?? '');
+      const multiline = text.length > 90 || text.includes('\n');
+      return `
+        <div class="field">
+          <label>${label}<span>${hint}</span></label>
+          ${multiline
+            ? `<textarea data-path="${safePath}" data-type="string">${escapeHtml(text)}</textarea>`
+            : `<input type="text" data-path="${safePath}" data-type="string" value="${escapeHtml(text)}">`}
+        </div>
+      `;
+    }
+
+    function renderRawJson() {
+      editor.innerHTML = `
+        <div class="raw-editor">
+          <textarea id="rawJson">${escapeHtml(JSON.stringify(data, null, 2))}</textarea>
+          <div class="mini-actions">
+            <button class="mini" id="applyRaw">Áp dụng JSON</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('applyRaw').addEventListener('click', () => {
+        try {
+          data = JSON.parse(document.getElementById('rawJson').value);
+          markChanged(true);
+          renderPage();
+          showToast('Đã áp dụng JSON');
+        } catch (error) {
+          showToast('JSON chưa hợp lệ');
+        }
+      });
+    }
+
+    nav.addEventListener('click', event => {
+      const button = event.target.closest('button[data-section]');
+      if (!button) return;
+      currentSection = button.dataset.section;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    editor.addEventListener('input', event => {
+      const input = event.target.closest('[data-path]');
+      if (!input) return;
+      let value = input.value;
+      if (input.dataset.type === 'number') value = parseFloat(value) || 0;
+      if (input.dataset.type === 'boolean') value = value === 'true';
+      setByPath(input.dataset.path, value);
+      markChanged();
+    });
+
+    editor.addEventListener('click', event => {
+      const add = event.target.closest('[data-add]');
+      if (add) {
+        const arr = getByPath(add.dataset.add);
+        const sample = arr.length ? arr[arr.length - 1] : '';
+        arr.push(emptyClone(sample));
+        markChanged(true);
+        renderPage();
+        return;
+      }
+
+      const remove = event.target.closest('[data-remove]');
+      if (remove) {
+        const arr = getByPath(remove.dataset.remove);
+        arr.splice(Number(remove.dataset.index), 1);
+        markChanged(true);
+        renderPage();
+      }
+    });
+
+    function markChanged(skipDebounce = false) {
+      hasChanges = true;
+      statusEl.textContent = 'Có thay đổi chưa lưu';
+      statusEl.className = 'status dirty';
+      clearTimeout(saveTimer);
+      if (!skipDebounce) {
+        saveTimer = setTimeout(saveAll, 900);
+      }
+    }
+
+    function saveAll() {
+      if (saveData(data)) {
+        hasChanges = false;
+        statusEl.textContent = 'Đã lưu';
+        statusEl.className = 'status saved';
+        showToast('Đã lưu tất cả thay đổi');
+      } else {
+        showToast('Không lưu được dữ liệu');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    document.getElementById('saveBtn').addEventListener('click', saveAll);
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (!confirm('Reset toàn bộ dữ liệu về mặc định?')) return;
+      data = resetData();
+      hasChanges = false;
+      statusEl.textContent = 'Đã reset về mặc định';
+      statusEl.className = 'status saved';
+      renderPage();
+      showToast('Đã reset');
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'guno_mkt_plan_family_data.json';
+      link.click();
+      URL.revokeObjectURL(url);
+      showToast('Đã export JSON');
+    });
+
+    document.getElementById('importInput').addEventListener('change', event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          data = JSON.parse(reader.result);
+          saveAll();
+          renderPage();
+          showToast('Đã import JSON');
+        } catch (error) {
+          showToast('File JSON chưa hợp lệ');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    });
+
+    window.addEventListener('beforeunload', event => {
+      if (!hasChanges) return;
+      event.preventDefault();
+      event.returnValue = '';
+    });
+
+    renderPage();
+  </script>
+</body>
+</html>

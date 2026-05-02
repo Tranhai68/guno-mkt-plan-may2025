@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUNO - MKT Plan Gia Đình Tháng 5</title>
+  <meta name="description" content="GUNO Marketing Plan tháng 5 - Gia Đình, Guno Gu của mọi nhà">
+  <?!= include("Data"); ?>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --paper: #f7f8fa;
+      --paper-2: #f1f4f7;
+      --ink: #111827;
+      --muted: #5b6472;
+      --soft: #8a94a6;
+      --line: #e5e9f0;
+      --black: #111827;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --green: #15803d;
+      --teal: #0f766e;
+      --amber: #b45309;
+      --pink: #db2777;
+      --radius: 8px;
+      --shadow: 0 12px 32px rgba(17,24,39,.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px 28px;
+      display: grid;
+      grid-template-columns: 220px 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: .08em;
+      font-size: 14px;
+    }
+
+    .brand span { color: var(--red); }
+
+    .nav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar { display: none; }
+
+    .nav button,
+    .utility a {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .nav button:hover,
+    .utility a:hover { background: var(--paper); color: var(--ink); }
+    .nav button.active { background: var(--black); color: #fff; }
+
+    .utility {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .utility a {
+      border-color: var(--line);
+      background: #fff;
+    }
+
+    .main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 28px 64px;
+    }
+
+    .view { display: none; }
+    .view.active { display: block; animation: show .22s ease; }
+    @keyframes show { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0,1.25fr) minmax(360px,.75fr);
+      gap: 28px;
+      align-items: end;
+      padding: 28px 0 34px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 76px);
+      line-height: .96;
+      letter-spacing: 0;
+      max-width: 980px;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 760px;
+      margin-top: 18px;
+    }
+
+    .hero-side {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: var(--paper);
+    }
+
+    .hero-side strong {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .hero-side p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .metric,
+    .card,
+    .panel,
+    .timeline-item,
+    .program,
+    .role,
+    .idea,
+    .partner {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .metric {
+      padding: 18px;
+      min-height: 112px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric .value {
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 850;
+      margin-bottom: 7px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin: 0 0 18px;
+      padding-top: 4px;
+    }
+
+    h2 {
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 780px;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .section-kicker {
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 6px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-bottom: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-bottom: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 18px; }
+
+    .card,
+    .panel,
+    .program,
+    .role,
+    .idea,
+    .partner {
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(17,24,39,.04);
+    }
+
+    .panel { margin-bottom: 18px; }
+
+    .label {
+      color: var(--soft);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .card h3,
+    .program h3,
+    .role h3,
+    .idea h3,
+    .partner h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .muted { color: var(--muted); font-size: 13px; }
+    .small { color: var(--soft); font-size: 12px; }
+
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--paper);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .accent-red { color: var(--red); }
+    .accent-blue { color: var(--blue); }
+    .accent-green { color: var(--green); }
+    .accent-teal { color: var(--teal); }
+    .accent-amber { color: var(--amber); }
+    .accent-pink { color: var(--pink); }
+
+    .bar {
+      height: 8px;
+      background: var(--paper-2);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--black);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--soft);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: var(--paper);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td strong { color: var(--ink); }
+
+    .table-wrap {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: auto;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr 210px;
+      gap: 18px;
+      align-items: start;
+      padding: 16px;
+    }
+
+    .date {
+      color: var(--red);
+      font-weight: 850;
+      font-size: 13px;
+    }
+
+    .money {
+      text-align: right;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .money strong {
+      display: block;
+      color: var(--ink);
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .program {
+      display: grid;
+      grid-template-columns: 64px 1fr 260px;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--red);
+    }
+
+    .program-num {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      background: var(--black);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 850;
+    }
+
+    .stat-list {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat-list div {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    .stat-list div:last-child { border-bottom: 0; padding-bottom: 0; }
+    .stat-list strong { color: var(--ink); text-align: right; }
+
+    .idea,
+    .partner,
+    .role {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .role ul,
+    .panel ul,
+    .card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .role li,
+    .panel li,
+    .card li {
+      color: var(--muted);
+      font-size: 13px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .role li::before,
+    .panel li::before,
+    .card li::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--red);
+      position: absolute;
+      left: 0;
+      top: 9px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1100px) {
+      .topbar-inner { grid-template-columns: 1fr; }
+      .utility { justify-content: flex-start; }
+      .hero { grid-template-columns: 1fr; }
+      .metric-grid, .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .timeline-item, .program { grid-template-columns: 1fr; }
+      .money { text-align: left; }
+    }
+
+    @media (max-width: 720px) {
+      .main, .topbar-inner { padding-left: 16px; padding-right: 16px; }
+      .metric-grid, .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      h1 { font-size: 42px; }
+      .section-head { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span>GUNO</span> MKT PLAN</div>
+      <nav class="nav" id="nav"></nav>
+      <div class="utility">
+        <a href="?page=tracker">Tracker</a>
+        <a href="?page=admin">Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main" id="app"></main>
+
+  <script>
+    localStorage.removeItem('guno_mkt_plan_v2');
+    localStorage.removeItem('guno_mkt_plan_v3');
+
+    const D = getData();
+    const navItems = [
+      ['overview', 'Tổng quan'],
+      ['strategy', 'Chiến lược'],
+      ['content', 'Content drama'],
+      ['live', 'MegaLive'],
+      ['tvc', 'TVC digital'],
+      ['creators', 'Creator/KOL'],
+      ['csr', 'Thiện nguyện T6'],
+      ['tracking', 'Tracking'],
+      ['team', 'Bộ phận'],
+      ['budget', 'Budget/P&L'],
+      ['risks', 'Rủi ro']
+    ];
+
+    const nav = document.getElementById('nav');
+    nav.innerHTML = navItems.map(([id, label], index) => `<button class="${index === 0 ? 'active' : ''}" data-view="${id}">${label}</button>`).join('');
+
+    nav.addEventListener('click', event => {
+      const button = event.target.closest('button[data-view]');
+      if (!button) return;
+      document.querySelectorAll('.nav button').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      document.getElementById(button.dataset.view).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const app = document.getElementById('app');
+    const e = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const moneyM = value => `${Number(value || 0).toLocaleString('vi-VN')}M`;
+
+    function sectionHead(kicker, title, text) {
+      return `<div class="section-head"><div><div class="section-kicker">${kicker}</div><h2>${title}</h2><p>${text}</p></div></div>`;
+    }
+
+    function list(items) {
+      return `<ul>${items.map(item => `<li>${e(item)}</li>`).join('')}</ul>`;
+    }
+
+    function metrics() {
+      const items = [
+        ['GMV mục tiêu', formatVND(D.targets.totalRevenue), 'accent-green'],
+        ['Đơn hàng', formatNum(D.targets.totalOrders), 'accent-blue'],
+        ['AOV', formatVND(D.targets.aov), 'accent-amber'],
+        ['Budget MKT', formatVND(D.targets.totalBudget), 'accent-red'],
+        ['Nội dung', `${formatNum(D.targets.contentOutput)}+`, 'accent-teal'],
+        ['Drama episodes', `${D.targets.dramaSeriesEpisodes}+`, 'accent-pink'],
+        ['Creator/KOL/KOC', `${D.targets.creatorCount}+`, 'accent-blue'],
+        ['CSR shortlist', `${D.targets.charityPartnerShortlist} đối tác`, 'accent-green']
+      ];
+      return `<div class="metric-grid">${items.map(([label, value, cls]) => `
+        <div class="metric"><div class="value ${cls}">${value}</div><div class="label">${label}</div></div>
+      `).join('')}</div>`;
+    }
+
+    function channelCards() {
+      return `<div class="grid-3">${D.channels.map(ch => `
+        <article class="card" style="border-top:4px solid ${ch.color}">
+          <div class="label">${e(ch.icon)} · ${e(ch.name)}</div>
+          <h3>${formatVND(ch.revenue)} · ${ch.pct}% GMV</h3>
+          <p class="muted">${formatNum(ch.orders)} đơn · Ads ${formatVND(ch.adsBudget)} · ROAS ${ch.roas}x · CPO ${formatVND(ch.cpo)}</p>
+          <div class="bar"><span style="width:${ch.pct}%;background:${ch.color}"></span></div>
+          <div class="pill-row">${ch.structure.map(s => `<span class="pill">${e(s.name)} ${s.pct}%</span>`).join('')}</div>
+        </article>
+      `).join('')}</div>`;
+    }
+
+    function overview() {
+      return `
+      <section class="view active" id="overview">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">${e(D.meta.month)} · ${e(D.meta.campaignName)}</div>
+            <h1>${e(D.meta.planTitle)}<br>${e(D.meta.planSubtitle)}</h1>
+            <p class="hero-copy">${e(D.meta.strategicShift)}</p>
+          </div>
+          <aside class="hero-side">
+            <strong>${e(D.meta.motto)}</strong>
+            <p>${e(D.meta.approvedLiveNote)}</p>
+            <div class="pill-row">${D.branding.subMessages.map(item => `<span class="pill">${e(item.phase)}: ${e(item.msg)}</span>`).join('')}</div>
+          </aside>
+        </div>
+        ${metrics()}
+        ${sectionHead('Revenue mix', 'Kênh doanh thu chính', 'Doanh thu vẫn đi qua TikTok, Shopee và Facebook; nội dung drama tạo nhu cầu, hai MegaLive tạo điểm bùng nổ.')}
+        ${channelCards()}
+        ${sectionHead('Timeline', 'Lộ trình tháng 5', 'Các phase là luồng vận hành, không phải camp mới. Camp được giữ lại chỉ gồm hai MegaLive đã duyệt.')}
+        <div class="timeline">
+          ${D.phases.map(phase => `
+            <article class="timeline-item" style="border-left:4px solid ${phase.color}">
+              <div class="date">${e(phase.date)}</div>
+              <div>
+                <h3>${e(phase.name)}</h3>
+                <p class="muted">${e(phase.desc)}</p>
+                <div class="pill-row"><span class="pill">${phase.tasks} tasks</span><span class="pill">ROAS ${phase.roas}x</span></div>
+              </div>
+              <div class="money"><strong>${formatVND(phase.revenue)}</strong>Revenue · Budget ${formatVND(phase.budget)}</div>
+            </article>
+          `).join('')}
+        </div>
+      </section>`;
+    }
+
+    function strategy() {
+      return `
+      <section class="view" id="strategy">
+        ${sectionHead('Core strategy', 'Gia Đình là nội dung lõi', e(D.campaign.insight))}
+        <div class="grid-2">
+          <div class="panel">
+            <div class="label">Thông điệp</div>
+            <h3>${e(D.branding.message)}</h3>
+            <p class="muted">${e(D.contentStrategy.thesis)}</p>
+          </div>
+          <div class="panel">
+            <div class="label">Nguyên tắc bắt buộc</div>
+            ${list(D.contentStrategy.rules)}
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Funnel</th><th>Tỷ lệ</th><th>Nội dung</th><th>KPI</th></tr></thead>
+            <tbody>${D.contentStrategy.funnelMix.map(item => `
+              <tr><td><strong>${e(item.stage)}</strong></td><td>${item.pct}%</td><td>${e(item.content)}</td><td>${e(item.kpi)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+        <div class="grid-3">
+          ${D.campaign.campaignFunnel.map(step => `
+            <article class="card">
+              <div class="label">${e(step.phase)} · ${e(step.timeline)}</div>
+              <h3>${e(step.name)}</h3>
+              <p class="muted">${e(step.desc)}</p>
+              <div class="pill-row"><span class="pill">${e(step.kpi)}</span></div>
+            </article>
+          `).join('')}
+        </div>
+      </section>`;
+    }
+
+    function content() {
+      return `
+      <section class="view" id="content">
+        ${sectionHead('Content drama', D.contentStrategy.name, 'Hệ nội dung mới xây kênh drama gia đình, lấy cảm hứng từ short-drama thương mại nhưng giữ tinh thần đời thường và lồng ghép thời trang khéo.')}
+        <div class="grid-4">
+          ${D.contentStrategy.pillarMix.map(item => `
+            <article class="card">
+              <div class="label">${item.pct}% content</div>
+              <h3>${e(item.pillar)}</h3>
+              <p class="muted">${e(item.purpose)}</p>
+              <div class="pill-row"><span class="pill">${e(item.kpi)}</span></div>
+            </article>
+          `).join('')}
+        </div>
+        ${sectionHead('Series', 'Các tuyến nội dung chạy xuyên suốt', 'Mỗi series có nhân vật, mâu thuẫn, sản phẩm và KPI riêng để dễ scale.')}
+        <div class="grid-3">
+          ${D.contentStrategy.series.map(item => `
+            <article class="card">
+              <div class="label">${e(item.format)}</div>
+              <h3>${e(item.name)}</h3>
+              <p class="muted">${e(item.premise)}</p>
+              <p class="small">Sản phẩm: ${e(item.products)}</p>
+              <div class="pill-row"><span class="pill">${e(item.kpi)}</span></div>
+            </article>
+          `).join('')}
+        </div>
+        ${sectionHead('Ideas', 'Ý tưởng nội dung có thể sản xuất ngay', 'Mỗi idea giữ 1 hook, 1 ngữ cảnh sản phẩm và 1 CTA nhẹ.')}
+        <div class="grid-3">
+          ${D.contentStrategy.contentIdeas.map(item => `
+            <article class="idea">
+              <div class="label">${e(item.angle)}</div>
+              <h3>${e(item.hook)}</h3>
+              <p class="muted">${e(item.placement)}</p>
+              <p class="small">CTA: ${e(item.cta)}</p>
+            </article>
+          `).join('')}
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tuần</th><th>Output</th><th>Focus</th><th>Owner</th></tr></thead>
+            <tbody>${D.contentStrategy.calendar.map(item => `
+              <tr><td><strong>${e(item.week)}</strong></td><td>${e(item.output)}</td><td>${e(item.focus)}</td><td>${e(item.owner)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+      </section>`;
+    }
+
+    function live() {
+      return `
+      <section class="view" id="live">
+        ${sectionHead('Approved campaigns', 'Chỉ giữ 2 MegaLive đã duyệt', 'Toàn bộ camp cũ khác đã được loại khỏi kế hoạch tháng 5.')}
+        ${D.programs.map(program => `
+          <article class="program">
+            <div class="program-num">${e(program.num)}</div>
+            <div>
+              <div class="label">${e(program.date)}</div>
+              <h3>${e(program.name)}</h3>
+              <p class="muted">${e(program.mechanism)}</p>
+              <div class="pill-row"><span class="pill">${e(program.kpi)}</span></div>
+            </div>
+            <div class="stat-list">
+              <div><span>Budget</span><strong>${formatVND(program.budget)}</strong></div>
+              <div><span>GMV target</span><strong>${formatVND(program.revenue)}</strong></div>
+              <div><span>ROI</span><strong>${e(program.roi)}</strong></div>
+              <div><span>Đánh giá</span><strong>${e(program.eval)}</strong></div>
+            </div>
+          </article>
+        `).join('')}
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Trạng thái</th><th>Đối tác/camp</th><th>Ghi chú</th></tr></thead>
+            <tbody>${D.campaign.approvedCampaigns.map(item => `
+              <tr><td><strong>${e(item.week)}</strong></td><td>${e(item.partner)}</td><td>${e(item.target)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+      </section>`;
+    }
+
+    function tvc() {
+      return `
+      <section class="view" id="tvc">
+        ${sectionHead('TVC digital', D.campaign.tvc.name, D.campaign.tvc.placement)}
+        <div class="grid-2">
+          <div class="panel">
+            <div class="label">Creative direction</div>
+            <p class="muted">${e(D.campaign.tvc.creativeDirection)}</p>
+            <div class="pill-row">${D.campaign.tvc.products.map(item => `<span class="pill">${e(item)}</span>`).join('')}</div>
+          </div>
+          <div class="panel">
+            <div class="label">Production</div>
+            <h3>${e(D.campaign.tvc.duration)}</h3>
+            <p class="muted">${e(D.campaign.tvc.productionTimeline)}</p>
+            <div class="pill-row"><span class="pill">Budget ${formatVND(D.campaign.tvc.totalBudget)}</span></div>
+          </div>
+        </div>
+        <div class="grid-3">
+          ${D.campaign.tvc.scenes.map(scene => `
+            <article class="card">
+              <div class="label">Cảnh ${scene.scene} · ${e(scene.setting)}</div>
+              <h3>${e(scene.product)}</h3>
+              <p class="muted">${e(scene.desc)}</p>
+              <p class="small">Diễn viên: ${e(scene.actor)}</p>
+            </article>
+          `).join('')}
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Kênh</th><th>Vị trí</th><th>Format</th><th>Chi phí/tuần</th><th>Ghi chú</th></tr></thead>
+            <tbody>${D.campaign.mediaPlacements.map(item => `
+              <tr><td><strong>${e(item.city)}</strong></td><td>${e(item.location)}</td><td>${e(item.type)}</td><td>${formatVND(item.weeklyCost)}</td><td>${e(item.note)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+        <p class="muted">${e(D.campaign.mediaNote)}</p>
+      </section>`;
+    }
+
+    function creators() {
+      return `
+      <section class="view" id="creators">
+        ${sectionHead('Creator system', 'Book creator, KOL, diễn viên và KOC', D.creatorPlan.objective)}
+        <div class="grid-4">
+          ${D.creatorPlan.tiers.map(item => `
+            <article class="card">
+              <div class="label">${e(item.qty)}</div>
+              <h3>${e(item.tier)}</h3>
+              <p class="muted">${e(item.role)}</p>
+              <div class="pill-row"><span class="pill">${e(item.fee)}</span><span class="pill">${e(item.kpi)}</span></div>
+            </article>
+          `).join('')}
+        </div>
+        <div class="grid-3">
+          <div class="panel"><div class="label">Tiêu chí chọn</div>${list(D.creatorPlan.selectionCriteria)}</div>
+          <div class="panel"><div class="label">Brief checklist</div>${list(D.creatorPlan.briefChecklist)}</div>
+          <div class="panel"><div class="label">Tracking creator</div>${list(D.creatorPlan.tracking)}</div>
+        </div>
+      </section>`;
+    }
+
+    function csr() {
+      return `
+      <section class="view" id="csr">
+        ${sectionHead('CSR tháng 6', D.charityPlan.name, D.charityPlan.purpose)}
+        <div class="grid-2">
+          <div class="panel"><div class="label">Mục tiêu</div>${list(D.charityPlan.objectives)}</div>
+          <div class="panel"><div class="label">Guardrails</div>${list(D.charityPlan.guardrails)}</div>
+        </div>
+        <div class="grid-4">
+          ${D.charityPlan.targetAreas.map(item => `
+            <article class="card">
+              <div class="label">Địa bàn gợi ý</div>
+              <h3>${e(item.area)}</h3>
+              <p class="muted">${e(item.reason)}</p>
+            </article>
+          `).join('')}
+        </div>
+        ${sectionHead('Partner shortlist', 'Đơn vị thiện nguyện cần liên hệ', 'Nguồn được gắn link để team PR/CSR kiểm chứng trước khi chốt proposal.')}
+        <div class="grid-3">
+          ${D.charityPlan.partnerShortlist.map(item => `
+            <article class="partner">
+              <div class="label">Đối tác</div>
+              <h3>${e(item.name)}</h3>
+              <p class="muted">${e(item.fit)}</p>
+              <p class="small">Next: ${e(item.nextStep)}</p>
+              <a class="pill" href="${e(item.source)}" target="_blank" rel="noopener">Nguồn tham khảo</a>
+            </article>
+          `).join('')}
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Thời gian</th><th>Việc cần làm</th><th>Owner</th><th>Output</th></tr></thead>
+            <tbody>${D.charityPlan.preparationTimeline.map(item => `
+              <tr><td><strong>${e(item.date)}</strong></td><td>${e(item.task)}</td><td>${e(item.owner)}</td><td>${e(item.output)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+      </section>`;
+    }
+
+    function tracking() {
+      return `
+      <section class="view" id="tracking">
+        ${sectionHead('Tracking', 'Dashboard, cadence và rule ra quyết định', 'Plan được đo hằng ngày từ business, content, creator, live tới CSR tháng 6.')}
+        <div class="grid-2">
+          ${D.tracking.dailyCadence.map(item => `
+            <article class="card">
+              <div class="label">${e(item.time)} · ${e(item.owner)}</div>
+              <p class="muted">${e(item.action)}</p>
+            </article>
+          `).join('')}
+        </div>
+        <div class="grid-3">
+          ${D.tracking.dashboards.map(item => `
+            <article class="card">
+              <h3>${e(item.name)}</h3>
+              <p class="muted">${e(item.metrics)}</p>
+            </article>
+          `).join('')}
+        </div>
+        <div class="panel"><div class="label">Decision rules</div>${list(D.tracking.decisionRules)}</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nhóm</th><th>KPI</th><th>Target</th><th>Đơn vị</th></tr></thead>
+            <tbody>${D.kpis.map(item => `
+              <tr><td><strong>${e(item.category)}</strong></td><td>${e(item.name)}</td><td>${e(item.target)}</td><td>${e(item.unit)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+      </section>`;
+    }
+
+    function team() {
+      return `
+      <section class="view" id="team">
+        ${sectionHead('RACI', 'Phân công cho từng bộ phận', 'Leader, Content, Media, Design, Creator, PR, Performance, E-commerce, Sales và HR đều có task rõ.')}
+        <div class="grid-3">
+          ${D.taskAssignment.map(item => `
+            <article class="role">
+              <div class="label">${e(item.icon)} · ${e(item.deadline)}</div>
+              <h3>${e(item.position)}</h3>
+              ${list(item.tasks)}
+            </article>
+          `).join('')}
+        </div>
+      </section>`;
+    }
+
+    function budget() {
+      const totalWeekly = D.weeklyBudget.reduce((sum, item) => sum + item.total, 0);
+      return `
+      <section class="view" id="budget">
+        ${sectionHead('Budget', 'Phân bổ ngân sách và P&L', `Tổng weekly budget đang phân bổ ${moneyM(totalWeekly)} trên mục tiêu ${formatVND(D.targets.totalBudget)}.`)}
+        <div class="grid-4">
+          <div class="metric"><div class="value accent-red">${formatVND(D.targets.paidMediaBudget)}</div><div class="label">Paid media</div></div>
+          <div class="metric"><div class="value accent-blue">${formatVND(D.targets.creatorBudget)}</div><div class="label">Creator/KOL</div></div>
+          <div class="metric"><div class="value accent-teal">${formatVND(D.targets.productionBudget)}</div><div class="label">Production</div></div>
+          <div class="metric"><div class="value accent-green">${formatVND(D.pnl.netProfit)}</div><div class="label">LN sau thuế dự kiến</div></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tuần</th><th>TikTok</th><th>Facebook</th><th>Shopee</th><th>Creator</th><th>Production</th><th>PR/CSR</th><th>Tổng</th><th>DT</th><th>ROAS</th></tr></thead>
+            <tbody>${D.weeklyBudget.map(item => `
+              <tr><td><strong>${e(item.week)}</strong></td><td>${moneyM(item.tiktok)}</td><td>${moneyM(item.facebook)}</td><td>${moneyM(item.shopee)}</td><td>${moneyM(item.creator)}</td><td>${moneyM(item.production)}</td><td>${moneyM(item.prCsr)}</td><td><strong>${moneyM(item.total)}</strong></td><td>${moneyM(item.revenue)}</td><td>${item.roas}x</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="label">P&L tổng hợp</div>
+            <div class="stat-list">
+              <div><span>GMV</span><strong>${formatVNDFull(D.pnl.gmv)}</strong></div>
+              <div><span>Hoàn/hủy</span><strong>${formatVNDFull(D.pnl.returns)}</strong></div>
+              <div><span>Doanh thu thuần</span><strong>${formatVNDFull(D.pnl.netRevenue)}</strong></div>
+              <div><span>Lợi nhuận gộp</span><strong>${formatVNDFull(D.pnl.grossProfit)}</strong></div>
+              <div><span>Marketing cost</span><strong>${formatVNDFull(D.pnl.mktCost)}</strong></div>
+              <div><span>LN sau thuế</span><strong>${formatVNDFull(D.pnl.netProfit)}</strong></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="label">Branding allocation</div>
+            ${D.branding.allocation.map(item => `
+              <div style="margin-bottom:12px">
+                <div class="stat-list"><div><span>${e(item.name)}</span><strong>${formatVND(item.budget)}</strong></div></div>
+                <div class="bar"><span style="width:${pct(item.budget, D.branding.totalBudget)}%;background:var(--red)"></span></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </section>`;
+    }
+
+    function risks() {
+      return `
+      <section class="view" id="risks">
+        ${sectionHead('Review', 'Đánh giá, SWOT và quản trị rủi ro', D.evaluation.verdict)}
+        <div class="grid-2">
+          <div class="panel"><div class="label">Strengths</div>${list(D.evaluation.swot.strengths)}</div>
+          <div class="panel"><div class="label">Weaknesses</div>${list(D.evaluation.swot.weaknesses)}</div>
+          <div class="panel"><div class="label">Opportunities</div>${list(D.evaluation.swot.opportunities)}</div>
+          <div class="panel"><div class="label">Threats</div>${list(D.evaluation.swot.threats)}</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Rủi ro</th><th>Xác suất</th><th>Giải pháp</th></tr></thead>
+            <tbody>${D.evaluation.risks.map(item => `
+              <tr><td><strong>${e(item.risk)}</strong></td><td>${e(item.prob)}</td><td>${e(item.solution)}</td></tr>
+            `).join('')}</tbody>
+          </table>
+        </div>
+        <div class="grid-2">
+          <div class="panel"><div class="label">Lessons</div>${list(D.evaluation.lessons)}</div>
+          <div class="table-wrap" style="margin:0">
+            <table>
+              <thead><tr><th>Hạng mục</th><th>Điểm</th><th>Nhận xét</th></tr></thead>
+              <tbody>${D.evaluation.effectiveness.map(item => `
+                <tr><td><strong>${e(item.aspect)}</strong></td><td>${e(item.score)}</td><td>${e(item.note)}</td></tr>
+              `).join('')}</tbody>
+            </table>
+          </div>
+        </div>
+      </section>`;
+    }
+
+    app.innerHTML = [
+      overview(),
+      strategy(),
+      content(),
+      live(),
+      tvc(),
+      creators(),
+      csr(),
+      tracking(),
+      team(),
+      budget(),
+      risks(),
+      `<footer class="footer"><span><strong>GUNO</strong> · ${e(D.meta.month)} · ${e(D.meta.campaignTheme)}</span><span><a href="?page=admin">Chỉnh trong Admin</a> · <a href="?page=tracker">Theo dõi KPI</a></span></footer>`
+    ].join('');
+  </script>
+</body>
+</html>

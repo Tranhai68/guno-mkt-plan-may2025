@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUNO KPI Tracker - Gia Đình</title>
+  <?!= include("Data"); ?>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --paper: #f7f8fa;
+      --paper-2: #eef2f7;
+      --ink: #111827;
+      --muted: #5b6472;
+      --soft: #8a94a6;
+      --line: #e5e9f0;
+      --black: #111827;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --green: #15803d;
+      --teal: #0f766e;
+      --amber: #b45309;
+      --pink: #db2777;
+      --radius: 8px;
+      --shadow: 0 12px 32px rgba(17,24,39,.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding-bottom: 76px;
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    .brand span { color: var(--red); }
+
+    .links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .links a,
+    .tab,
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .links a:hover,
+    .tab:hover,
+    .btn:hover { background: var(--paper); color: var(--ink); }
+
+    .tab.active,
+    .btn.primary {
+      background: var(--black);
+      border-color: var(--black);
+      color: #fff;
+    }
+
+    .main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .head {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 18px;
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+    }
+
+    .kicker {
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .head p {
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 780px;
+      font-size: 14px;
+    }
+
+    .date-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 14px;
+      min-width: 300px;
+    }
+
+    .date-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .date-controls button {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .date-controls input {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 8px 10px;
+      flex: 1;
+    }
+
+    .date-status {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .view { display: none; }
+    .view.active { display: block; animation: show .2s ease; }
+    @keyframes show { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card,
+    .metric,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .card { padding: 18px; }
+
+    .card .value {
+      font-size: 26px;
+      font-weight: 850;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .card .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--paper-2);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--black);
+    }
+
+    .group { margin-bottom: 24px; }
+    .group-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+      padding-top: 6px;
+    }
+
+    .group-head h2 { font-size: 20px; }
+    .group-head span { color: var(--soft); font-size: 12px; font-weight: 750; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 44px minmax(0,1fr) 130px 54px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+    }
+
+    .metric-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      background: var(--paper);
+      font-size: 11px;
+      font-weight: 850;
+      color: var(--black);
+    }
+
+    .metric-name {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .metric-target { color: var(--soft); font-size: 11px; }
+
+    .metric input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      padding: 9px 10px;
+      outline: none;
+      text-align: right;
+      font-weight: 800;
+    }
+
+    .metric input:focus {
+      background: #fff;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    .metric input.ok { color: var(--green); border-color: #86efac; background: #f0fdf4; }
+    .metric input.warn { color: var(--amber); border-color: #fde68a; background: #fffbeb; }
+    .unit { color: var(--soft); font-size: 11px; font-weight: 700; }
+
+    .panel {
+      padding: 18px;
+      margin-bottom: 18px;
+      overflow: auto;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 850;
+      margin-bottom: 14px;
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 190px;
+      padding-top: 18px;
+    }
+
+    .bar-col {
+      flex: 1;
+      min-width: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 32px;
+      border-radius: 6px 6px 0 0;
+      background: var(--paper-2);
+      min-height: 3px;
+    }
+
+    .bar-val {
+      color: var(--soft);
+      font-size: 9px;
+      min-height: 14px;
+      white-space: nowrap;
+    }
+
+    .bar-label { color: var(--soft); font-size: 10px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--soft);
+      background: var(--paper);
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td strong { color: var(--ink); }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0,1fr));
+      gap: 6px;
+    }
+
+    .cal-head {
+      color: var(--soft);
+      font-size: 11px;
+      font-weight: 800;
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 3px;
+    }
+
+    .day:hover { border-color: var(--blue); background: var(--paper); }
+    .day.muted { opacity: .3; pointer-events: none; }
+    .day.active { border-color: var(--red); box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
+    .day.filled::after { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--green); }
+    .day-num { font-weight: 850; }
+    .day-rev { font-size: 10px; color: var(--soft); }
+
+    .savebar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(16px);
+    }
+
+    .savebar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .save-text {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .save-text.dirty { color: var(--amber); }
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 82px;
+      background: var(--black);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 750;
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+      transition: .2s ease;
+      z-index: 30;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1000px) {
+      .head, .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .date-box { min-width: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .main, .topbar-inner, .savebar-inner { padding-left: 16px; padding-right: 16px; }
+      .topbar-inner, .savebar-inner { align-items: flex-start; flex-direction: column; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .metric { grid-template-columns: 36px 1fr; }
+      .metric input, .unit { grid-column: 2; }
+      .bars { overflow-x: auto; }
+      .bar-col { min-width: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span>GUNO</span> KPI TRACKER</div>
+      <nav class="links">
+        <a href="?page=index">Plan</a>
+        <a href="?page=admin">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="head">
+      <div>
+        <div class="kicker">Tháng 5/2026 · Gia Đình</div>
+        <h1>Theo dõi KPI hằng ngày</h1>
+        <p>Nhập số liệu từng ngày cho business, ads, content drama, creator, live, brand và CSR. Dashboard tự cộng dồn theo target tháng.</p>
+      </div>
+      <aside class="date-box">
+        <div class="date-controls">
+          <button id="prevDay">‹</button>
+          <input type="date" id="datePicker" min="2026-05-01" max="2026-05-31">
+          <button id="nextDay">›</button>
+        </div>
+        <div class="date-status" id="dateStatus"></div>
+      </aside>
+    </section>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-view="daily">Nhập ngày</button>
+      <button class="tab" data-view="month">Tổng tháng</button>
+      <button class="tab" data-view="trends">Xu hướng</button>
+      <button class="tab" data-view="calendar">Lịch</button>
+      <button class="tab" data-view="dashboard">Dashboard</button>
+    </div>
+
+    <section class="view active" id="daily">
+      <div class="grid-4" id="dailyCards"></div>
+      <div id="metricGroups"></div>
+    </section>
+
+    <section class="view" id="month">
+      <div class="grid-4" id="monthCards"></div>
+      <div class="panel">
+        <div class="panel-title">Tiến độ toàn bộ KPI</div>
+        <div id="monthRows"></div>
+      </div>
+    </section>
+
+    <section class="view" id="trends">
+      <div id="trendPanels"></div>
+    </section>
+
+    <section class="view" id="calendar">
+      <div class="panel">
+        <div class="panel-title">Lịch nhập liệu tháng 5/2026</div>
+        <div class="calendar" id="calendarGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" id="dashboard">
+      <div class="grid-4" id="dashboardCards"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-title">Doanh thu theo ngày</div>
+          <div class="bars" id="revenueChart"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Doanh thu theo kênh</div>
+          <div id="channelMix"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Top KPI cần chú ý</div>
+        <div id="topKpis"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="savebar">
+    <div class="savebar-inner">
+      <div class="save-text" id="saveText">Đã lưu</div>
+      <div class="links">
+        <button class="btn" id="clearDay">Xóa ngày này</button>
+        <button class="btn primary" id="saveDay">Lưu</button>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const startDate = '2026-05-01';
+    const endDate = '2026-05-31';
+    const weekdays = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+    const groupColors = {
+      Business: 'var(--green)',
+      Ads: 'var(--amber)',
+      Content: 'var(--blue)',
+      Creator: 'var(--pink)',
+      Live: 'var(--red)',
+      Brand: 'var(--teal)',
+      CSR: 'var(--black)'
+    };
+    const keyMetricIds = ['sales_revenue_total', 'sales_orders', 'content_total', 'content_drama_episodes', 'creator_gmv', 'live_gmv', 'brand_reach', 'csr_partner_contacted'];
+    const trendMetricIds = ['sales_revenue_total', 'sales_orders', 'content_total', 'content_drama_episodes', 'creator_gmv', 'live_gmv', 'brand_reach'];
+    const groups = [...new Set(TRACKER_METRICS.map(metric => metric.group))];
+
+    let currentDate = initialDate();
+    let dayData = {};
+    let dirty = false;
+
+    const datePicker = document.getElementById('datePicker');
+    const dateStatus = document.getElementById('dateStatus');
+    const saveText = document.getElementById('saveText');
+
+    function initialDate() {
+      const today = new Date().toISOString().slice(0, 10);
+      if (today >= startDate && today <= endDate) return today;
+      return startDate;
+    }
+
+    function esc(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    }
+
+    function allDays() {
+      return getDaysInRange(startDate, endDate);
+    }
+
+    function metric(id) {
+      return TRACKER_METRICS.find(item => item.id === id);
+    }
+
+    function metricValueDisplay(metric, value) {
+      const number = Number(value) || 0;
+      if (metric.isCurrency) return formatVND(number);
+      if (metric.isRate) return `${number.toFixed(1).replace('.0', '')}${metric.unit}`;
+      return formatNum(Math.round(number));
+    }
+
+    function targetDisplay(metric, period = 'daily') {
+      const target = period === 'month' ? metric.monthTarget : metric.dailyTarget;
+      if (metric.isCurrency) return formatVND(target);
+      return `${formatNum(target)}${metric.isRate ? metric.unit : ''}`;
+    }
+
+    function colorForProgress(pct) {
+      if (pct >= 100) return 'var(--green)';
+      if (pct >= 70) return 'var(--amber)';
+      return 'var(--red)';
+    }
+
+    function monthTotal(id) {
+      const tracker = getTrackerData();
+      const m = metric(id);
+      if (!m) return 0;
+      if (m.isRate) {
+        let sum = 0;
+        let count = 0;
+        Object.values(tracker).forEach(day => {
+          if (day[id] !== undefined && day[id] !== '') {
+            sum += Number(day[id]) || 0;
+            count += 1;
+          }
+        });
+        return count ? sum / count : 0;
+      }
+      return Object.values(tracker).reduce((sum, day) => sum + (Number(day[id]) || 0), 0);
+    }
+
+    function loadDay() {
+      dayData = getDayData(currentDate);
+      dirty = false;
+      datePicker.value = currentDate;
+      updateDateStatus();
+      renderDaily();
+      updateSaveText();
+    }
+
+    function updateDateStatus() {
+      const date = new Date(currentDate + 'T00:00:00');
+      const filled = Object.keys(dayData).length > 0;
+      dateStatus.textContent = `${weekdays[date.getDay()]}, ngày ${date.getDate()}/5/2026 · ${filled ? 'đã nhập' : 'chưa nhập'}`;
+    }
+
+    function renderDaily() {
+      document.getElementById('dailyCards').innerHTML = keyMetricIds.map(id => renderCard(metric(id), dayData[id] || 0, 'daily')).join('');
+      document.getElementById('metricGroups').innerHTML = groups.map(group => {
+        const items = TRACKER_METRICS.filter(item => item.group === group);
+        return `
+          <div class="group">
+            <div class="group-head"><h2>${esc(group)}</h2><span>${items.length} chỉ số</span></div>
+            <div class="metric-grid">
+              ${items.map(item => renderMetricInput(item)).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCard(metric, value, period) {
+      if (!metric) return '';
+      const target = period === 'month' ? metric.monthTarget : metric.dailyTarget;
+      const pct = target ? ((Number(value) || 0) / target) * 100 : 0;
+      const color = colorForProgress(pct);
+      return `
+        <article class="card">
+          <div class="value" style="color:${color}">${metricValueDisplay(metric, value)}</div>
+          <div class="label">${esc(metric.name)}</div>
+          <div class="progress"><span style="width:${Math.min(pct, 100)}%;background:${color}"></span></div>
+          <div class="label" style="margin-top:8px">Target ${period === 'month' ? 'tháng' : 'ngày'}: ${targetDisplay(metric, period)} · ${pct.toFixed(0)}%</div>
+        </article>
+      `;
+    }
+
+    function renderMetricInput(metric) {
+      const value = dayData[metric.id] ?? '';
+      const number = Number(value) || 0;
+      const cls = number >= metric.dailyTarget ? 'ok' : number > 0 ? 'warn' : '';
+      return `
+        <div class="metric">
+          <div class="metric-icon">${esc(metric.icon)}</div>
+          <div>
+            <div class="metric-name">${esc(metric.name)}</div>
+            <div class="metric-target">Target ngày: ${targetDisplay(metric, 'daily')}</div>
+          </div>
+          <input class="${cls}" type="number" step="any" value="${esc(value)}" data-metric="${esc(metric.id)}" placeholder="0">
+          <div class="unit">${esc(metric.unit)}</div>
+        </div>
+      `;
+    }
+
+    function renderMonth() {
+      document.getElementById('monthCards').innerHTML = keyMetricIds.map(id => renderCard(metric(id), monthTotal(id), 'month')).join('');
+      document.getElementById('monthRows').innerHTML = `
+        <table>
+          <thead><tr><th>Nhóm</th><th>KPI</th><th>Thực tế</th><th>Target tháng</th><th>Tiến độ</th></tr></thead>
+          <tbody>
+            ${TRACKER_METRICS.map(item => {
+              const total = monthTotal(item.id);
+              const pct = item.monthTarget ? (total / item.monthTarget) * 100 : 0;
+              const color = colorForProgress(pct);
+              return `<tr>
+                <td><strong>${esc(item.group)}</strong></td>
+                <td>${esc(item.name)}</td>
+                <td>${metricValueDisplay(item, total)}</td>
+                <td>${targetDisplay(item, 'month')}</td>
+                <td><div class="progress"><span style="width:${Math.min(pct,100)}%;background:${color}"></span></div><span style="color:${color};font-weight:800">${pct.toFixed(0)}%</span></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderTrends() {
+      const tracker = getTrackerData();
+      const days = allDays();
+      document.getElementById('trendPanels').innerHTML = trendMetricIds.map(id => {
+        const m = metric(id);
+        const max = Math.max(m.dailyTarget, ...days.map(day => Number(tracker[day]?.[id]) || 0));
+        return `
+          <div class="panel">
+            <div class="panel-title">${esc(m.name)} · Target ngày ${targetDisplay(m, 'daily')}</div>
+            <div class="bars">
+              ${days.map(day => {
+                const value = Number(tracker[day]?.[id]) || 0;
+                const h = max ? (value / max) * 100 : 0;
+                const color = value >= m.dailyTarget ? 'var(--green)' : value > 0 ? (groupColors[m.group] || 'var(--black)') : 'var(--paper-2)';
+                const date = new Date(day + 'T00:00:00');
+                return `<div class="bar-col" data-date="${day}">
+                  <div class="bar-val">${value ? metricValueDisplay(m, value) : ''}</div>
+                  <div class="bar" style="height:${Math.max(h,2)}%;background:${color}"></div>
+                  <div class="bar-label">${date.getDate()}</div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCalendar() {
+      const tracker = getTrackerData();
+      const first = new Date(startDate + 'T00:00:00');
+      const mondayIndex = (first.getDay() + 6) % 7;
+      const headers = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+      let html = headers.map(day => `<div class="cal-head">${day}</div>`).join('');
+      for (let i = 0; i < mondayIndex; i += 1) html += '<div class="day muted"></div>';
+      allDays().forEach(day => {
+        const date = new Date(day + 'T00:00:00');
+        const value = tracker[day]?.sales_revenue_total || 0;
+        const filled = tracker[day] && Object.keys(tracker[day]).length > 0;
+        html += `<div class="day ${day === currentDate ? 'active' : ''} ${filled ? 'filled' : ''}" data-date="${day}">
+          <div class="day-num">${date.getDate()}</div>
+          ${value ? `<div class="day-rev">${formatVND(value)}</div>` : ''}
+        </div>`;
+      });
+      document.getElementById('calendarGrid').innerHTML = html;
+    }
+
+    function renderDashboard() {
+      const totalRevenue = monthTotal('sales_revenue_total');
+      const totalAds = monthTotal('ads_spend_tiktok') + monthTotal('ads_spend_shopee') + monthTotal('ads_spend_fb');
+      const roas = totalAds ? totalRevenue / totalAds : 0;
+      const filledDays = getFilledDays().filter(day => day >= startDate && day <= endDate).length;
+      const cards = [
+        {label: 'Doanh thu tháng', value: formatVND(totalRevenue), target: D().targets.totalRevenue},
+        {label: 'Tổng ads', value: formatVND(totalAds), target: D().targets.paidMediaBudget},
+        {label: 'ROAS hiện tại', value: roas ? roas.toFixed(1) + 'x' : '0x', target: D().targets.roasTarget, reverse: false},
+        {label: 'Ngày đã nhập', value: filledDays + '/31', target: 31}
+      ];
+      document.getElementById('dashboardCards').innerHTML = cards.map(item => {
+        const numeric = parseFloat(String(item.value).replace(',', '.')) || 0;
+        const pct = item.label === 'ROAS hiện tại' ? (roas / item.target) * 100 : item.label === 'Ngày đã nhập' ? (filledDays / 31) * 100 : 0;
+        const color = item.label === 'ROAS hiện tại' || item.label === 'Ngày đã nhập' ? colorForProgress(pct) : 'var(--black)';
+        return `<article class="card"><div class="value" style="color:${color}">${esc(item.value)}</div><div class="label">${esc(item.label)}</div></article>`;
+      }).join('');
+
+      renderRevenueChart();
+      renderChannelMix();
+      document.getElementById('topKpis').innerHTML = `
+        <table>
+          <thead><tr><th>KPI</th><th>Thực tế</th><th>Target</th><th>Tiến độ</th></tr></thead>
+          <tbody>${keyMetricIds.map(id => {
+            const m = metric(id);
+            const total = monthTotal(id);
+            const pct = m.monthTarget ? (total / m.monthTarget) * 100 : 0;
+            const color = colorForProgress(pct);
+            return `<tr><td><strong>${esc(m.name)}</strong></td><td>${metricValueDisplay(m,total)}</td><td>${targetDisplay(m,'month')}</td><td><span style="color:${color};font-weight:850">${pct.toFixed(0)}%</span></td></tr>`;
+          }).join('')}</tbody>
+        </table>
+      `;
+    }
+
+    function D() {
+      return getData();
+    }
+
+    function renderRevenueChart() {
+      const tracker = getTrackerData();
+      const days = allDays();
+      const m = metric('sales_revenue_total');
+      const max = Math.max(m.dailyTarget, ...days.map(day => Number(tracker[day]?.sales_revenue_total) || 0));
+      document.getElementById('revenueChart').innerHTML = days.map(day => {
+        const value = Number(tracker[day]?.sales_revenue_total) || 0;
+        const h = max ? (value / max) * 100 : 0;
+        const color = value >= m.dailyTarget ? 'var(--green)' : value > 0 ? 'var(--amber)' : 'var(--paper-2)';
+        const date = new Date(day + 'T00:00:00');
+        return `<div class="bar-col" data-date="${day}">
+          <div class="bar-val">${value ? formatVND(value) : ''}</div>
+          <div class="bar" style="height:${Math.max(h,2)}%;background:${color}"></div>
+          <div class="bar-label">${date.getDate()}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderChannelMix() {
+      const channels = [
+        ['TikTok', monthTotal('sales_revenue_tiktok'), '#111827'],
+        ['Shopee', monthTotal('sales_revenue_shopee'), '#ee4d2d'],
+        ['Facebook', monthTotal('sales_revenue_fb'), '#2563eb']
+      ];
+      const total = channels.reduce((sum, item) => sum + item[1], 0) || 1;
+      document.getElementById('channelMix').innerHTML = `
+        <table>
+          <thead><tr><th>Kênh</th><th>Doanh thu</th><th>Tỷ trọng</th></tr></thead>
+          <tbody>${channels.map(([name, value, color]) => {
+            const p = (value / total) * 100;
+            return `<tr><td><strong>${name}</strong></td><td>${formatVND(value)}</td><td><div class="progress"><span style="width:${p}%;background:${color}"></span></div>${p.toFixed(0)}%</td></tr>`;
+          }).join('')}</tbody>
+        </table>
+      `;
+    }
+
+    function saveCurrentDay() {
+      saveDayData(currentDate, dayData);
+      dirty = false;
+      updateSaveText();
+      updateDateStatus();
+      toast('Đã lưu số liệu ngày ' + currentDate);
+    }
+
+    function updateSaveText() {
+      saveText.textContent = dirty ? 'Có thay đổi chưa lưu' : 'Đã lưu';
+      saveText.className = dirty ? 'save-text dirty' : 'save-text';
+    }
+
+    function switchView(id) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.view === id));
+      document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === id));
+      if (id === 'month') renderMonth();
+      if (id === 'trends') renderTrends();
+      if (id === 'calendar') renderCalendar();
+      if (id === 'dashboard') renderDashboard();
+    }
+
+    function selectDate(day) {
+      if (dirty && !confirm('Có thay đổi chưa lưu. Chuyển ngày?')) {
+        datePicker.value = currentDate;
+        return;
+      }
+      currentDate = day;
+      loadDay();
+    }
+
+    function moveDate(delta) {
+      const date = new Date(currentDate + 'T00:00:00');
+      date.setDate(date.getDate() + delta);
+      const next = date.toISOString().slice(0, 10);
+      if (next < startDate || next > endDate) return;
+      selectDate(next);
+    }
+
+    function toast(message) {
+      const el = document.getElementById('toast');
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    document.getElementById('tabs').addEventListener('click', event => {
+      const tab = event.target.closest('.tab');
+      if (tab) switchView(tab.dataset.view);
+    });
+
+    document.getElementById('metricGroups').addEventListener('input', event => {
+      const input = event.target.closest('input[data-metric]');
+      if (!input) return;
+      const id = input.dataset.metric;
+      const m = metric(id);
+      const value = parseFloat(input.value) || 0;
+      dayData[id] = value;
+      input.className = value >= m.dailyTarget ? 'ok' : value > 0 ? 'warn' : '';
+      dirty = true;
+      updateSaveText();
+      document.getElementById('dailyCards').innerHTML = keyMetricIds.map(id => renderCard(metric(id), dayData[id] || 0, 'daily')).join('');
+    });
+
+    document.getElementById('trendPanels').addEventListener('click', event => {
+      const col = event.target.closest('[data-date]');
+      if (col) { selectDate(col.dataset.date); switchView('daily'); }
+    });
+
+    document.getElementById('revenueChart').addEventListener('click', event => {
+      const col = event.target.closest('[data-date]');
+      if (col) { selectDate(col.dataset.date); switchView('daily'); }
+    });
+
+    document.getElementById('calendarGrid').addEventListener('click', event => {
+      const day = event.target.closest('[data-date]');
+      if (day) { selectDate(day.dataset.date); switchView('daily'); }
+    });
+
+    datePicker.addEventListener('change', event => selectDate(event.target.value));
+    document.getElementById('prevDay').addEventListener('click', () => moveDate(-1));
+    document.getElementById('nextDay').addEventListener('click', () => moveDate(1));
+    document.getElementById('saveDay').addEventListener('click', saveCurrentDay);
+    document.getElementById('clearDay').addEventListener('click', () => {
+      if (!confirm('Xóa toàn bộ số liệu ngày này?')) return;
+      dayData = {};
+      saveCurrentDay();
+      renderDaily();
+    });
+
+    document.addEventListener('keydown', event => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        saveCurrentDay();
+      }
+    });
+
+    loadDay();
+  </script>
+</body>
+</html>

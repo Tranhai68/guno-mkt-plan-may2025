@@ -1,0 +1,751 @@
+<script>
+const GAS_BOOTSTRAP_DATA = <?!= gasBootstrapData ?>;
+// GUNO MKT PLAN - FAMILY CONTENT SYSTEM - MAY 2026
+const DATA_KEY = 'guno_mkt_plan_family_v4';
+
+const DEFAULT_DATA = {
+  meta: {
+    brandName: 'GUNO',
+    planTitle: 'MKT PLAN THÁNG 5',
+    planSubtitle: 'Gia Đình - Guno Gu của mọi nhà',
+    month: 'Tháng 5/2026',
+    campaignName: 'Gia Đình',
+    campaignTheme: 'Guno Gu của mọi nhà',
+    tagline: 'Gia đình là điểm tựa. GUNO là gu mặc của mọi nhà.',
+    motto: 'Gia đình là tuyệt vời nhất - Guno Gu của mọi nhà',
+    brandSlogan: 'GUNO - Gu của mọi nhà',
+    targetAudience: 'Nữ 25-50 tuổi, gia đình trẻ, mẹ bỉm, phụ nữ văn phòng, người mua quà cho mẹ/vợ/con',
+    strategicShift: 'Không triển khai các camp collab cũ. Tháng 5 tập trung xây hệ nội dung gia đình, drama đời sống và lồng ghép thời trang GUNO thật tự nhiên.',
+    approvedLiveNote: 'Giữ nguyên 2 phiên live đã duyệt: Phạm Thoại 5/5 trên Shopee và Ngọc Trinh 15/5 trên TikTok Shop.'
+  },
+  targets: {
+    totalRevenue: 50000000000,
+    totalOrders: 83333,
+    aov: 600000,
+    totalBudget: 17500000000,
+    paidMediaBudget: 12900000000,
+    creatorBudget: 2600000000,
+    productionBudget: 1100000000,
+    prCsrBudget: 600000000,
+    contingencyBudget: 300000000,
+    roasTarget: 3.1,
+    cpoTarget: 210000,
+    contentOutput: 620,
+    dramaSeriesEpisodes: 96,
+    creatorCount: 80,
+    charityPartnerShortlist: 5
+  },
+  channels: [
+    {
+      id: 'tiktok',
+      name: 'TikTok',
+      revenue: 28000000000,
+      pct: 56,
+      orders: 46667,
+      color: '#111827',
+      icon: 'TT',
+      adsBudget: 8400000000,
+      costNote: 'TikTok Ads, TikTok Shop, Spark Ads, live boost',
+      roas: 3.3,
+      cpo: 180000,
+      structure: [
+        {name: 'Drama series gia đình + Spark Ads', pct: 35, value: 9800000000},
+        {name: 'MegaLive Ngọc Trinh 15/5', pct: 22, value: 6160000000},
+        {name: 'Daily live + shop video', pct: 25, value: 7000000000},
+        {name: 'KOC affiliate + retarget', pct: 18, value: 5040000000}
+      ]
+    },
+    {
+      id: 'shopee',
+      name: 'Shopee',
+      revenue: 12000000000,
+      pct: 24,
+      orders: 20000,
+      color: '#ee4d2d',
+      icon: 'SP',
+      adsBudget: 3600000000,
+      costNote: 'Shopee Ads, voucher sàn, live boost',
+      roas: 3.3,
+      cpo: 180000,
+      structure: [
+        {name: 'MegaLive Phạm Thoại 5/5', pct: 42, value: 5040000000},
+        {name: 'Shopee Live daily', pct: 20, value: 2400000000},
+        {name: 'Search + Discovery Ads', pct: 23, value: 2760000000},
+        {name: 'Affiliate creator', pct: 15, value: 1800000000}
+      ]
+    },
+    {
+      id: 'facebook',
+      name: 'Facebook',
+      revenue: 10000000000,
+      pct: 20,
+      orders: 16666,
+      color: '#2563eb',
+      icon: 'FB',
+      adsBudget: 3000000000,
+      costNote: 'Message Ads, Reels Ads, retarget drama viewers',
+      roas: 3.3,
+      cpo: 180000,
+      structure: [
+        {name: 'Inbox chốt đơn + tư vấn size', pct: 44, value: 4400000000},
+        {name: 'Reels drama cutdown', pct: 24, value: 2400000000},
+        {name: 'Retarget người xem TVC/content', pct: 20, value: 2000000000},
+        {name: 'CRM khách cũ', pct: 12, value: 1200000000}
+      ]
+    }
+  ],
+  phases: [
+    {
+      id: 1,
+      name: 'LOCK PLAN + SETUP CONTENT SYSTEM',
+      date: '1/5 - 4/5',
+      budget: 1300000000,
+      revenue: 4000000000,
+      roas: 3.1,
+      tasks: 34,
+      color: '#2563eb',
+      desc: 'Chốt thông điệp Gia Đình, setup content room, tuyển creator/KOL/KOC, chuẩn hóa kịch bản drama, chuẩn bị SKU/landing/tracking cho live 5/5.'
+    },
+    {
+      id: 2,
+      name: 'MEGALIVE PHẠM THOẠI',
+      date: '5/5',
+      budget: 900000000,
+      revenue: 4000000000,
+      roas: 4.4,
+      tasks: 18,
+      color: '#ee4d2d',
+      desc: 'Giữ nguyên phiên live Shopee 5.5 với Phạm Thoại. Tập trung best seller, set gia đình, deal giới hạn theo khung giờ và kéo data retarget cho cả tháng.'
+    },
+    {
+      id: 3,
+      name: 'BUILD FAMILY DRAMA CHANNEL',
+      date: '6/5 - 14/5',
+      budget: 3600000000,
+      revenue: 10000000000,
+      roas: 2.8,
+      tasks: 72,
+      color: '#0f766e',
+      desc: 'Ra mắt tuyến drama gia đình: mẹ và con, vợ chồng, mẹ chồng nàng dâu, hàng xóm, chị em công sở. Lồng ghép GUNO như trang phục giải quyết tình huống, không hard-sell.'
+    },
+    {
+      id: 4,
+      name: 'MEGALIVE NGỌC TRINH',
+      date: '15/5',
+      budget: 3700000000,
+      revenue: 9000000000,
+      roas: 2.4,
+      tasks: 30,
+      color: '#db2777',
+      desc: 'Giữ nguyên phiên live Ngọc Trinh trên TikTok Shop. Tận dụng drama warm-up để kéo traffic, bán set gia đình, set mẹ-con, đồ mặc nhà và outfit đi chơi cuối tuần.'
+    },
+    {
+      id: 5,
+      name: 'SCALE CONTENT + RETARGET',
+      date: '16/5 - 25/5',
+      budget: 5700000000,
+      revenue: 18500000000,
+      roas: 3.2,
+      tasks: 96,
+      color: '#111827',
+      desc: 'Scale các series có watch time tốt, Spark Ads creator, retarget người xem 50-95%, mở kênh vệ tinh drama, cắt TVC thành cảnh ngắn làm branding trên trang chính.'
+    },
+    {
+      id: 6,
+      name: 'RECAP + CSR PREP THÁNG 6',
+      date: '26/5 - 31/5',
+      budget: 2300000000,
+      revenue: 4500000000,
+      roas: 2.0,
+      tasks: 44,
+      color: '#b45309',
+      desc: 'Chốt doanh thu cuối tháng, tổng hợp học hỏi, khóa shortlist đối tác thiện nguyện Tây Bắc/Đông Bắc cho tháng 6, chuẩn bị truyền thông nội bộ và field trip.'
+    }
+  ],
+  programs: [
+    {
+      num: '01',
+      name: 'MEGALIVE PHẠM THOẠI - SHOPEE 5.5',
+      date: '5/5',
+      budget: 900000000,
+      revenue: 4000000000,
+      roi: '4.4x',
+      mechanism: 'Giữ nguyên phiên live đã duyệt. Chạy marathon theo khung giờ, gom deal set gia đình, ưu tiên SKU dễ chốt, voucher theo slot, push affiliate trước và sau live.',
+      kpi: 'GMV live >= 4 tỷ | Peak CCU >= 8.000 | AOV >= 550K | Tỷ lệ hoàn <= 15% | 25.000 người vào phòng live',
+      eval: 'So sánh GMV từng block 30 phút, traffic source, đơn theo SKU, đơn từ affiliate và tỷ lệ chốt sau retarget 48 giờ.'
+    },
+    {
+      num: '02',
+      name: 'MEGALIVE NGỌC TRINH - TIKTOK SHOP',
+      date: '15/5',
+      budget: 3700000000,
+      revenue: 9000000000,
+      roi: '2.4x',
+      mechanism: 'Giữ nguyên phiên live đã duyệt. Dùng content drama gia đình 6-14/5 làm pre-heat, kéo traffic bằng Spark Ads, bán set mẹ-con, set vợ-chồng, đồ mặc nhà và sản phẩm best seller.',
+      kpi: 'GMV live >= 9 tỷ | Peak CCU >= 18.000 | 1,2M views live | AOV >= 650K | 30% đơn từ retarget drama viewers',
+      eval: 'Đo lift từ content warm-up, GMV theo bundle, tỷ lệ chuyển đổi người xem 50% video, CTR về shop, SKU thắng để scale 16-25/5.'
+    }
+  ],
+  contentStrategy: {
+    name: 'Family Drama Content Engine',
+    thesis: 'Lấy cảm hứng từ cách Douyin, Xiaohongshu và nhiều kênh short-drama Việt Nam lồng ghép sản phẩm: sản phẩm xuất hiện như một phần tự nhiên của cảnh sống, giúp nhân vật đẹp hơn, tự tin hơn, giải quyết mâu thuẫn hoặc tạo khoảnh khắc gia đình.',
+    rules: [
+      'Mỗi video chỉ có 1 xung đột gia đình và 1 điểm chạm sản phẩm.',
+      'Không để nhân vật cầm sản phẩm đọc quảng cáo. GUNO phải xuất hiện qua hành động mặc, tặng, chọn size, chuẩn bị đi gặp người thân.',
+      'Hook 3 giây đầu phải là tình huống đời thường có căng thẳng: câu nói của mẹ chồng, ánh mắt hàng xóm, con hỏi mẹ, chồng quên ngày kỷ niệm.',
+      'Kết video để lại cảm xúc hoặc cliffhanger, CTA nhẹ: xem tập tiếp, lưu set đồ, vào live nhận deal gia đình.',
+      'Sản phẩm phải đúng ngữ cảnh: mặc nhà, đi làm, đi chơi cuối tuần, thăm mẹ, đi họp phụ huynh, gặp thông gia.'
+    ],
+    pillarMix: [
+      {pillar: 'Mẹ và các con', pct: 22, purpose: 'Chạm cảm xúc chăm sóc, hy sinh, thấu hiểu', kpi: 'VTR >= 35%, save >= 2%'},
+      {pillar: 'Vợ chồng', pct: 18, purpose: 'Tạo tình huống quà tặng, tự tin, hâm nóng tình cảm', kpi: 'Comment rate >= 1,5%'},
+      {pillar: 'Mẹ chồng nàng dâu', pct: 18, purpose: 'Drama có sức kéo, dễ serial hóa', kpi: 'Completion rate >= 28%'},
+      {pillar: 'Hàng xóm và họ hàng', pct: 14, purpose: 'Tạo yếu tố xã hội, so sánh, lời khen', kpi: 'Share rate >= 1,2%'},
+      {pillar: 'Công sở và gia đình', pct: 12, purpose: 'Liên kết phụ nữ văn phòng và đời sống nhà', kpi: 'CTR shop >= 1,8%'},
+      {pillar: 'Thiện nguyện gia đình', pct: 8, purpose: 'Dẫn mạch sang CSR tháng 6', kpi: 'Positive sentiment >= 85%'},
+      {pillar: 'Livestream và deal', pct: 8, purpose: 'Chốt đơn, thông báo lịch live', kpi: 'GMV attributed >= 10 tỷ'}
+    ],
+    funnelMix: [
+      {stage: 'TOFU', pct: 40, content: 'Drama ngắn, POV, clip tình huống, teaser nhân vật', kpi: 'Reach, VTR, follower mới'},
+      {stage: 'MOFU', pct: 35, content: 'Try-on trong câu chuyện, review thật, hậu trường, creator giải thích set đồ', kpi: 'Engagement, save, click'},
+      {stage: 'BOFU', pct: 15, content: 'Deal live, bundle gia đình, retarget giỏ hàng, review có mã', kpi: 'GMV, CPO, ROAS'},
+      {stage: 'Retention', pct: 10, content: 'Khách mặc GUNO cùng gia đình, thank-you, recap, CRM', kpi: 'Repeat, LTV, referral'}
+    ],
+    series: [
+      {
+        name: 'Nhà Có Ba Gu',
+        format: 'Drama 8 tập, 45-60s/tập',
+        premise: 'Mẹ, con gái và con dâu có gu khác nhau nhưng đều cần một bộ đồ khiến họ thấy được tôn trọng trong nhà.',
+        products: 'Đồ mặc nhà, set mẹ-con, váy đi chơi nhẹ',
+        kpi: '8 tập, 8M views, 30K click shop, 2.000 đơn attributed'
+      },
+      {
+        name: 'Mẹ Chồng Thử Lòng',
+        format: 'Drama 12 tập, 30-45s/tập',
+        premise: 'Mẹ chồng khó tính liên tục thử cách nàng dâu chăm nhà, chọn đồ, chuẩn bị quà cho họ hàng.',
+        products: 'Set đồ lịch sự, đồ mặc nhà cao cấp, áo chống nắng',
+        kpi: '12 tập, completion >= 30%, comment >= 20K'
+      },
+      {
+        name: 'Chồng Tôi Biết Chọn Quà',
+        format: 'Comedy drama 10 tập, 30s/tập',
+        premise: 'Người chồng vụng về học cách hiểu vợ qua từng món đồ GUNO.',
+        products: 'Set quà vợ, đồ đi làm, đồ đi chơi cuối tuần',
+        kpi: '10 tập, 5M views, 1.500 đơn từ mã CHONGCHONQUA'
+      },
+      {
+        name: 'Hàng Xóm Nhìn Vào',
+        format: 'POV social drama 10 tập, 30-45s/tập',
+        premise: 'Những lời nhận xét của hàng xóm mở ra câu chuyện về tự trọng, chăm sóc bản thân và gia đình.',
+        products: 'Outfit đi chợ, đi đón con, đi gặp họ hàng',
+        kpi: '10 tập, share >= 12K, sentiment tích cực >= 80%'
+      },
+      {
+        name: 'Bữa Cơm Có Mẹ',
+        format: 'Emotional short 8 tập, 45-60s/tập',
+        premise: 'Các con trưởng thành học cách về nhà, nói lời cảm ơn và tặng mẹ một bộ đồ mới.',
+        products: 'Set mẹ, set mẹ-con, sản phẩm làm quà',
+        kpi: '8 tập, save >= 3%, lead CSR tháng 6 >= 1.000'
+      },
+      {
+        name: 'Tủ Đồ Đi Thiện Nguyện',
+        format: 'Bridge content 6 tập, 45s/tập',
+        premise: 'Nhân sự GUNO chuẩn bị chuyến đi vùng cao, chọn đồ, gói quà và kể câu chuyện gia đình phía sau mỗi phần quà.',
+        products: 'Áo chống nắng, đồ basic, set trẻ em nếu có',
+        kpi: '6 tập, internal participation >= 60%, partner shortlist chốt trước 31/5'
+      }
+    ],
+    contentIdeas: [
+      {angle: 'Mẹ và con', hook: 'Con gái hỏi: Sao mẹ chưa từng mua đồ đẹp cho mình?', placement: 'Con tặng mẹ set GUNO, mẹ mặc khi đi họp phụ huynh', cta: 'Lưu set tặng mẹ trong live 15/5'},
+      {angle: 'Mẹ chồng nàng dâu', hook: 'Mẹ chồng nói: Về nhà chồng mà mặc thế này à?', placement: 'Nàng dâu thay set đồ lịch sự, không phản ứng bằng lời mà bằng sự chỉn chu', cta: 'Xem tập tiếp'},
+      {angle: 'Vợ chồng', hook: 'Anh ấy quên sinh nhật vợ lần thứ ba', placement: 'Chồng được con gái gợi ý chọn set GUNO đúng size vợ', cta: 'Comment gu của vợ để nhận gợi ý size'},
+      {angle: 'Hàng xóm', hook: 'Cô hàng xóm hỏi: Dạo này nhà này đổi gu à?', placement: 'Cả nhà mặc tone đồng bộ khi ra ngoài cuối tuần', cta: 'Vào shop xem set gia đình'},
+      {angle: 'Mẹ bỉm', hook: 'Ở nhà chăm con không có nghĩa là phải xuề xòa', placement: 'Đồ mặc nhà thoải mái nhưng lên hình đẹp khi gọi video với chồng', cta: 'Lưu mẫu mặc nhà'},
+      {angle: 'Công sở', hook: 'Sếp hỏi: Sao hôm nay em khác vậy?', placement: 'Nhân vật mặc áo khoác/đầm GUNO sau khi giải quyết chuyện gia đình buổi sáng', cta: 'Xem outfit đi làm'},
+      {angle: 'Thông gia', hook: 'Lần đầu gặp thông gia, mẹ chỉ muốn con đừng mất mặt', placement: 'Set mẹ-con giúp hai mẹ con tự tin đến bữa cơm', cta: 'Đặt set trước ngày gặp mặt'},
+      {angle: 'Anh chị em', hook: 'Chị cả lúc nào cũng nhường, kể cả bộ đồ đẹp', placement: 'Em út mua tặng chị set GUNO như lời xin lỗi', cta: 'Tag người chị của bạn'},
+      {angle: 'Gia đình xa quê', hook: 'Ba năm rồi con chưa về ăn cơm với mẹ', placement: 'Gửi set quà GUNO về quê, mở ra trong cuộc gọi video', cta: 'Gửi quà cho mẹ'},
+      {angle: 'Trẻ em', hook: 'Đứa trẻ hỏi: Sao mẹ lúc nào cũng mặc đồ cũ?', placement: 'Con tiết kiệm tiền mua set mới cho mẹ', cta: 'Theo dõi tập thiện nguyện tháng 6'},
+      {angle: 'CSR bridge', hook: 'Có những đứa trẻ chỉ mong cả nhà có một bữa cơm đủ ấm', placement: 'GUNO chuẩn bị hoạt động tháng 6, không bán hàng trực diện', cta: 'Theo dõi hành trình GUNO sẻ chia'},
+      {angle: 'Live selling', hook: 'Set này lên người mẹ khác hẳn, nhưng giá chỉ trong live tối nay', placement: 'Creator thử đồ trên mẹ thật, con thật', cta: 'Vào live nhận deal gia đình'}
+    ],
+    calendar: [
+      {week: '1/5 - 4/5', output: '40 video + 20 post', focus: 'Setup nhân vật, teaser Gia Đình, nhắc live 5/5', owner: 'Content Lead'},
+      {week: '5/5', output: '12 video + live cut', focus: 'Phạm Thoại Shopee 5.5, deal theo block', owner: 'Livestream Manager'},
+      {week: '6/5 - 10/5', output: '120 video + 35 post', focus: 'Mẹ và con, vợ chồng, mẹ chồng nàng dâu', owner: 'Drama Producer'},
+      {week: '11/5 - 15/5', output: '150 video + 40 post', focus: 'Pre-heat Ngọc Trinh, review set, story quà tặng', owner: 'Creator Lead'},
+      {week: '16/5 - 20/5', output: '140 video + 30 post', focus: 'Scale series thắng, retarget, Spark Ads', owner: 'Performance Lead'},
+      {week: '21/5 - 25/5', output: '100 video + 25 post', focus: 'Customer story, hậu trường, CRM repeat', owner: 'Brand Lead'},
+      {week: '26/5 - 31/5', output: '58 video + 20 post', focus: 'Recap, chuẩn bị thiện nguyện tháng 6', owner: 'PR/CSR Lead'}
+    ]
+  },
+  creatorPlan: {
+    objective: 'Book creator/KOL/diễn viên để tạo hệ nội dung drama gia đình có diễn xuất tốt, giữ cảm giác đời thật và có thể scale nhiều tập.',
+    tiers: [
+      {tier: 'Diễn viên/creator diễn xuất', qty: '12-18 người', fee: '8-35M/người/tháng', role: 'Vai mẹ, con dâu, mẹ chồng, chồng, hàng xóm, đồng nghiệp', kpi: '96 tập drama'},
+      {tier: 'KOL gia đình/lifestyle', qty: '8-12 người', fee: '20-80M/người', role: 'Đẩy trust, review set, kể chuyện gia đình thật', kpi: 'Reach >= 8M'},
+      {tier: 'KOC affiliate', qty: '50-70 người', fee: 'Sản phẩm + hoa hồng', role: 'Try-on, review, livestream vệ tinh, seeding bình luận', kpi: 'GMV affiliate >= 8 tỷ'},
+      {tier: 'EGC nhân sự GUNO', qty: '20-30 người', fee: 'Thưởng hiệu suất', role: 'Hậu trường, đóng gói, chuẩn bị thiện nguyện, văn hóa nội bộ', kpi: '80 nội dung EGC'}
+    ],
+    selectionCriteria: [
+      'Follower nữ 25-50 chiếm >= 60% hoặc có tệp gia đình/mẹ bỉm/lifestyle.',
+      'Engagement thật, comment có chất lượng, không quá nhiều brand deal thời trang cạnh tranh trong 60 ngày.',
+      'Có khả năng diễn xuất tự nhiên, nói tiếng Việt đời thường, không đọc script cứng.',
+      'Đồng ý quyền sử dụng nội dung cho paid ads tối thiểu 60 ngày.',
+      'Có quy trình duyệt hook, kịch bản, sản phẩm, mã tracking trước khi đăng.'
+    ],
+    briefChecklist: [
+      'Gửi moodboard tone sáng, đời thường, nhà Việt, không màu mè.',
+      'Mỗi video có hook, tình huống, sản phẩm, cảm xúc, CTA nhẹ.',
+      'Quay dọc 9:16, 1080p, ánh sáng thật, âm thanh rõ.',
+      'Không claim quá mức về sản phẩm. Không so sánh trực tiếp đối thủ.',
+      'Gắn mã creator, link shop, mã live hoặc UTM theo từng video.'
+    ],
+    tracking: [
+      'Mã creator riêng: GN-[CREATOR]-[MMDD]',
+      'UTM theo series: source=tiktok_creator, campaign=family_drama_may, content=series_episode',
+      'Bảng duyệt nội dung: brief, script, raw, edit, approved, posted, boosted, result',
+      'Payout theo 3 tầng: phí cố định, thưởng view chất lượng, hoa hồng đơn attributed'
+    ]
+  },
+  branding: {
+    totalBudget: 1000000000,
+    message: 'Gia đình là điểm tựa. GUNO là gu mặc của mọi nhà.',
+    slogan: 'GUNO - Gu của mọi nhà',
+    costNote: 'Không còn ngân sách OOH/collab cũ. Branding chuyển sang TVC digital, homepage, creator và PR/CSR.',
+    ambassadors: [
+      {name: 'Phạm Thoại', role: 'MegaLive Shopee 5/5', desc: 'Giữ nguyên phiên live đã duyệt, ưu tiên GMV và kéo data retarget.'},
+      {name: 'Ngọc Trinh', role: 'MegaLive TikTok 15/5', desc: 'Giữ nguyên phiên live đã duyệt, dùng drama content để warm-up và tăng conversion.'}
+    ],
+    subMessages: [
+      {phase: 'Core', msg: 'Gia đình là tuyệt vời nhất - Guno Gu của mọi nhà'},
+      {phase: 'Drama', msg: 'Mỗi nhà có một câu chuyện. Mỗi người có một GU.'},
+      {phase: 'Live', msg: 'Cả nhà chọn GU đẹp trong live tháng 5.'},
+      {phase: 'CSR', msg: 'GUNO sẻ chia để nhiều gia đình ấm hơn.'}
+    ],
+    allocation: [
+      {name: 'TVC digital production + cutdown', budget: 350000000},
+      {name: 'Creator/KOL/KOC drama family', budget: 300000000},
+      {name: 'Homepage branding assets', budget: 120000000},
+      {name: 'PR brand story + internal comms', budget: 100000000},
+      {name: 'CSR research & field-prep tháng 6', budget: 80000000},
+      {name: 'Social listening + backup', budget: 50000000}
+    ]
+  },
+  campaign: {
+    name: 'Gia Đình',
+    bst: 'GUNO Family',
+    tagline: 'Gia đình là tuyệt vời nhất - Guno Gu của mọi nhà',
+    timeline: '1/5 - 31/5/2026',
+    insight: 'Phụ nữ trong gia đình thường chăm cho mọi người trước. Một bộ đồ vừa vặn, đẹp và đúng hoàn cảnh không chỉ là thời trang, mà là cảm giác được nhìn thấy, được yêu thương và được tôn trọng.',
+    campaignFunnel: [
+      {step: 1, phase: 'Awareness', name: 'Drama tình huống gia đình', timeline: '1/5 - 10/5', icon: 'A1', desc: 'Tạo nhận diện bằng câu chuyện mẹ-con, vợ-chồng, mẹ chồng nàng dâu.', kpi: 'Reach >= 25M'},
+      {step: 2, phase: 'Consideration', name: 'Try-on trong câu chuyện', timeline: '6/5 - 15/5', icon: 'A2', desc: 'Lồng sản phẩm vào cảnh mặc thật, chọn size, tặng quà, chuẩn bị đi gặp người thân.', kpi: 'CTR shop >= 1,8%'},
+      {step: 3, phase: 'Conversion', name: '2 MegaLive đã duyệt', timeline: '5/5 và 15/5', icon: 'A3', desc: 'Chốt đơn bằng live Phạm Thoại và Ngọc Trinh, không thay đổi camp này.', kpi: 'GMV live >= 13 tỷ'},
+      {step: 4, phase: 'Scale', name: 'Spark Ads + retarget', timeline: '16/5 - 25/5', icon: 'A4', desc: 'Boost episode thắng, retarget viewers và người vào shop chưa mua.', kpi: 'ROAS retarget >= 5x'},
+      {step: 5, phase: 'Trust', name: 'Customer story + PR', timeline: '21/5 - 31/5', icon: 'A5', desc: 'Kể chuyện gia đình thật, khép tháng 5 bằng hình ảnh thương hiệu tử tế.', kpi: 'Positive sentiment >= 85%'},
+      {step: 6, phase: 'Bridge CSR', name: 'Chuẩn bị thiện nguyện tháng 6', timeline: '26/5 - 31/5', icon: 'A6', desc: 'Chốt đối tác, địa bàn, mục tiêu truyền thông nội bộ và cộng đồng.', kpi: 'Shortlist 5 đối tác, 2 proposal'}
+    ],
+    tvc: {
+      name: 'TVC GUNO - Gu của mọi nhà',
+      duration: '30s master + 15s/6s cutdown + homepage loop',
+      placement: 'TikTok, Facebook Reels, YouTube Shorts, Shopee video, GUNO homepage. Không chạy OOH.',
+      productionTimeline: 'Chốt script 3/5, quay 6-7/5, dựng bản đầu 9/5, chạy cutdown từ 11/5.',
+      creativeDirection: 'Tone sáng, nhà Việt thật, nền trắng/ấm, không bi lụy. Sản phẩm xuất hiện tự nhiên qua hành động mặc, gấp đồ, tặng quà, đi gặp gia đình.',
+      scenes: [
+        {scene: 1, setting: 'Bếp sáng cuối tuần', desc: 'Mẹ chuẩn bị bữa cơm, con gái để ý mẹ vẫn mặc bộ đồ cũ.', actor: 'Mẹ + con gái', product: 'Set mặc nhà GUNO'},
+        {scene: 2, setting: 'Phòng ngủ', desc: 'Con gái chọn set mới, không nói nhiều, chỉ đặt lên giường cho mẹ.', actor: 'Con gái', product: 'Set quà tặng mẹ'},
+        {scene: 3, setting: 'Cửa nhà', desc: 'Chồng vụng về cài nhãn quà, con trai nhắc chọn đúng size cho mẹ.', actor: 'Chồng + con', product: 'Set vợ/chồng'},
+        {scene: 4, setting: 'Bữa cơm gia đình', desc: 'Mẹ mặc set mới, cả nhà nhìn nhau cười, câu nói: Mẹ mặc thế này đẹp lắm.', actor: 'Gia đình 4 người', product: 'Family look'},
+        {scene: 5, setting: 'Montage drama', desc: 'Cắt nhanh các tình huống mẹ chồng, hàng xóm, công sở, mỗi cảnh có một outfit phù hợp.', actor: 'Dàn diễn viên drama', product: 'Best sellers'},
+        {scene: 6, setting: 'Trang chính GUNO', desc: 'Kết bằng loop nhẹ trên homepage: các cảnh gia đình mặc GUNO, logo và CTA xem set Gia Đình.', actor: 'Voice-over', product: 'Homepage branding'}
+      ],
+      budgetBreakdown: [
+        {name: 'Đạo diễn + ekip quay 2 ngày', cost: 90000000},
+        {name: 'Diễn viên gia đình + diễn viên drama', cost: 70000000},
+        {name: 'Location nhà, bếp, công sở, đạo cụ', cost: 45000000},
+        {name: 'Styling, sản phẩm, make-up, fitting', cost: 35000000},
+        {name: 'Hậu kỳ master + 24 cutdown', cost: 70000000},
+        {name: 'Homepage assets + motion loop', cost: 40000000}
+      ],
+      totalBudget: 350000000,
+      products: ['Đồ mặc nhà GUNO', 'Set mẹ-con', 'Set vợ-chồng', 'Áo chống nắng', 'Best seller đi làm/đi chơi']
+    },
+    mediaPlacements: [
+      {city: 'Digital', location: 'GUNO Homepage hero', type: 'Loop video 8-12s', weeklyCost: 40000000, note: 'Dùng cảnh TVC làm branding đầu trang, dẫn về bộ sưu tập Gia Đình'},
+      {city: 'Digital', location: 'TikTok/Reels/Shorts', type: 'Cutdown 6s/15s', weeklyCost: 160000000, note: 'Mỗi cảnh TVC thành một creative chạy reach và retarget'},
+      {city: 'Digital', location: 'Shopee/TikTok Shop video', type: 'Product detail video', weeklyCost: 60000000, note: 'Dùng clip ngắn trong trang sản phẩm và video shopping'},
+      {city: 'Digital', location: 'Facebook Page + CRM', type: 'Pinned post + cover video', weeklyCost: 30000000, note: 'Đẩy brand story, social proof và đường vào live'}
+    ],
+    mediaNote: 'TVC tháng 5 không chạy OOH. Toàn bộ cảnh được tái sử dụng cho digital branding, homepage, paid social và trang sản phẩm.',
+    ugc: {
+      hashtags: ['#GunoGuCuaMoiNha', '#GunoGiaDinh', '#MoiNhaMotGu', '#GunoSeChia'],
+      challenge: 'Mỗi nhà một GU: khách quay khoảnh khắc mặc GUNO cùng mẹ, vợ/chồng hoặc con, kể một câu chuyện gia đình dưới 45 giây.',
+      targetVideos: '1.500 UGC/KOC/EGC videos',
+      targetViews: '35-50M views',
+      viralMechanic: 'Drama hook + outfit tự nhiên + cliffhanger + live deal + retarget.'
+    },
+    familyBox: {
+      name: 'GUNO Family Set',
+      contents: 'Set mẹ-con, vợ-chồng, đồ mặc nhà và sản phẩm best seller theo combo',
+      price: '499K - 1.299K',
+      effect: 'Tăng AOV, dễ làm quà, dễ quay unboxing và gắn với câu chuyện gia đình.'
+    },
+    kolDetail: {
+      megaLive: [
+        {name: 'Phạm Thoại', event: 'Shopee 5.5', date: '5/5', platform: 'Shopee', duration: '6-8h marathon', target: 'GMV >= 4 tỷ', cost: 'Theo thỏa thuận live đã duyệt', linkBST: 'Giữ nguyên camp. Push deal gia đình, best seller, set quà.'},
+        {name: 'Ngọc Trinh', event: 'Gia Đình TikTok Shop', date: '15/5', platform: 'TikTok Shop', duration: '4h prime time', target: 'GMV >= 9 tỷ', cost: 'Theo thỏa thuận live đã duyệt', linkBST: 'Giữ nguyên camp. Warm-up bằng drama content 6-14/5.'}
+      ],
+      prKol: {
+        qty: '8-12 KOL',
+        followers: '100K - 1M followers',
+        contentType: ['Kể chuyện gia đình thật + try-on', 'Video mẹ/con/vợ/chồng chọn đồ', 'Reaction nhận quà GUNO', 'Hậu trường TVC/drama'],
+        seeding: 'Teaser 1-4/5, wave 1 6-10/5, wave 2 trước live 15/5, recap 21-31/5',
+        budget: '600M - 900M'
+      },
+      kocAffiliate: {
+        qty: '50-70 KOC',
+        followers: '5K - 150K followers',
+        contentType: ['Review đời thường', 'Try-on cùng mẹ/con', 'Drama POV ngắn', 'Livestream vệ tinh', 'Unboxing set gia đình'],
+        commission: 'Hoa hồng affiliate theo doanh số + thưởng video thắng',
+        management: 'Creator Lead quản lý brief, tracking mã, usage rights và payout hàng tuần.'
+      }
+    },
+    approvedCampaigns: [
+      {week: 'Giữ nguyên', partner: 'Phạm Thoại', target: 'MegaLive Shopee 5/5.'},
+      {week: 'Giữ nguyên', partner: 'Ngọc Trinh', target: 'MegaLive TikTok Shop 15/5.'}
+    ]
+  },
+  charityPlan: {
+    name: 'GUNO Sẻ Chia - Gia Đình Ấm Hơn',
+    month: 'Chuẩn bị trong tháng 5, triển khai tháng 6/2026',
+    purpose: 'Gắn tiếp mạch Gia Đình tháng 5 sang hành động thiện nguyện cho gia đình và trẻ em vùng cao Tây Bắc hoặc Đông Bắc Việt Nam.',
+    objectives: [
+      'Truyền thông tầm nhìn và sứ mệnh: GUNO muốn chia sẻ, mang điều tốt đẹp đến nhiều người hơn.',
+      'Truyền thông nội bộ để nhân sự hiểu công ty, tự hào và sẵn sàng tham gia các chuyến đi ý nghĩa.',
+      'Tạo hình ảnh thương hiệu tử tế, gần gia đình, gần cộng đồng, không biến thiện nguyện thành bán hàng lộ liễu.',
+      'Kết nối nội dung tháng 5: gia đình, trẻ em, sự chăm sóc, quần áo phù hợp và cảm giác được yêu thương.'
+    ],
+    targetAreas: [
+      {area: 'Cao Bằng', reason: 'Đông Bắc, nhiều xã vùng cao, phù hợp tuyến trẻ em/gia đình và có tổ chức đang hoạt động.'},
+      {area: 'Bắc Kạn', reason: 'Đông Bắc, nhiều cộng đồng dân tộc thiểu số, phù hợp hoạt động giáo dục/trẻ em.'},
+      {area: 'Hòa Bình', reason: 'Tây Bắc gần hơn, thuận tiện field trip nội bộ và hỗ trợ cộng đồng.'},
+      {area: 'Hà Giang', reason: 'Vùng núi phía Bắc, phù hợp thông điệp trẻ em vùng cao và gia đình cần hỗ trợ.'}
+    ],
+    partnerShortlist: [
+      {name: 'ChildFund Vietnam', fit: 'Mạnh về trẻ em, giáo dục, sức khỏe, bảo vệ trẻ em tại Bắc Kạn, Cao Bằng, Hòa Bình.', source: 'https://childfund.org.vn/where-we-work/', nextStep: 'Liên hệ xin danh sách nhu cầu tháng 6 và cơ chế đồng hành doanh nghiệp.'},
+      {name: 'Sao Bien - Room for Education', fit: 'Xây trường/mầm non/tiểu học tại vùng nghèo xa, tập trung giáo dục và cơ sở học tập.', source: 'https://www.sao-bien.org/projects/', nextStep: 'Hỏi dự án cần tài trợ hiện tại và khả năng đi thực địa cùng GUNO.'},
+      {name: 'Volunteers For Education', fit: 'Tập trung trẻ em và giáo dục ở các tỉnh miền núi, có dự án xây/sửa trường và cải thiện vệ sinh.', source: 'https://www.volunteersforeducation.org/', nextStep: 'Xin proposal cho gói tài trợ quần áo/đồ dùng học sinh/thư viện nhỏ.'},
+      {name: 'Blue Dragon Children’s Foundation', fit: 'Bảo vệ trẻ em, phòng chống mua bán người, hỗ trợ trẻ em và gia đình dễ tổn thương.', source: 'https://www.bluedragon.org/', nextStep: 'Đánh giá fit truyền thông, yêu cầu bảo mật hình ảnh trẻ em và phương án tài trợ.'},
+      {name: 'saigonchildren', fit: 'Giáo dục trẻ em khó khăn, học bổng, xây môi trường học tập, kinh nghiệm vận hành lâu năm.', source: 'https://www.saigonchildren.com/en/what-we-do/our-programme-principles/', nextStep: 'Hỏi khả năng kết nối dự án miền Bắc hoặc vai trò cố vấn CSR.'}
+    ],
+    preparationTimeline: [
+      {date: '2/5 - 7/5', task: 'Research tổ chức, kiểm tra pháp lý, vùng hoạt động, case study, nguyên tắc bảo vệ trẻ em.', owner: 'PR/CSR Lead', output: 'Longlist 10 đơn vị'},
+      {date: '8/5 - 14/5', task: 'Gửi email/điện thoại, xin proposal, nhu cầu thực tế, timeline tháng 6, chi phí, điều kiện truyền thông.', owner: 'PR/CSR Lead', output: 'Shortlist 5 đơn vị'},
+      {date: '15/5 - 20/5', task: 'Chấm điểm fit thương hiệu, độ tin cậy, địa bàn, khả năng field trip, rủi ro hình ảnh trẻ em.', owner: 'CMO + Legal/Finance', output: 'Top 2 proposal'},
+      {date: '21/5 - 25/5', task: 'Chốt ngân sách, loại hỗ trợ, kịch bản nội bộ, danh sách nhân sự tham gia, phương án vận chuyển.', owner: 'CEO/CMO/HR', output: 'CSR plan v1'},
+      {date: '26/5 - 31/5', task: 'Chuẩn bị truyền thông nội bộ, checklist đi vùng cao, consent hình ảnh, landing recap, lịch tháng 6.', owner: 'PR + HR + Media', output: 'Ready-to-launch tháng 6'}
+    ],
+    csrContentBridge: [
+      'Tủ đồ đi thiện nguyện: nhân sự GUNO chọn và gói từng phần quà.',
+      'Một bữa cơm đủ ấm: nối câu chuyện gia đình tháng 5 với trẻ em vùng cao.',
+      'Điều mẹ muốn giữ cho con: nội dung cảm xúc nhưng không khai thác hoàn cảnh quá mức.',
+      'Nhân sự kể lý do tham gia: truyền thông nội bộ trước khi truyền thông bên ngoài.',
+      'Không bán hàng trong nội dung thiện nguyện chính; chỉ nhắc tầm nhìn và trách nhiệm thương hiệu.'
+    ],
+    kpis: [
+      {name: 'Shortlist đối tác', target: '>= 5 đơn vị', owner: 'PR/CSR Lead'},
+      {name: 'Proposal đủ điều kiện', target: '>= 2 proposal', owner: 'CMO'},
+      {name: 'Nhân sự đăng ký tham gia', target: '>= 60 người hoặc >= 45% team', owner: 'HR'},
+      {name: 'Ngân sách CSR khóa trước 31/5', target: '300M - 700M', owner: 'Finance'},
+      {name: 'Sentiment nội bộ', target: '>= 85% tích cực', owner: 'HR/Internal Comms'},
+      {name: 'Bộ nguyên tắc hình ảnh trẻ em', target: '100% creator/media ký nhận', owner: 'PR/Legal'}
+    ],
+    guardrails: [
+      'Không dùng hình ảnh trẻ em nếu chưa có đồng ý hợp lệ từ tổ chức/giám hộ.',
+      'Không quay cận cảnh hoàn cảnh khó khăn để gây thương cảm quá mức.',
+      'Không gắn CTA mua hàng trực tiếp trong nội dung thiện nguyện.',
+      'Minh bạch vật phẩm, ngân sách, địa điểm và đối tác thực hiện.',
+      'Ưu tiên hỗ trợ có ích: áo ấm/đồ basic phù hợp khí hậu, đồ dùng học tập, thư viện, nhà vệ sinh, nước sạch hoặc học bổng.'
+    ]
+  },
+  taskAssignment: [
+    {position: 'Leader / CMO', icon: 'LD', tasks: ['Chốt chiến lược Gia Đình và loại bỏ toàn bộ camp không duyệt', 'Duyệt ngân sách theo tuần', 'Duyệt 2 MegaLive và cơ chế KPI', 'Chốt shortlist CSR tháng 6', 'Review dashboard mỗi 9:30 sáng'], deadline: 'Xuyên suốt', status: 'active'},
+    {position: 'Content Lead', icon: 'CT', tasks: ['Xây bible nhân vật drama gia đình', 'Duyệt 96 tập drama chính', 'Quản lý lịch 620 nội dung', 'Kiểm tra lồng ghép sản phẩm tự nhiên', 'Chấm điểm hook trước khi đăng'], deadline: '1/5 - 31/5', status: 'active'},
+    {position: 'Drama Producer', icon: 'DP', tasks: ['Tuyển diễn viên/creator diễn xuất', 'Lên lịch quay batch 2 ngày/lần', 'Đảm bảo 1 tập có 1 xung đột và 1 sản phẩm', 'Quản lý hậu kỳ cutdown', 'Báo cáo VTR từng series'], deadline: '3/5 - 25/5', status: 'active'},
+    {position: 'Media / Production', icon: 'MD', tasks: ['Sản xuất TVC digital', 'Cắt 24 cutdown từ TVC', 'Tạo homepage loop branding', 'Chuẩn hóa thumbnail/tone sáng', 'Lưu raw/asset theo thư mục'], deadline: '3/5 - 15/5', status: 'active'},
+    {position: 'Design Lead', icon: 'DS', tasks: ['Thiết kế KV Gia Đình tone sáng', 'Homepage banner và product collection', 'Template drama thumbnail', 'Template live deal', 'Bộ guideline CSR tháng 6'], deadline: '1/5 - 31/5', status: 'active'},
+    {position: 'Creator / KOL Lead', icon: 'CR', tasks: ['Book 12-18 diễn viên/creator', 'Book 8-12 KOL gia đình/lifestyle', 'Quản lý 50-70 KOC affiliate', 'Ký quyền usage 60 ngày', 'Theo dõi mã creator và payout'], deadline: '1/5 - 25/5', status: 'active'},
+    {position: 'Livestream Manager', icon: 'LV', tasks: ['Giữ nguyên live Phạm Thoại 5/5', 'Giữ nguyên live Ngọc Trinh 15/5', 'Chuẩn bị deal, host script, SKU, voucher', 'Theo dõi GMV từng block', 'Cắt highlight live làm retarget'], deadline: '1/5 - 16/5', status: 'active'},
+    {position: 'Performance Ads Manager', icon: 'AD', tasks: ['Setup TikTok/Shopee/Facebook ads', 'Spark Ads video thắng', 'Retarget người xem 50-95%', 'A/B test hook và thumbnail', 'Báo cáo ROAS/CPO daily'], deadline: '1/5 - 31/5', status: 'active'},
+    {position: 'E-commerce Manager', icon: 'EC', tasks: ['Chuẩn SKU set gia đình', 'Tối ưu listing và video sản phẩm', 'Đồng bộ voucher live', 'Theo dõi tồn kho và hoàn đơn', 'Tạo landing/collection Gia Đình'], deadline: '1/5 - 31/5', status: 'active'},
+    {position: 'Sales / CRM Lead', icon: 'SL', tasks: ['Script inbox theo mẹ/con/vợ/chồng', 'SLA phản hồi dưới 5 phút', 'Remarketing khách cũ', 'Chăm data sau live', 'Theo dõi close rate và repeat'], deadline: '1/5 - 31/5', status: 'active'},
+    {position: 'PR / CSR Lead', icon: 'PR', tasks: ['Bỏ các PR camp không duyệt', 'Xây brand story Gia Đình', 'Research đối tác thiện nguyện tháng 6', 'Làm quy tắc hình ảnh trẻ em', 'Chuẩn bị truyền thông nội bộ'], deadline: '2/5 - 31/5', status: 'active'},
+    {position: 'HR / Internal Comms', icon: 'HR', tasks: ['Kêu gọi nhân sự tham gia CSR', 'Tạo internal townhall về sứ mệnh', 'Thu câu chuyện nhân sự', 'Chuẩn bị checklist chuyến đi', 'Đo sentiment nội bộ'], deadline: '15/5 - 31/5', status: 'active'}
+  ],
+  kpis: [
+    {category: 'Business', name: 'GMV tổng', target: '50 tỷ', unit: 'VND'},
+    {category: 'Business', name: 'Tổng đơn hàng', target: '83.333', unit: 'đơn'},
+    {category: 'Business', name: 'AOV', target: '600K', unit: 'VND'},
+    {category: 'Business', name: 'ROAS tổng', target: '>= 3,1x', unit: 'x'},
+    {category: 'Business', name: 'CPO trung bình', target: '<= 210K', unit: 'VND'},
+    {category: 'Live', name: 'GMV Phạm Thoại 5/5', target: '>= 4 tỷ', unit: 'VND'},
+    {category: 'Live', name: 'GMV Ngọc Trinh 15/5', target: '>= 9 tỷ', unit: 'VND'},
+    {category: 'Live', name: 'Peak CCU tổng', target: '>= 26.000', unit: 'người'},
+    {category: 'Content', name: 'Tổng nội dung xuất bản', target: '>= 620', unit: 'post/video'},
+    {category: 'Content', name: 'Drama episodes', target: '>= 96', unit: 'tập'},
+    {category: 'Content', name: 'VTR drama trung bình', target: '>= 30%', unit: '%'},
+    {category: 'Content', name: 'Series thắng để scale', target: '>= 5', unit: 'series'},
+    {category: 'Creator', name: 'Creator/KOL/KOC active', target: '>= 80', unit: 'người'},
+    {category: 'Creator', name: 'GMV affiliate creator', target: '>= 8 tỷ', unit: 'VND'},
+    {category: 'Brand', name: 'Reach toàn chiến dịch', target: '>= 60M', unit: 'reach'},
+    {category: 'Brand', name: 'Hashtag views', target: '35-50M', unit: 'views'},
+    {category: 'Brand', name: 'Sentiment tích cực', target: '>= 85%', unit: '%'},
+    {category: 'Brand', name: 'Brand search lift', target: '+150%', unit: '%'},
+    {category: 'CRM', name: 'Repeat purchase', target: '>= 25%', unit: '%'},
+    {category: 'CRM', name: 'Response time inbox', target: '<= 5 phút', unit: 'phút'},
+    {category: 'CSR', name: 'Shortlist đối tác thiện nguyện', target: '>= 5', unit: 'đơn vị'},
+    {category: 'CSR', name: 'Proposal CSR đủ điều kiện', target: '>= 2', unit: 'proposal'},
+    {category: 'CSR', name: 'Nhân sự sẵn sàng tham gia', target: '>= 45%', unit: '% team'}
+  ],
+  weeklyBudget: [
+    {week: '1-4/5 Setup', tiktok: 600, facebook: 250, shopee: 150, creator: 150, production: 100, prCsr: 50, total: 1300, revenue: 4000, roas: 3.1},
+    {week: '5/5 Phạm Thoại', tiktok: 100, facebook: 50, shopee: 500, creator: 150, production: 50, prCsr: 50, total: 900, revenue: 4000, roas: 4.4},
+    {week: '6-10/5 Drama W1', tiktok: 1300, facebook: 550, shopee: 350, creator: 900, production: 300, prCsr: 200, total: 3600, revenue: 10000, roas: 2.8},
+    {week: '11-15/5 Ngọc Trinh', tiktok: 1400, facebook: 450, shopee: 350, creator: 900, production: 400, prCsr: 200, total: 3700, revenue: 9000, roas: 2.4},
+    {week: '16-20/5 Scale', tiktok: 1200, facebook: 450, shopee: 350, creator: 650, production: 300, prCsr: 150, total: 3100, revenue: 10500, roas: 3.4},
+    {week: '21-25/5 Retarget', tiktok: 1100, facebook: 450, shopee: 300, creator: 450, production: 200, prCsr: 100, total: 2600, revenue: 8000, roas: 3.1},
+    {week: '26-31/5 CSR Prep', tiktok: 700, facebook: 300, shopee: 250, creator: 400, production: 250, prCsr: 400, total: 2300, revenue: 4500, roas: 2.0}
+  ],
+  tracking: {
+    dailyCadence: [
+      {time: '09:30', owner: 'Leader + Performance', action: 'Review doanh thu, ROAS, CPO, live/ads hôm trước, quyết định tăng/giảm ngân sách.'},
+      {time: '12:00', owner: 'Content + Creator', action: 'Chốt hook, video đăng trưa/tối, kiểm tra VTR 2 giờ đầu.'},
+      {time: '17:30', owner: 'Ecom + Sales', action: 'Review tồn kho, inbox SLA, đơn hủy, SKU có vấn đề.'},
+      {time: '22:30', owner: 'Performance', action: 'Tắt creative yếu, boost video thắng, khóa ngân sách ngày tiếp theo.'}
+    ],
+    dashboards: [
+      {name: 'Business Dashboard', metrics: 'GMV, orders, AOV, ROAS, CPO, return rate, profit estimate'},
+      {name: 'Content Dashboard', metrics: 'Video output, VTR, hook score, watch time, CTR shop, saves, shares'},
+      {name: 'Creator Dashboard', metrics: 'Creator output, usage rights, cost/video, GMV attributed, payout'},
+      {name: 'Live Dashboard', metrics: 'Traffic source, CCU, GMV by block, SKU sold, voucher burn, drop-off'},
+      {name: 'CSR Dashboard', metrics: 'Partner status, proposal, internal signup, risk/consent checklist'}
+    ],
+    decisionRules: [
+      'Video VTR >= 35% và CTR shop >= 2% trong 6 giờ: đưa vào Spark Ads.',
+      'Creative spend > 20M mà ROAS < 1,5x: tắt hoặc đổi hook.',
+      'Series có 3 tập liên tiếp completion >= 30%: viết thêm 5 tập trong 24 giờ.',
+      'Live block ROAS < 2x trong 30 phút: đổi SKU/deal/host script.',
+      'Comment tiêu cực > 15% trong 2 giờ: kích hoạt social listening và PR response.'
+    ]
+  },
+  pnl: {
+    gmv: 50000000000,
+    discounts: 0,
+    discountsNote: 'Voucher và deal đã nằm trong chi phí sàn/ads từng kênh.',
+    returns: 7500000000,
+    returnsNote: 'Hoàn/hủy đơn mục tiêu <= 15%.',
+    netRevenue: 42500000000,
+    cogs: 15575000000,
+    cogsNote: '~31% GMV.',
+    grossProfit: 26925000000,
+    fbAdsCost: 3000000000,
+    fbAdsNote: 'Facebook/Reels/Message Ads.',
+    platformCost: 12000000000,
+    platformNote: 'TikTok + Shopee ads, phí sàn, boost live, voucher sàn.',
+    kolCommission: 1500000000,
+    kolCommissionNote: 'Creator/KOC affiliate và thưởng hiệu suất.',
+    brandingCost: 1000000000,
+    brandingNote: 'TVC digital, homepage, PR/CSR prep, social listening.',
+    mktCost: 17500000000,
+    mktCostNote: 'Paid media 12.9B + creator 2.6B + production 1.1B + PR/CSR 0.6B + contingency 0.3B.',
+    opexCost: 0,
+    opexNote: 'TBD - cập nhật theo kế toán vận hành.',
+    profitBeforeTax: 9425000000,
+    tax: 1885000000,
+    netProfit: 7540000000
+  },
+  evaluation: {
+    swot: {
+      strengths: ['Rõ trọng tâm Gia Đình, bỏ các camp không duyệt để tránh phân tán nguồn lực.', '2 MegaLive lớn vẫn tạo đỉnh doanh thu.', 'Drama content có khả năng scale thành kênh dài hạn.', 'TVC được tái sử dụng trên nhiều nền tảng thay vì tốn ngân sách OOH.', 'CSR tháng 6 nối mạch thương hiệu tử tế và truyền thông nội bộ.'],
+      weaknesses: ['Nội dung drama cần diễn xuất tốt, nếu làm hời hợt sẽ giống quảng cáo lộ.', 'KPI 50 tỷ phụ thuộc mạnh vào 2 phiên live.', 'Cần kiểm soát tồn kho theo set gia đình.', 'CSR cần xử lý hình ảnh trẻ em và quy trình pháp lý cẩn thận.'],
+      opportunities: ['Drama short-form đang dễ lan truyền nếu hook đủ đời thường.', 'Gia đình là insight rộng, hợp với thời trang mặc nhà/quà tặng.', 'Creator/KOC có thể tạo nhiều phiên bản cùng một kịch bản.', 'Thiện nguyện vùng cao tạo chiều sâu thương hiệu và gắn kết nhân sự.'],
+      threats: ['Content gây tranh cãi nếu khai thác mẹ chồng nàng dâu quá tiêu cực.', 'Live bị ảnh hưởng bởi lỗi kỹ thuật hoặc thiếu hàng.', 'Chi phí creator tăng nếu không khóa usage rights sớm.', 'Thiện nguyện bị phản ứng nếu bị nhìn như PR lợi dụng hoàn cảnh.']
+    },
+    effectiveness: [
+      {aspect: 'Focus plan', score: '5/5', note: 'Bỏ camp cũ, chỉ giữ 2 live đã duyệt, nguồn lực rõ hơn.'},
+      {aspect: 'Drama content engine', score: '4/5', note: 'Có khả năng tạo reach lớn, cần production discipline và tracking từng series.'},
+      {aspect: 'MegaLive revenue peaks', score: '5/5', note: 'Hai mốc 5/5 và 15/5 là xương sống doanh thu tháng.'},
+      {aspect: 'TVC digital reuse', score: '4/5', note: 'Tối ưu hơn OOH, mỗi cảnh có thể thành creative riêng.'},
+      {aspect: 'CSR preparation', score: '4/5', note: 'Phù hợp sứ mệnh, cần chọn đối tác uy tín và quy tắc hình ảnh chặt.'}
+    ],
+    risks: [
+      {risk: 'Drama bị coi là lố hoặc câu view', prob: 'Trung bình', solution: 'Duyệt tone, giữ tình huống đời thường, tránh xúc phạm vai mẹ chồng/nàng dâu.'},
+      {risk: 'Lồng ghép sản phẩm quá lộ', prob: 'Cao', solution: 'Sản phẩm chỉ xuất hiện qua hành động mặc/tặng/chọn đồ, không đọc quảng cáo.'},
+      {risk: 'Live thiếu hàng hoặc sai size', prob: 'Trung bình', solution: 'Lock tồn kho trước live 48 giờ, ưu tiên SKU đủ size, có backup bundle.'},
+      {risk: 'Creator không giao đúng deadline', prob: 'Trung bình', solution: 'Book dư 20%, chia batch, có penalty và bonus hiệu suất.'},
+      {risk: 'CSR nhạy cảm hình ảnh trẻ em', prob: 'Cao', solution: 'Làm consent, không quay cận cảnh hoàn cảnh khó, để đối tác duyệt nội dung trước khi đăng.'}
+    ],
+    lessons: ['Tập trung ít camp hơn nhưng đo sâu hơn.', 'Drama chỉ hiệu quả khi sản phẩm là một phần của câu chuyện.', 'Homepage nên dùng cảnh thật từ TVC để tăng trust.', 'Creator phải có mã tracking và quyền usage ngay từ đầu.', 'Thiện nguyện phải bắt đầu từ nhu cầu thật của địa phương, không bắt đầu từ ý tưởng truyền thông.'],
+    verdict: 'Plan tháng 5 chuyển đúng trọng tâm: Gia Đình là lõi nội dung, 2 MegaLive là lõi doanh thu, TVC digital là lõi branding, CSR tháng 6 là cầu nối sứ mệnh. Điều kiện thắng là giữ kỷ luật tracking hằng ngày và không để drama biến thành quảng cáo lộ.'
+  }
+};
+
+// STORAGE API
+function getData() {
+  try {
+    const saved = localStorage.getItem(DATA_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function saveData(data) {
+  try {
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function resetData() {
+  localStorage.removeItem(DATA_KEY);
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function formatVND(n) {
+  const value = Number(n) || 0;
+  if (value >= 1e12) return (value / 1e12).toFixed(1).replace('.0', '') + ' nghìn tỷ';
+  if (value >= 1e9) return (value / 1e9).toFixed(1).replace('.0', '') + ' tỷ';
+  if (value >= 1e6) return (value / 1e6).toFixed(0) + 'M';
+  if (value >= 1e3) return (value / 1e3).toFixed(0) + 'K';
+  return value.toLocaleString('vi-VN');
+}
+
+function formatVNDFull(n) {
+  return (Number(n) || 0).toLocaleString('vi-VN') + 'đ';
+}
+
+function formatNum(n) {
+  return (Number(n) || 0).toLocaleString('vi-VN');
+}
+
+function pct(part, total) {
+  const p = Number(part) || 0;
+  const t = Number(total) || 1;
+  return Math.round((p / t) * 100);
+}
+
+// DAILY KPI TRACKER
+const TRACKER_KEY = 'guno_kpi_tracker_family_v4';
+const TRACKER_METRICS = [
+  {id: 'sales_revenue_total', group: 'Business', name: 'Doanh thu tổng', unit: 'VND', dailyTarget: 1666666667, monthTarget: 50000000000, icon: 'DT', isCurrency: true},
+  {id: 'sales_revenue_tiktok', group: 'Business', name: 'Doanh thu TikTok', unit: 'VND', dailyTarget: 933333333, monthTarget: 28000000000, icon: 'TT', isCurrency: true},
+  {id: 'sales_revenue_shopee', group: 'Business', name: 'Doanh thu Shopee', unit: 'VND', dailyTarget: 400000000, monthTarget: 12000000000, icon: 'SP', isCurrency: true},
+  {id: 'sales_revenue_fb', group: 'Business', name: 'Doanh thu Facebook', unit: 'VND', dailyTarget: 333333333, monthTarget: 10000000000, icon: 'FB', isCurrency: true},
+  {id: 'sales_orders', group: 'Business', name: 'Số đơn hàng', unit: 'đơn', dailyTarget: 2778, monthTarget: 83333, icon: 'ĐH'},
+  {id: 'sales_aov', group: 'Business', name: 'AOV', unit: 'VND', dailyTarget: 600000, monthTarget: 600000, icon: 'AOV', isCurrency: true, isRate: true},
+  {id: 'ads_spend_tiktok', group: 'Ads', name: 'Chi tiêu TikTok', unit: 'VND', dailyTarget: 280000000, monthTarget: 8400000000, icon: 'TT', isCurrency: true},
+  {id: 'ads_spend_shopee', group: 'Ads', name: 'Chi tiêu Shopee', unit: 'VND', dailyTarget: 120000000, monthTarget: 3600000000, icon: 'SP', isCurrency: true},
+  {id: 'ads_spend_fb', group: 'Ads', name: 'Chi tiêu Facebook', unit: 'VND', dailyTarget: 100000000, monthTarget: 3000000000, icon: 'FB', isCurrency: true},
+  {id: 'content_total', group: 'Content', name: 'Tổng nội dung đăng', unit: 'post/video', dailyTarget: 21, monthTarget: 620, icon: 'CT'},
+  {id: 'content_drama_episodes', group: 'Content', name: 'Tập drama đăng', unit: 'tập', dailyTarget: 3, monthTarget: 96, icon: 'DR'},
+  {id: 'content_avg_vtr', group: 'Content', name: 'VTR trung bình', unit: '%', dailyTarget: 30, monthTarget: 30, icon: 'VTR', isRate: true},
+  {id: 'content_shop_ctr', group: 'Content', name: 'CTR về shop', unit: '%', dailyTarget: 1.8, monthTarget: 1.8, icon: 'CTR', isRate: true},
+  {id: 'creator_active', group: 'Creator', name: 'Creator active', unit: 'người', dailyTarget: 15, monthTarget: 80, icon: 'CR'},
+  {id: 'creator_output', group: 'Creator', name: 'Video creator giao', unit: 'video', dailyTarget: 12, monthTarget: 320, icon: 'VO'},
+  {id: 'creator_gmv', group: 'Creator', name: 'GMV creator attributed', unit: 'VND', dailyTarget: 266666667, monthTarget: 8000000000, icon: 'GMV', isCurrency: true},
+  {id: 'live_gmv', group: 'Live', name: 'GMV livestream', unit: 'VND', dailyTarget: 433333333, monthTarget: 13000000000, icon: 'LV', isCurrency: true},
+  {id: 'live_peak_ccu', group: 'Live', name: 'Peak CCU', unit: 'người', dailyTarget: 900, monthTarget: 26000, icon: 'CCU'},
+  {id: 'brand_reach', group: 'Brand', name: 'Reach campaign', unit: 'reach', dailyTarget: 2000000, monthTarget: 60000000, icon: 'RE'},
+  {id: 'hashtag_views', group: 'Brand', name: 'Hashtag views', unit: 'views', dailyTarget: 1200000, monthTarget: 35000000, icon: '#'},
+  {id: 'sentiment_positive', group: 'Brand', name: 'Sentiment tích cực', unit: '%', dailyTarget: 85, monthTarget: 85, icon: 'ST', isRate: true},
+  {id: 'csr_partner_contacted', group: 'CSR', name: 'Đối tác CSR đã liên hệ', unit: 'đơn vị', dailyTarget: 1, monthTarget: 10, icon: 'CSR'},
+  {id: 'csr_staff_signup', group: 'CSR', name: 'Nhân sự đăng ký CSR', unit: 'người', dailyTarget: 3, monthTarget: 60, icon: 'HR'}
+];
+
+function getTrackerData() {
+  try {
+    const saved = localStorage.getItem(TRACKER_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) {}
+  return {};
+}
+
+function saveTrackerData(data) {
+  try {
+    localStorage.setItem(TRACKER_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function getDayData(day) {
+  return getTrackerData()[day] || {};
+}
+
+function saveDayData(day, value) {
+  const tracker = getTrackerData();
+  tracker[day] = value;
+  return saveTrackerData(tracker);
+}
+
+function getMonthTotal(id) {
+  const tracker = getTrackerData();
+  let sum = 0;
+  Object.values(tracker).forEach(day => {
+    if (day[id]) sum += parseFloat(day[id]) || 0;
+  });
+  return sum;
+}
+
+function getFilledDays() {
+  const tracker = getTrackerData();
+  return Object.keys(tracker).filter(day => Object.keys(tracker[day] || {}).length > 0).sort();
+}
+
+function getDaysInRange(start, end) {
+  const days = [];
+  const current = new Date(start);
+  const last = new Date(end);
+  while (current <= last) {
+    days.push(current.toISOString().split('T')[0]);
+    current.setDate(current.getDate() + 1);
+  }
+  return days;
+}
+
+try {
+  if (GAS_BOOTSTRAP_DATA && typeof DATA_KEY !== 'undefined') {
+    localStorage.setItem(DATA_KEY, JSON.stringify(GAS_BOOTSTRAP_DATA));
+  }
+
+  if (typeof saveData === 'function') {
+    const __gunoLocalSaveData = saveData;
+    saveData = function(data) {
+      const ok = __gunoLocalSaveData(data);
+      try {
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run.saveStoredData(JSON.stringify(data));
+        }
+      } catch (err) {}
+      return ok;
+    };
+  }
+
+  if (typeof resetData === 'function') {
+    const __gunoLocalResetData = resetData;
+    resetData = function() {
+      const data = __gunoLocalResetData();
+      try {
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run.resetStoredData();
+        }
+      } catch (err) {}
+      return data;
+    };
+  }
+} catch (err) {}
+</script>
